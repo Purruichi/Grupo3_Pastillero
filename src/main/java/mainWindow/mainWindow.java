@@ -41,12 +41,15 @@ public class mainWindow extends javax.swing.JFrame {
         datename = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
         EastPan = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        addPanel = new javax.swing.JPanel();
+        addlabel = new javax.swing.JLabel();
+        QuitPanel = new javax.swing.JPanel();
+        QuitLabel = new javax.swing.JLabel();
+        mainPanel = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
@@ -64,7 +67,7 @@ public class mainWindow extends javax.swing.JFrame {
             }
         });
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small-logo.png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/small-logo.png"))); // NOI18N
         logo.setText("jLabel1");
 
         MyPills.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -96,6 +99,7 @@ public class mainWindow extends javax.swing.JFrame {
         datename.setText("Date: ");
 
         date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        date.setForeground(new java.awt.Color(255, 255, 255));
         date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         date.setText("jLabel1");
 
@@ -145,52 +149,50 @@ public class mainWindow extends javax.swing.JFrame {
 
         EastPan.setBackground(new java.awt.Color(102, 204, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 204, 102));
+        addPanel.setBackground(new java.awt.Color(0, 204, 102));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Añadir");
-        jLabel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        addlabel.setForeground(new java.awt.Color(255, 255, 255));
+        addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addlabel.setText("Añadir");
+        addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                addlabelMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+        javax.swing.GroupLayout addPanelLayout = new javax.swing.GroupLayout(addPanel);
+        addPanel.setLayout(addPanelLayout);
+        addPanelLayout.setHorizontalGroup(
+            addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        addPanelLayout.setVerticalGroup(
+            addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 51, 0));
+        QuitPanel.setBackground(new java.awt.Color(204, 51, 0));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Quitar");
-        jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
+        QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        QuitLabel.setText("Quitar");
+        QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                QuitLabelMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout QuitPanelLayout = new javax.swing.GroupLayout(QuitPanel);
+        QuitPanel.setLayout(QuitPanelLayout);
+        QuitPanelLayout.setHorizontalGroup(
+            QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        QuitPanelLayout.setVerticalGroup(
+            QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout EastPanLayout = new javax.swing.GroupLayout(EastPan);
@@ -200,21 +202,44 @@ public class mainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EastPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(QuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         EastPanLayout.setVerticalGroup(
             EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EastPanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(QuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel1.add(EastPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 156, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Medicina", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Long.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        mainPanel.setViewportView(jTable1);
+
+        jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,13 +260,13 @@ public class mainWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_quitMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void addlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addlabelMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_addlabelMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_QuitLabelMouseClicked
 
     private void NorthPanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NorthPanMousePressed
         // TODO add your handling code here:
@@ -263,6 +288,12 @@ public class mainWindow extends javax.swing.JFrame {
         SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
         String dat =s.format(d);
         date.setText(dat);
+    }
+    
+    private void showUser(){
+        //String un = 
+        //username.setText(un)
+        //añadir lógica para que pida el nombre a la base de datos
     }
     /**
      * @param args the command line arguments
@@ -303,14 +334,16 @@ public class mainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel EastPan;
     private javax.swing.JLabel MyPills;
     private javax.swing.JPanel NorthPan;
+    private javax.swing.JLabel QuitLabel;
+    private javax.swing.JPanel QuitPanel;
+    private javax.swing.JPanel addPanel;
+    private javax.swing.JLabel addlabel;
     private javax.swing.JLabel date;
     private javax.swing.JLabel datename;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel logo;
+    private javax.swing.JScrollPane mainPanel;
     private javax.swing.JLabel quit;
     private javax.swing.JLabel user;
     private javax.swing.JLabel username;
