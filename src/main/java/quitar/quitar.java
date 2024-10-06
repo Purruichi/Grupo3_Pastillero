@@ -19,8 +19,7 @@ public class quitar extends javax.swing.JFrame {
         setSize(800, 500);
     }
     
-    
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,8 +31,13 @@ public class quitar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         panelX = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        textoX = new javax.swing.JLabel();
         panelDeArrastre = new javax.swing.JPanel();
+        panelDeMedicamentos = new javax.swing.JPanel();
+        panelDondeSeVenLosMedicamentos = new javax.swing.JScrollPane();
+        medicamentos = new javax.swing.JLabel();
+        panelBotonAceptar = new javax.swing.JPanel();
+        textoAceptar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -46,14 +50,14 @@ public class quitar extends javax.swing.JFrame {
 
         panelX.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        textoX.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoX.setText("X");
+        textoX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textoX.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        textoX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                textoXMouseClicked(evt);
             }
         });
 
@@ -61,13 +65,13 @@ public class quitar extends javax.swing.JFrame {
         panelX.setLayout(panelXLayout);
         panelXLayout.setHorizontalGroup(
             panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(textoX, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
         panelXLayout.setVerticalGroup(
             panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -98,6 +102,51 @@ public class quitar extends javax.swing.JFrame {
 
         jPanel1.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
 
+        javax.swing.GroupLayout panelDeMedicamentosLayout = new javax.swing.GroupLayout(panelDeMedicamentos);
+        panelDeMedicamentos.setLayout(panelDeMedicamentosLayout);
+        panelDeMedicamentosLayout.setHorizontalGroup(
+            panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+        );
+        panelDeMedicamentosLayout.setVerticalGroup(
+            panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
+
+        medicamentos.setFont(new java.awt.Font("Letter Gothic Std", 0, 18)); // NOI18N
+        medicamentos.setText("MEDICAMENTOS ");
+        jPanel1.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+
+        panelBotonAceptar.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelBotonAceptarLayout = new javax.swing.GroupLayout(panelBotonAceptar);
+        panelBotonAceptar.setLayout(panelBotonAceptarLayout);
+        panelBotonAceptarLayout.setHorizontalGroup(
+            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelBotonAceptarLayout.setVerticalGroup(
+            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, 30));
+
+        textoAceptar.setBackground(new java.awt.Color(255, 255, 255));
+        textoAceptar.setFont(new java.awt.Font("Letter Gothic Std", 0, 13)); // NOI18N
+        textoAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoAceptar.setText("ACEPTAR");
+        textoAceptar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textoAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textoAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoAceptarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 80, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,9 +176,13 @@ public class quitar extends javax.swing.JFrame {
         this.setLocation(x - xMouse,y - yMouse);
     }//GEN-LAST:event_panelDeArrastreMouseDragged
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void textoXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoXMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_textoXMouseClicked
+
+    private void textoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoAceptarMouseClicked
+       System.exit(0);
+    }//GEN-LAST:event_textoAceptarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,9 +220,14 @@ public class quitar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel medicamentos;
+    private javax.swing.JPanel panelBotonAceptar;
     private javax.swing.JPanel panelDeArrastre;
+    private javax.swing.JPanel panelDeMedicamentos;
+    private javax.swing.JScrollPane panelDondeSeVenLosMedicamentos;
     private javax.swing.JPanel panelX;
+    private javax.swing.JLabel textoAceptar;
+    private javax.swing.JLabel textoX;
     // End of variables declaration//GEN-END:variables
 }
