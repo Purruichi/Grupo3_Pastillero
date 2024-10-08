@@ -28,6 +28,7 @@ public class mainWindow extends javax.swing.JFrame {
         initComponents();
         
         showDate();
+        showUser();
     }
 
     /**
@@ -256,6 +257,7 @@ public class mainWindow extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        medTable.setGridColor(new java.awt.Color(204, 255, 255));
         mainPanel.setViewportView(medTable);
 
         jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
@@ -361,6 +363,10 @@ public class mainWindow extends javax.swing.JFrame {
         e.printStackTrace();
         user.setText("Error al conectar");
     }
+    }
+    
+    private void ShowMeds(){
+        
     }
     /**
      * @param args the command line arguments
