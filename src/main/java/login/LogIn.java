@@ -6,6 +6,7 @@ package login;
 
 import java.awt.*;
 import java.util.*;
+import mainWindow.mainWindow;
 
 /**
  *
@@ -129,9 +130,10 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        if (passwords.get(jTextField1.getText()) == String.valueOf(jPasswordField1.getPassword())){
+        /*if (passwords.get(jTextField1.getText()) == String.valueOf(jPasswordField1.getPassword())){
             LogedIn(jTextField1.getText());
-        }
+        }*/
+        LogedIn(jTextField1.getText());
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
@@ -147,7 +149,9 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1FocusLost
     
     void LogedIn(String username){
-        
+        mainWindow menuWindow = new mainWindow();
+        menuWindow.setVisible(true);
+        dispose();
     }
     
     /**
