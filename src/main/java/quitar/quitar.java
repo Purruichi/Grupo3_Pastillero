@@ -31,8 +31,8 @@ public class quitar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         panelX = new javax.swing.JPanel();
-        textoX = new javax.swing.JLabel();
         panelDeArrastre = new javax.swing.JPanel();
+        textoX = new javax.swing.JLabel();
         panelDeMedicamentos = new javax.swing.JPanel();
         panelDondeSeVenLosMedicamentos = new javax.swing.JScrollPane();
         medicamentos = new javax.swing.JLabel();
@@ -43,12 +43,37 @@ public class quitar extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
         jPanel1.setToolTipText("");
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelX.setBackground(new java.awt.Color(255, 255, 255));
+        panelX.setBackground(new java.awt.Color(51, 153, 255));
+
+        javax.swing.GroupLayout panelXLayout = new javax.swing.GroupLayout(panelX);
+        panelX.setLayout(panelXLayout);
+        panelXLayout.setHorizontalGroup(
+            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        panelXLayout.setVerticalGroup(
+            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(panelX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 50));
+
+        panelDeArrastre.setBackground(new java.awt.Color(51, 153, 255));
+        panelDeArrastre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                panelDeArrastreMouseDragged(evt);
+            }
+        });
+        panelDeArrastre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelDeArrastreMousePressed(evt);
+            }
+        });
 
         textoX.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -61,43 +86,19 @@ public class quitar extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelXLayout = new javax.swing.GroupLayout(panelX);
-        panelX.setLayout(panelXLayout);
-        panelXLayout.setHorizontalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textoX, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-        panelXLayout.setVerticalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(panelX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 50));
-
-        panelDeArrastre.setBackground(new java.awt.Color(255, 255, 255));
-        panelDeArrastre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                panelDeArrastreMouseDragged(evt);
-            }
-        });
-        panelDeArrastre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                panelDeArrastreMousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelDeArrastreLayout = new javax.swing.GroupLayout(panelDeArrastre);
         panelDeArrastre.setLayout(panelDeArrastreLayout);
         panelDeArrastreLayout.setHorizontalGroup(
             panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeArrastreLayout.createSequentialGroup()
+                .addGap(0, 752, Short.MAX_VALUE)
+                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelDeArrastreLayout.setVerticalGroup(
             panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(panelDeArrastreLayout.createSequentialGroup()
+                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
@@ -115,27 +116,14 @@ public class quitar extends javax.swing.JFrame {
 
         jPanel1.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
 
-        medicamentos.setFont(new java.awt.Font("Letter Gothic Std", 0, 18)); // NOI18N
+        medicamentos.setFont(new java.awt.Font("Tamil Sangam MN", 0, 36)); // NOI18N
         medicamentos.setText("MEDICAMENTOS ");
-        jPanel1.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        jPanel1.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, 40));
 
         panelBotonAceptar.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout panelBotonAceptarLayout = new javax.swing.GroupLayout(panelBotonAceptar);
-        panelBotonAceptar.setLayout(panelBotonAceptarLayout);
-        panelBotonAceptarLayout.setHorizontalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelBotonAceptarLayout.setVerticalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, 30));
-
         textoAceptar.setBackground(new java.awt.Color(255, 255, 255));
-        textoAceptar.setFont(new java.awt.Font("Letter Gothic Std", 0, 13)); // NOI18N
+        textoAceptar.setFont(new java.awt.Font("Tamil MN", 0, 13)); // NOI18N
         textoAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoAceptar.setText("ACEPTAR");
         textoAceptar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -145,7 +133,25 @@ public class quitar extends javax.swing.JFrame {
                 textoAceptarMouseClicked(evt);
             }
         });
-        jPanel1.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 80, -1));
+
+        javax.swing.GroupLayout panelBotonAceptarLayout = new javax.swing.GroupLayout(panelBotonAceptar);
+        panelBotonAceptar.setLayout(panelBotonAceptarLayout);
+        panelBotonAceptarLayout.setHorizontalGroup(
+            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonAceptarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBotonAceptarLayout.setVerticalGroup(
+            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonAceptarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoAceptar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
