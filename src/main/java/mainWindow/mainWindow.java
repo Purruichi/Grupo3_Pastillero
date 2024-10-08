@@ -4,6 +4,7 @@
  */
 package mainWindow;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Connection;
@@ -85,6 +86,7 @@ public class mainWindow extends javax.swing.JFrame {
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setText("Username:");
 
+        quit.setBackground(new java.awt.Color(255, 51, 0));
         quit.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         quit.setForeground(new java.awt.Color(255, 255, 255));
         quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -93,6 +95,12 @@ public class mainWindow extends javax.swing.JFrame {
         quit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 quitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                quitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                quitMouseExited(evt);
             }
         });
 
@@ -310,6 +318,14 @@ public class mainWindow extends javax.swing.JFrame {
         this.setLocation(x- xMouse, y - yMouse);
         
     }//GEN-LAST:event_NorthPanMouseDragged
+
+    private void quitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseEntered
+        quit.setOpaque(true);
+    }//GEN-LAST:event_quitMouseEntered
+
+    private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
+        quit.setOpaque(false);
+    }//GEN-LAST:event_quitMouseExited
 
     
     private void showDate(){
