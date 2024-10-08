@@ -4,8 +4,15 @@
  */
 package mainWindow;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import quitar.quitar;
 
 /**
  *
@@ -13,6 +20,7 @@ import java.util.Date;
  */
 public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
+    private quitar quitarWindow = null;
     /**
      * Creates new form mainWindow
      */
@@ -46,7 +54,7 @@ public class mainWindow extends javax.swing.JFrame {
         QuitPanel = new javax.swing.JPanel();
         QuitLabel = new javax.swing.JLabel();
         mainPanel = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        medTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -78,6 +86,7 @@ public class mainWindow extends javax.swing.JFrame {
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setText("Username:");
 
+        quit.setBackground(new java.awt.Color(255, 51, 0));
         quit.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         quit.setForeground(new java.awt.Color(255, 255, 255));
         quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,6 +95,12 @@ public class mainWindow extends javax.swing.JFrame {
         quit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 quitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                quitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                quitMouseExited(evt);
             }
         });
 
@@ -155,6 +170,8 @@ public class mainWindow extends javax.swing.JFrame {
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         addlabel.setText("Añadir");
+        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addlabelMouseClicked(evt);
@@ -178,6 +195,8 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         QuitLabel.setText("Quitar");
+        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 QuitLabelMouseClicked(evt);
@@ -218,7 +237,7 @@ public class mainWindow extends javax.swing.JFrame {
 
         jPanel1.add(EastPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 156, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        medTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -237,7 +256,7 @@ public class mainWindow extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        mainPanel.setViewportView(jTable1);
+        mainPanel.setViewportView(medTable);
 
         jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
 
@@ -265,7 +284,25 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addlabelMouseClicked
 
     private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
-        // TODO add your handling code here:
+    // Verificar si la ventana ya está abierta
+    if (quitarWindow == null || !quitarWindow.isShowing()) {
+        // Crear una nueva instancia de la ventana "quitar" si no está abierta
+        quitarWindow = new quitar();
+        
+        // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+        quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Volver a mostrar la ventana principal cuando se cierre "quitar"
+                mainWindow.this.setVisible(true);
+            }
+        });
+        
+        // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
+        
+        // Mostrar la ventana "quitar"
+        quitarWindow.setVisible(true);
+    }
     }//GEN-LAST:event_QuitLabelMouseClicked
 
     private void NorthPanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NorthPanMousePressed
@@ -282,6 +319,14 @@ public class mainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_NorthPanMouseDragged
 
+    private void quitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseEntered
+        quit.setOpaque(true);
+    }//GEN-LAST:event_quitMouseEntered
+
+    private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
+        quit.setOpaque(false);
+    }//GEN-LAST:event_quitMouseExited
+
     
     private void showDate(){
         Date d = new Date();
@@ -291,9 +336,31 @@ public class mainWindow extends javax.swing.JFrame {
     }
     
     private void showUser(){
-        //String un = 
-        //username.setText(un)
-        //añadir lógica para que pida el nombre a la base de datos
+            // URL de conexión a la base de datos (reemplaza con tus propios valores)
+    String url = "jdbc:mysql://localhost:3306/tu_base_de_datos";
+    String userDb = "root";  // Usuario de la base de datos
+    String passwordDb = "password";  // Contraseña de la base de datos
+    String query = "SELECT user FROM usuarios WHERE id = ?";  // Consulta SQL (modifica según tu tabla)
+    // Establecer conexión y realizar la consulta
+    try (Connection con = DriverManager.getConnection(url, userDb, passwordDb);
+         PreparedStatement pst = con.prepareStatement(query)) {
+        
+        // Aquí puedes pasar un valor para identificar el usuario, por ejemplo, el id
+        pst.setInt(1, 1);  // Suponiendo que buscas al usuario con id = 1
+        
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                String userName = rs.getString("user");
+                user.setText(userName);  // Mostrar el usuario en el JLabel
+            } else {
+                user.setText("Usuario no encontrado");
+            }
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        user.setText("Error al conectar");
+    }
     }
     /**
      * @param args the command line arguments
@@ -341,9 +408,9 @@ public class mainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel date;
     private javax.swing.JLabel datename;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel logo;
     private javax.swing.JScrollPane mainPanel;
+    private javax.swing.JTable medTable;
     private javax.swing.JLabel quit;
     private javax.swing.JLabel user;
     private javax.swing.JLabel username;

@@ -9,22 +9,42 @@ import java.util.HashMap;
 
 public class DatabaseFunctions {
     
-    public static final String[] COLUMNS_USERS = {"id", "username", "password", "email"};
-    public static final String[] COLUMNS_MEDICINES = {"id", "name", "description", "advised_dose"};
-    public static final String[] COLUMNS_USER_MEDS = {"id", "user_id", "medicine_id", "remaining_amount", "frecuency", "start_time", "end_time"};
+    public static final String[] COLUMNS_USERS = {"username", "password", "email"};
+    public static final String[] COLUMNS_MEDICINES = {"name", "description", "advised_dose"};
+    public static final String[] COLUMNS_USER_MEDS = {"user_id", "medicine_id", "remaining_amount", "frecuency", "start_time", "end_time"};
     
     public static void INSERT (String table, String[] values) {
         // Insertar datos
-        String insertSQL = "INSERT INTO ? (nombre, email) VALUES (?, ?)";
+        String insertSQL = "INSERT INTO " + table + " ";
+        
+        String[] columns = {};
+        if (null != table) switch (table) {
+            case "users" -> columns = COLUMNS_USERS;
+            case "medicines" -> columns = COLUMNS_MEDICINES;
+            case "user_meds" -> columns = COLUMNS_USER_MEDS;
+            default -> {
+            }
+        }
+        String columnsStr = "(";
+        for (int i = 1; i < columns.length; i++){
+            columnsStr += columns[i - 1] + ", ";
+        }
+        columnsStr += columns[columns.length - 1] + ") VALUES ";
+        
+        insertSQL += columnsStr;
+        
+        String valuesStr = "('";
+        for (int i = 1; i < values.length; i++){
+            valuesStr += values[i - 1] + "', '";
+        }
+        valuesStr += values[values.length - 1] + "');";
+        
+        insertSQL += valuesStr;
         
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
             
-            pstmt.setString(1, table);
-            
-            for (int i = 1; i <= values.length; i++){
-                pstmt.setString(i + 1, values[i - 1]);
-            }
+            System.out.println(pstmt.toString());
             
             int filasAfectadas = pstmt.executeUpdate();
             System.out.println("Filas insertadas: " + filasAfectadas);
@@ -49,7 +69,7 @@ public class DatabaseFunctions {
             }
         } else {
             for(int i = 1; i < columns.length; i++){
-                selectSQL += columns[i] + ", ";
+                selectSQL += columns[i - 1] + ", ";
             }
             selectSQL += columns[columns.length] + " FROM " + table;
         }
