@@ -4,6 +4,7 @@
  */
 package login;
 
+import Database.DatabaseFunctions;
 import java.awt.*;
 import java.util.*;
 import mainWindow.mainWindow;
@@ -133,7 +134,9 @@ public class LogIn extends javax.swing.JFrame {
         /*if (passwords.get(jTextField1.getText()) == String.valueOf(jPasswordField1.getPassword())){
             LogedIn(jTextField1.getText());
         }*/
-        LogedIn(jTextField1.getText());
+        //LogedIn(jTextField1.getText());
+        String[] values = {"AndyChupipandy", "megustamipandy123", "andyelguapo@gmail.com"};
+        DatabaseFunctions.INSERT("users", values);
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
