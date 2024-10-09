@@ -352,6 +352,9 @@
                     <Column editable="true" title="Cantidad" type="java.lang.Long"/>
                   </Table>
                 </Property>
+                <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="cc" type="rgb"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
