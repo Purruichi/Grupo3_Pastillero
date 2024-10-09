@@ -9,9 +9,9 @@ import java.util.*;
 
 public class DatabaseFunctions {
     
-    public static final String[] COLUMNS_USERS = {"username", "password", "email"};
-    public static final String[] COLUMNS_MEDICINES = {"name", "description", "advised_dose"};
-    public static final String[] COLUMNS_USER_MEDS = {"user_id", "medicine_id", "remaining_amount", "frecuency", "start_time", "end_time"};
+    public static final String[] COLUMNS_USERS = {"id", "username", "password", "email"};
+    public static final String[] COLUMNS_MEDICINES = {"id", "name", "description", "advised_dose"};
+    public static final String[] COLUMNS_USER_MEDS = {"id", "user_id", "medicine_id", "remaining_amount", "frecuency", "start_time", "end_time"};
     
     public static void INSERT (String table, String[] values) {
         // Insertar datos
@@ -26,7 +26,7 @@ public class DatabaseFunctions {
             }
         }
         String columnsStr = "(";
-        for (int i = 1; i < columns.length; i++){
+        for (int i = 2; i < columns.length; i++){
             columnsStr += columns[i - 1] + ", ";
         }
         columnsStr += columns[columns.length - 1] + ") VALUES ";

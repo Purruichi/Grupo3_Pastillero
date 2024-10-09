@@ -50,6 +50,7 @@ public class LogIn extends javax.swing.JFrame {
         passField = new javax.swing.JPasswordField();
         lblForgotPass = new javax.swing.JLabel();
         lblSignUpAccess = new javax.swing.JLabel();
+        lblErrorLogIn = new javax.swing.JLabel();
         pnlSignUp = new javax.swing.JPanel();
         lblTitleSignUp = new javax.swing.JLabel();
         newEmailField = new javax.swing.JTextField();
@@ -58,7 +59,7 @@ public class LogIn extends javax.swing.JFrame {
         newPassField = new javax.swing.JPasswordField();
         lblConfirmPassword = new javax.swing.JLabel();
         confirmPassField = new javax.swing.JPasswordField();
-        lblError = new javax.swing.JLabel();
+        lblErrorSignUp = new javax.swing.JLabel();
         pnlSignUpButton = new javax.swing.JPanel();
         lblSignUp = new javax.swing.JLabel();
         bgImage = new javax.swing.JLabel();
@@ -169,6 +170,10 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlLogIn.add(lblSignUpAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, -1));
 
+        lblErrorLogIn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblErrorLogIn.setForeground(new java.awt.Color(255, 0, 0));
+        pnlLogIn.add(lblErrorLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 230, 60));
+
         panelFondo.add(pnlLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 500));
 
         pnlSignUp.setBackground(new java.awt.Color(255, 255, 255));
@@ -239,9 +244,9 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUp.add(confirmPassField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 230, 40));
 
-        lblError.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblError.setForeground(new java.awt.Color(255, 0, 0));
-        pnlSignUp.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, 70));
+        lblErrorSignUp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblErrorSignUp.setForeground(new java.awt.Color(255, 0, 0));
+        pnlSignUp.add(lblErrorSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, 70));
 
         pnlSignUpButton.setBackground(new java.awt.Color(51, 153, 255));
         pnlSignUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,10 +299,17 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void panelLogInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLogInButtonMouseClicked
-        if (passwords.get(usernameField.getText()).equals(String.valueOf(passField.getPassword()))){
-            LogedIn(usernameField.getText());
+        ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
+        if (userData.isEmpty()){
+            lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
+        } else {
+            if (userData.get(0).get("password").equals(String.valueOf(passField.getPassword()))){
+                LogedIn(Integer.parseInt(userData.get(0).get("id")));
+            } else {
+                lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
+            }
         }
-        System.out.println(DatabaseFunctions.SELECT("users", new String[0], "username", "AndyChupipandy"));
+        //System.out.println(DatabaseFunctions.SELECT("users", new String[0], "username", "AndyChupipandy"));
     }//GEN-LAST:event_panelLogInButtonMouseClicked
 
     private void passFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFieldFocusGained
@@ -355,9 +367,9 @@ public class LogIn extends javax.swing.JFrame {
 
     private void pnlSignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSignUpButtonMouseClicked
         if (!newEmailField.getText().equals("Email") && !newUsernameField.getText().equals("Username")){
-            lblError.setText("");
+            lblErrorSignUp.setText("");
             if (String.valueOf(newPassField.getPassword()).equals(String.valueOf(confirmPassField.getPassword())) && !"Password".equals(String.valueOf(newPassField.getPassword()))){
-                lblError.setText("");
+                lblErrorSignUp.setText("");
                 String[] values = {newUsernameField.getText(), String.valueOf(newPassField.getPassword()), newEmailField.getText()};
                 for (String value : values)
                     System.out.println(value);
@@ -365,10 +377,10 @@ public class LogIn extends javax.swing.JFrame {
             } else {
                 System.out.println(String.valueOf(newPassField.getPassword()));
                 System.out.println(String.valueOf(confirmPassField.getPassword()));
-                lblError.setText("<html>Both passwords don't match<html>");
+                lblErrorSignUp.setText("<html>Both passwords don't match<html>");
             }
         } else {
-            lblError.setText("<html>Write your email and password<html>");
+            lblErrorSignUp.setText("<html>Write your email and password<html>");
         }
     }//GEN-LAST:event_pnlSignUpButtonMouseClicked
 
@@ -419,7 +431,7 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.setVisible(true);
     }//GEN-LAST:event_lblSignUpAccessMouseClicked
     
-    void LogedIn(String username){
+    void LogedIn(int id){
         mainWindow menuWindow = new mainWindow();
         menuWindow.setVisible(true);
         dispose();
@@ -473,7 +485,8 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JPasswordField confirmPassField;
     private javax.swing.JLabel labelLogIn;
     private javax.swing.JLabel lblConfirmPassword;
-    private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblErrorLogIn;
+    private javax.swing.JLabel lblErrorSignUp;
     private javax.swing.JLabel lblForgotPass;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblSignUp;
