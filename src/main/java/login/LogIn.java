@@ -16,8 +16,6 @@ import mainWindow.mainWindow;
  */
 public class LogIn extends javax.swing.JFrame {
     
-    HashMap<String, String> passwords = new HashMap<String, String>();
-    
     int xMouse, yMouse;
     
     /**
@@ -26,6 +24,9 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() {
         initComponents();
         setImageLabel(bgImage, "/LogInBackground.png");
+        setImageLabel(windowIcon, "/small-logo.png");
+        setImageLabel(lblMaximize, "/Cuadrado.png");
+        setImageLabel(lblMinimize, "/Guion.png");
         setSize(800, 500);
     }
 
@@ -42,6 +43,10 @@ public class LogIn extends javax.swing.JFrame {
         titleBar = new javax.swing.JPanel();
         btnX = new javax.swing.JPanel();
         lblX = new javax.swing.JLabel();
+        windowIcon = new javax.swing.JLabel();
+        lblMyPills = new javax.swing.JLabel();
+        lblMaximize = new javax.swing.JLabel();
+        lblMinimize = new javax.swing.JLabel();
         pnlLogIn = new javax.swing.JPanel();
         lblTitleLogIn = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
@@ -71,8 +76,7 @@ public class LogIn extends javax.swing.JFrame {
         panelFondo.setBackground(new java.awt.Color(51, 153, 255));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        titleBar.setBackground(new java.awt.Color(255, 255, 255));
-        titleBar.setOpaque(false);
+        titleBar.setBackground(new java.awt.Color(204, 204, 204));
         titleBar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 titleBarMouseDragged(evt);
@@ -106,6 +110,17 @@ public class LogIn extends javax.swing.JFrame {
         btnX.add(lblX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 20));
 
         titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 20));
+        titleBar.add(windowIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 20, 20));
+
+        lblMyPills.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMyPills.setText("MyPills");
+        titleBar.add(lblMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 20));
+
+        lblMaximize.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblMaximize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMaximize.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        titleBar.add(lblMaximize, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 20, 20));
+        titleBar.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 20, 20));
 
         panelFondo.add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 20));
 
@@ -304,7 +319,7 @@ public class LogIn extends javax.swing.JFrame {
             lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
         } else {
             if (userData.get(0).get("password").equals(String.valueOf(passField.getPassword()))){
-                LogedIn(Integer.parseInt(userData.get(0).get("id")));
+                LogedIn(userData.get(0));
             } else {
                 lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
             }
@@ -431,8 +446,8 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.setVisible(true);
     }//GEN-LAST:event_lblSignUpAccessMouseClicked
     
-    void LogedIn(int id){
-        mainWindow menuWindow = new mainWindow();
+    private void LogedIn(HashMap<String, String> userData){
+        mainWindow menuWindow = new mainWindow(userData);
         menuWindow.setVisible(true);
         dispose();
     }
@@ -488,6 +503,9 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel lblErrorLogIn;
     private javax.swing.JLabel lblErrorSignUp;
     private javax.swing.JLabel lblForgotPass;
+    private javax.swing.JLabel lblMaximize;
+    private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblMyPills;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblSignUp;
     private javax.swing.JLabel lblSignUpAccess;
@@ -505,5 +523,6 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSignUpButton;
     private javax.swing.JPanel titleBar;
     private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel windowIcon;
     // End of variables declaration//GEN-END:variables
 }
