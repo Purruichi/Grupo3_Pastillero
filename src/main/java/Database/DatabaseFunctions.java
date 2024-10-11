@@ -99,4 +99,29 @@ public class DatabaseFunctions {
         }
         return new ArrayList<HashMap<String, String>>();
     }
+    
+    public static void DELETE (String table, String[] condColumns, String[] condValues) {
+        // Insertar datos
+        String deleteSQL = "DELETE FROM " + table + " WHERE ";
+        
+        String condsStr = "";
+        for (int i = 2; i < condColumns.length; i++){
+            condsStr += condColumns[i - 1] + " = '" + condValues[i - 1] + "¡ AND";
+        }
+        condsStr += condColumns[condColumns.length - 1] + " = '" + condValues[condValues.length - 1] + "';";
+        
+        deleteSQL += condsStr;
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
+            
+            System.out.println(pstmt.toString());
+            
+            int filasAfectadas = pstmt.executeUpdate();
+            System.out.println("Filas eliminadas: " + filasAfectadas);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
