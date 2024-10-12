@@ -314,7 +314,7 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void panelLogInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLogInButtonMouseClicked
-        /*ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
+        ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
         if (userData.isEmpty()){
             lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
         } else {
@@ -323,10 +323,10 @@ public class LogIn extends javax.swing.JFrame {
             } else {
                 lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
             }
-        }*/
-        String[] condColumns = {"username"};
+        }
+        /*String[] condColumns = {"username"};
         String[] condValues = {"AndyChupipandy"};
-        DatabaseFunctions.DELETE("users", condColumns, condValues);
+        DatabaseFunctions.DELETE("users", condColumns, condValues);*/
     }//GEN-LAST:event_panelLogInButtonMouseClicked
 
     private void passFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFieldFocusGained

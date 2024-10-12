@@ -16,6 +16,7 @@ public class quitar extends javax.swing.JFrame {
     int xMouse,yMouse;
     public quitar() {
         initComponents();
+        setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
@@ -30,12 +31,15 @@ public class quitar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        panelX = new javax.swing.JPanel();
-        textoX = new javax.swing.JLabel();
+        pnlFondo = new javax.swing.JPanel();
         panelDeArrastre = new javax.swing.JPanel();
+        botonX = new javax.swing.JPanel();
+        textoX = new javax.swing.JLabel();
+        iconoMyPills = new javax.swing.JLabel();
+        textoMyPills = new javax.swing.JLabel();
         panelDeMedicamentos = new javax.swing.JPanel();
         panelDondeSeVenLosMedicamentos = new javax.swing.JScrollPane();
+        tablaMedicamentos = new javax.swing.JTable();
         medicamentos = new javax.swing.JLabel();
         panelBotonAceptar = new javax.swing.JPanel();
         textoAceptar = new javax.swing.JLabel();
@@ -44,41 +48,12 @@ public class quitar extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setToolTipText("");
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlFondo.setBackground(new java.awt.Color(51, 153, 255));
+        pnlFondo.setToolTipText("");
+        pnlFondo.setPreferredSize(new java.awt.Dimension(800, 500));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelX.setBackground(new java.awt.Color(255, 255, 255));
-
-        textoX.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoX.setText("X");
-        textoX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        textoX.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        textoX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textoXMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelXLayout = new javax.swing.GroupLayout(panelX);
-        panelX.setLayout(panelXLayout);
-        panelXLayout.setHorizontalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textoX, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-        panelXLayout.setVerticalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(panelX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 50));
-
-        panelDeArrastre.setBackground(new java.awt.Color(255, 255, 255));
+        panelDeArrastre.setBackground(new java.awt.Color(204, 204, 204));
         panelDeArrastre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelDeArrastreMouseDragged(evt);
@@ -89,19 +64,49 @@ public class quitar extends javax.swing.JFrame {
                 panelDeArrastreMousePressed(evt);
             }
         });
+        panelDeArrastre.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout panelDeArrastreLayout = new javax.swing.GroupLayout(panelDeArrastre);
-        panelDeArrastre.setLayout(panelDeArrastreLayout);
-        panelDeArrastreLayout.setHorizontalGroup(
-            panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        panelDeArrastreLayout.setVerticalGroup(
-            panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
+        botonX.setBackground(new java.awt.Color(255, 0, 0));
+        botonX.setOpaque(false);
+        botonX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonXMouseExited(evt);
+            }
+        });
+        botonX.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
+        textoX.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoX.setText("X");
+        botonX.add(textoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
+
+        panelDeArrastre.add(botonX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 30));
+        panelDeArrastre.add(iconoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        textoMyPills.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoMyPills.setText("MyPills");
+        panelDeArrastre.add(textoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 30));
+
+        pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 30));
+
+        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Medicina", "Cantidad"
+            }
+        ));
+        panelDondeSeVenLosMedicamentos.setViewportView(tablaMedicamentos);
 
         javax.swing.GroupLayout panelDeMedicamentosLayout = new javax.swing.GroupLayout(panelDeMedicamentos);
         panelDeMedicamentos.setLayout(panelDeMedicamentosLayout);
@@ -114,39 +119,30 @@ public class quitar extends javax.swing.JFrame {
             .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
-        jPanel1.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
+        pnlFondo.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
 
-        medicamentos.setFont(new java.awt.Font("Letter Gothic Std", 0, 18)); // NOI18N
-        medicamentos.setText("MEDICAMENTOS ");
-        jPanel1.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        medicamentos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        medicamentos.setForeground(new java.awt.Color(255, 255, 255));
+        medicamentos.setText("DELETE MEDICINES:");
+        pnlFondo.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 40));
 
-        panelBotonAceptar.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelBotonAceptarLayout = new javax.swing.GroupLayout(panelBotonAceptar);
-        panelBotonAceptar.setLayout(panelBotonAceptarLayout);
-        panelBotonAceptarLayout.setHorizontalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelBotonAceptarLayout.setVerticalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, 30));
+        panelBotonAceptar.setBackground(new java.awt.Color(255, 0, 0));
+        panelBotonAceptar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textoAceptar.setBackground(new java.awt.Color(255, 255, 255));
-        textoAceptar.setFont(new java.awt.Font("Letter Gothic Std", 0, 13)); // NOI18N
+        textoAceptar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoAceptar.setForeground(new java.awt.Color(255, 255, 255));
         textoAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoAceptar.setText("ACEPTAR");
-        textoAceptar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textoAceptar.setText("<html>CONFIRM DELETE<html>");
         textoAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         textoAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 textoAceptarMouseClicked(evt);
             }
         });
-        jPanel1.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 80, -1));
+        panelBotonAceptar.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        pnlFondo.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 390, 120, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,21 +150,21 @@ public class quitar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 542, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelDeArrastreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelDeArrastreMousePressed
-       xMouse = evt.getX();
-       yMouse = evt.getY();
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_panelDeArrastreMousePressed
 
     private void panelDeArrastreMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelDeArrastreMouseDragged
@@ -177,14 +173,31 @@ public class quitar extends javax.swing.JFrame {
         this.setLocation(x - xMouse,y - yMouse);
     }//GEN-LAST:event_panelDeArrastreMouseDragged
 
-    private void textoXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoXMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_textoXMouseClicked
-
     private void textoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoAceptarMouseClicked
-       System.exit(0);
+        dispose();
     }//GEN-LAST:event_textoAceptarMouseClicked
 
+    private void botonXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseEntered
+        botonX.setOpaque(true);
+        textoX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_botonXMouseEntered
+
+    private void botonXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseExited
+        botonX.setOpaque(false);
+        textoX.setForeground(Color.BLACK);
+    }//GEN-LAST:event_botonXMouseExited
+
+    private void botonXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseClicked
+        dispose();
+    }//GEN-LAST:event_botonXMouseClicked
+    
+    private void setImageLabel(JLabel labelN, String root){
+        ImageIcon imagen = new ImageIcon(getClass().getResource(root));
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
+        labelN.setIcon(icon);
+        this.repaint();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -221,14 +234,17 @@ public class quitar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel botonX;
+    private javax.swing.JLabel iconoMyPills;
     private javax.swing.JLabel medicamentos;
     private javax.swing.JPanel panelBotonAceptar;
     private javax.swing.JPanel panelDeArrastre;
     private javax.swing.JPanel panelDeMedicamentos;
     private javax.swing.JScrollPane panelDondeSeVenLosMedicamentos;
-    private javax.swing.JPanel panelX;
+    private javax.swing.JPanel pnlFondo;
+    private javax.swing.JTable tablaMedicamentos;
     private javax.swing.JLabel textoAceptar;
+    private javax.swing.JLabel textoMyPills;
     private javax.swing.JLabel textoX;
     // End of variables declaration//GEN-END:variables
 }
