@@ -4,12 +4,17 @@
  */
 package anadir;
 
+import Database.DatabaseFunctions;
+import java.util.*;
+
 /**
  *
  * @author javieribarra
  */
 public class anadir extends javax.swing.JFrame {
-
+    
+    public HashMap<String, String> userData = new HashMap<>();
+    
     /**
      * Creates new form anadir
      */
@@ -29,11 +34,11 @@ public class anadir extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtFieldName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtFieldQuantity = new javax.swing.JTextField();
+        btnAnadir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,21 +52,21 @@ public class anadir extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nombre medicina:");
 
-        jTextField1.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Ingrese el nombre de la medicina");
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFieldName.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
+        txtFieldName.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldName.setText("Ingrese el nombre de la medicina");
+        txtFieldName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                txtFieldNameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
+                txtFieldNameFocusLost(evt);
             }
         });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtFieldName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtFieldNameActionPerformed(evt);
             }
         });
 
@@ -71,36 +76,36 @@ public class anadir extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Cantidad:");
 
-        jTextField2.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Ingrese la cantidad de la medicina");
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFieldQuantity.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
+        txtFieldQuantity.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldQuantity.setText("Ingrese la cantidad de la medicina");
+        txtFieldQuantity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField2FocusGained(evt);
+                txtFieldQuantityFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField2FocusLost(evt);
+                txtFieldQuantityFocusLost(evt);
             }
         });
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtFieldQuantityActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 255, 51));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
-        jButton1.setText("AÑADIR");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAnadir.setBackground(new java.awt.Color(0, 255, 51));
+        btnAnadir.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
+        btnAnadir.setText("AÑADIR");
+        btnAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnAnadirMouseClicked(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 51));
-        jButton2.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
-        jButton2.setText("CANCELAR");
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
+        btnCancelar.setText("CANCELAR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,14 +123,14 @@ public class anadir extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(jTextField1))
+                                    .addComponent(txtFieldName))
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtFieldQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(233, 233, 233)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(232, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,15 +140,15 @@ public class anadir extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
@@ -165,37 +170,46 @@ public class anadir extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtFieldNameActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldQuantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtFieldQuantityActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1FocusGained
+    private void txtFieldNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusGained
+        txtFieldName.setText("");
+    }//GEN-LAST:event_txtFieldNameFocusGained
 
-    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
-        jTextField2.setText("");
-    }//GEN-LAST:event_jTextField2FocusGained
+    private void txtFieldQuantityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusGained
+        txtFieldQuantity.setText("");
+    }//GEN-LAST:event_txtFieldQuantityFocusGained
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        if(jTextField1.getText().equals("")){
-            jTextField1.setText("Ingrese el nombre de la medicina");
+    private void txtFieldNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusLost
+        if(txtFieldName.getText().equals("")){
+            txtFieldName.setText("Ingrese el nombre de la medicina");
         }
-    }//GEN-LAST:event_jTextField1FocusLost
+    }//GEN-LAST:event_txtFieldNameFocusLost
 
-    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
-        if(jTextField2.getText().equals("")){
-            jTextField2.setText("Ingrese la cantidad de la medicina");
+    private void txtFieldQuantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusLost
+        if(txtFieldQuantity.getText().equals("")){
+            txtFieldQuantity.setText("Ingrese la cantidad de la medicina");
         }
-    }//GEN-LAST:event_jTextField2FocusLost
+    }//GEN-LAST:event_txtFieldQuantityFocusLost
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
+        String[] values = new String[6];
+        values[0] = userData.get("id");
+        ArrayList<HashMap<String, String>> medicinas = DatabaseFunctions.SELECT("medicines", new String[0], "name", txtFieldName.getText());
+        String medId = medicinas.get(0).get("id");
+        values[1] = medId;
+        values[2] = txtFieldQuantity.getText();
+        values[3] = "";
+        values[4] = "";
+        values[5] = "";
+        DatabaseFunctions.INSERT("user_meds", values);
+    }//GEN-LAST:event_btnAnadirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -233,13 +247,13 @@ public class anadir extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAnadir;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtFieldName;
+    private javax.swing.JTextField txtFieldQuantity;
     // End of variables declaration//GEN-END:variables
 }
