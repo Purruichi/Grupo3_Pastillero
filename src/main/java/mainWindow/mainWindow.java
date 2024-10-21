@@ -6,7 +6,7 @@ package mainWindow;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,13 +21,15 @@ import quitar.quitar;
 public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
     private quitar quitarWindow = null;
+    
+    public HashMap<String, String> userData = new HashMap<>();
     /**
      * Creates new form mainWindow
+     * @param userData
      */
-    public mainWindow() {
+    public mainWindow(HashMap<String, String> userData) {
+        this.userData = userData;
         initComponents();
-        
-        showDate();
     }
 
     /**
@@ -106,7 +108,8 @@ public class mainWindow extends javax.swing.JFrame {
 
         user.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         user.setForeground(new java.awt.Color(255, 255, 255));
-        user.setText("UsernamePH");
+        user.setText(userData.get("username")
+        );
 
         datename.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         datename.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,7 +119,7 @@ public class mainWindow extends javax.swing.JFrame {
         date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         date.setForeground(new java.awt.Color(255, 255, 255));
         date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        date.setText("jLabel1");
+        date.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         javax.swing.GroupLayout NorthPanLayout = new javax.swing.GroupLayout(NorthPan);
         NorthPan.setLayout(NorthPanLayout);
@@ -170,7 +173,6 @@ public class mainWindow extends javax.swing.JFrame {
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         addlabel.setText("Añadir");
-        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -195,7 +197,6 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         QuitLabel.setText("Quitar");
-        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -256,6 +257,7 @@ public class mainWindow extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        medTable.setGridColor(new java.awt.Color(204, 255, 255));
         mainPanel.setViewportView(medTable);
 
         jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
@@ -326,75 +328,9 @@ public class mainWindow extends javax.swing.JFrame {
     private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
         quit.setOpaque(false);
     }//GEN-LAST:event_quitMouseExited
-
     
-    private void showDate(){
-        Date d = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
-        String dat =s.format(d);
-        date.setText(dat);
-    }
-    
-    private void showUser(){
-            // URL de conexión a la base de datos (reemplaza con tus propios valores)
-    String url = "jdbc:mysql://localhost:3306/tu_base_de_datos";
-    String userDb = "root";  // Usuario de la base de datos
-    String passwordDb = "password";  // Contraseña de la base de datos
-    String query = "SELECT user FROM usuarios WHERE id = ?";  // Consulta SQL (modifica según tu tabla)
-    // Establecer conexión y realizar la consulta
-    try (Connection con = DriverManager.getConnection(url, userDb, passwordDb);
-         PreparedStatement pst = con.prepareStatement(query)) {
+    private void ShowMeds(){
         
-        // Aquí puedes pasar un valor para identificar el usuario, por ejemplo, el id
-        pst.setInt(1, 1);  // Suponiendo que buscas al usuario con id = 1
-        
-        try (ResultSet rs = pst.executeQuery()) {
-            if (rs.next()) {
-                String userName = rs.getString("user");
-                user.setText(userName);  // Mostrar el usuario en el JLabel
-            } else {
-                user.setText("Usuario no encontrado");
-            }
-        }
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-        user.setText("Error al conectar");
-    }
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new mainWindow().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
