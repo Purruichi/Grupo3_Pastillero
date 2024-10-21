@@ -340,6 +340,10 @@ private void showMeds() {
             data[i][0] = medDetails.get(0).get("name");
             data[i][1] = meds.get(i).get("remaining_amount");
         }
+        else{
+            data[0][0] = "No medicine";
+            data[0][1] = "NULL";
+        }
     }
     medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
 }
