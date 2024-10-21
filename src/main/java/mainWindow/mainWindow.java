@@ -4,14 +4,9 @@
  */
 package mainWindow;
 
-import java.awt.Color;
+import Database.DatabaseFunctions;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import quitar.quitar;
 
 /**
@@ -30,6 +25,7 @@ public class mainWindow extends javax.swing.JFrame {
     public mainWindow(HashMap<String, String> userData) {
         this.userData = userData;
         initComponents();
+        showMeds();
     }
 
     /**
@@ -172,7 +168,7 @@ public class mainWindow extends javax.swing.JFrame {
         addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addlabel.setText("Añadir");
+        addlabel.setText("Add");
         addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,7 +193,7 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        QuitLabel.setText("Quitar");
+        QuitLabel.setText("Remove");
         QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -331,9 +327,22 @@ public class mainWindow extends javax.swing.JFrame {
         quit.setOpaque(false);
     }//GEN-LAST:event_quitMouseExited
     
-    private void ShowMeds(){
-        
+private void showMeds() {
+    String userId = userData.get("id");
+    ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+    String[] columnNames = {"Medicine", "Amount"};
+    Object[][] data = new Object[meds.size()][2];
+
+    for (int i = 0; i < meds.size(); i++) {
+        String medicineId = meds.get(i).get("medicine_id");
+        ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+        if (!medDetails.isEmpty()) {
+            data[i][0] = medDetails.get(0).get("name");
+            data[i][1] = meds.get(i).get("remaining_amount");
+        }
     }
+    medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel EastPan;
