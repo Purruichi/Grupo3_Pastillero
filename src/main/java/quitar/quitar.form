@@ -157,6 +157,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="panelDondeSeVenLosMedicamentos">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelDondeSeVenLosMedicamentosMouseClicked"/>
+              </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>

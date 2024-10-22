@@ -6,22 +6,37 @@ package quitar;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import Database.DatabaseFunctions;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author salvadorcabreraparra
  */
 public class quitar extends javax.swing.JFrame {
-   
+    private HashMap<String, String> userInfo;
     int xMouse,yMouse;
     public quitar() {
+        
         initComponents();
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
+        cargarMedicamentos();
+        
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
-    
-   
+    private void cargarMedicamentos() {
+    String userId = userInfo.get("id");  // Supongo que tienes el ID del usuario
+    String[] columns = {"id", "name", "remaining_amount"};
+    ArrayList<HashMap<String, String>> medicamentos = DatabaseFunctions.SELECT("user_meds", columns, "user_id", userId);
+
+    DefaultTableModel model = (DefaultTableModel) tablaMedicamentos.getModel();
+    model.setRowCount(0);  // Limpia la tabla
+
+    for (HashMap<String, String> med : medicamentos) {
+        model.addRow(new Object[]{med.get("name"), med.get("remaining_amount")});
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +109,12 @@ public class quitar extends javax.swing.JFrame {
         panelDeArrastre.add(textoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 30));
 
         pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 30));
+
+        panelDondeSeVenLosMedicamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelDondeSeVenLosMedicamentosMouseClicked(evt);
+            }
+        });
 
         tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,6 +211,26 @@ public class quitar extends javax.swing.JFrame {
     private void botonXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseClicked
         dispose();
     }//GEN-LAST:event_botonXMouseClicked
+
+    private void panelDondeSeVenLosMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelDondeSeVenLosMedicamentosMouseClicked
+        // TODO add your handling code here:
+         // Obtener fila seleccionada
+        int selectedRow = tablaMedicamentos.getSelectedRow();
+        if (selectedRow != -1) {
+            // Obtener nombre del medicamento
+            String nombreMedicamento = tablaMedicamentos.getValueAt(selectedRow, 0).toString();
+
+            // Eliminar de la base de datos
+            String[] condColumns = {"user_id", "medicine_id"};
+            String[] condValues = {userInfo.get("id"), nombreMedicamento}; // Suponiendo que tienes el id del medicamento
+            DatabaseFunctions.DELETE("user_meds", condColumns, condValues);
+
+            // Actualizar tabla
+            cargarMedicamentos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento para eliminar.");
+        }
+    }//GEN-LAST:event_panelDondeSeVenLosMedicamentosMouseClicked
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
