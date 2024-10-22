@@ -4,8 +4,10 @@
  */
 package mainWindow;
 
+import Database.DatabaseFunctions;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import quitar.quitar;
 
 /**
  *
@@ -13,13 +15,17 @@ import java.util.Date;
  */
 public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
+    private quitar quitarWindow = null;
+    
+    public HashMap<String, String> userData = new HashMap<>();
     /**
      * Creates new form mainWindow
+     * @param userData
      */
-    public mainWindow() {
+    public mainWindow(HashMap<String, String> userData) {
+        this.userData = userData;
         initComponents();
-        
-        showDate();
+        showMeds();
     }
 
     /**
@@ -46,7 +52,7 @@ public class mainWindow extends javax.swing.JFrame {
         QuitPanel = new javax.swing.JPanel();
         QuitLabel = new javax.swing.JLabel();
         mainPanel = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        medTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -78,6 +84,7 @@ public class mainWindow extends javax.swing.JFrame {
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setText("Username:");
 
+        quit.setBackground(new java.awt.Color(255, 51, 0));
         quit.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         quit.setForeground(new java.awt.Color(255, 255, 255));
         quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,11 +94,18 @@ public class mainWindow extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 quitMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                quitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                quitMouseExited(evt);
+            }
         });
 
         user.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         user.setForeground(new java.awt.Color(255, 255, 255));
-        user.setText("UsernamePH");
+        user.setText(userData.get("username")
+        );
 
         datename.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         datename.setForeground(new java.awt.Color(255, 255, 255));
@@ -101,7 +115,7 @@ public class mainWindow extends javax.swing.JFrame {
         date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         date.setForeground(new java.awt.Color(255, 255, 255));
         date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        date.setText("jLabel1");
+        date.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         javax.swing.GroupLayout NorthPanLayout = new javax.swing.GroupLayout(NorthPan);
         NorthPan.setLayout(NorthPanLayout);
@@ -154,7 +168,9 @@ public class mainWindow extends javax.swing.JFrame {
         addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addlabel.setText("Añadir");
+        addlabel.setText("Add");
+        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addlabelMouseClicked(evt);
@@ -177,7 +193,9 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        QuitLabel.setText("Quitar");
+        QuitLabel.setText("Remove");
+        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 QuitLabelMouseClicked(evt);
@@ -218,7 +236,7 @@ public class mainWindow extends javax.swing.JFrame {
 
         jPanel1.add(EastPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 156, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        medTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -237,7 +255,8 @@ public class mainWindow extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        mainPanel.setViewportView(jTable1);
+        medTable.setGridColor(new java.awt.Color(204, 255, 255));
+        mainPanel.setViewportView(medTable);
 
         jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
 
@@ -265,7 +284,25 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addlabelMouseClicked
 
     private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
-        // TODO add your handling code here:
+    // Verificar si la ventana ya está abierta
+    if (quitarWindow == null || !quitarWindow.isShowing()) {
+        // Crear una nueva instancia de la ventana "quitar" si no está abierta
+        quitarWindow = new quitar();
+        
+        // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+        quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Volver a mostrar la ventana principal cuando se cierre "quitar"
+                mainWindow.this.setVisible(true);
+            }
+        });
+        
+        // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
+        
+        // Mostrar la ventana "quitar"
+        quitarWindow.setVisible(true);
+    }
     }//GEN-LAST:event_QuitLabelMouseClicked
 
     private void NorthPanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NorthPanMousePressed
@@ -282,53 +319,34 @@ public class mainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_NorthPanMouseDragged
 
-    
-    private void showDate(){
-        Date d = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
-        String dat =s.format(d);
-        date.setText(dat);
-    }
-    
-    private void showUser(){
-        //String un = 
-        //username.setText(un)
-        //añadir lógica para que pida el nombre a la base de datos
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void quitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseEntered
+        quit.setOpaque(true);
+    }//GEN-LAST:event_quitMouseEntered
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new mainWindow().setVisible(true);
-            }
-        });
+    private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
+        quit.setOpaque(false);
+    }//GEN-LAST:event_quitMouseExited
+    
+private void showMeds() {
+    String userId = userData.get("id");
+    ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+    String[] columnNames = {"Medicine", "Amount"};
+    Object[][] data = new Object[meds.size()][2];
+
+    for (int i = 0; i < meds.size(); i++) {
+        String medicineId = meds.get(i).get("medicine_id");
+        ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+        if (!medDetails.isEmpty()) {
+            data[i][0] = medDetails.get(0).get("name");
+            data[i][1] = meds.get(i).get("remaining_amount");
+        }
+        else{
+            data[0][0] = "No medicine";
+            data[0][1] = "NULL";
+        }
     }
+    medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel EastPan;
@@ -341,9 +359,9 @@ public class mainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel date;
     private javax.swing.JLabel datename;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel logo;
     private javax.swing.JScrollPane mainPanel;
+    private javax.swing.JTable medTable;
     private javax.swing.JLabel quit;
     private javax.swing.JLabel user;
     private javax.swing.JLabel username;

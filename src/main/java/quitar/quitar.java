@@ -17,6 +17,7 @@ public class quitar extends javax.swing.JFrame {
     public quitar() {
         initComponents();
         setSize(800, 500);
+        //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
     
    
