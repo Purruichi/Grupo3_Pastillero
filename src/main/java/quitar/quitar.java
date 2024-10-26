@@ -6,21 +6,41 @@ package quitar;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import Database.DatabaseFunctions;
+import mainWindow.mainWindow;
 
 /**
  *
  * @author salvadorcabreraparra
  */
 public class quitar extends javax.swing.JFrame {
-   
-    int xMouse,yMouse;
-    public quitar() {
+
+    private HashMap<String, String> userData;
+    int xMouse,yMouse, selectedRow;
+    
+    public quitar(HashMap<String, String> userData) {
+        
+        this.userData = userData;
         initComponents();
+        setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
+        cargarMedicamentos();
+        
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
-    
-   
+    private void cargarMedicamentos() {
+        /*String userId = userData.get("id");  // Supongo que tienes el ID del usuario
+        String[] columns = {"id", "name", "remaining_amount"};
+        ArrayList<HashMap<String, String>> medicamentos = DatabaseFunctions.SELECT("user_meds", columns, "user_id", userId);
+
+        DefaultTableModel model = (DefaultTableModel) tablaMedicamentos.getModel();
+        model.setRowCount(0);  // Limpia la tabla
+
+        for (HashMap<String, String> med : medicamentos) {
+            model.addRow(new Object[]{med.get("name"), med.get("remaining_amount")});*/
+        showMeds();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,12 +50,15 @@ public class quitar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        panelX = new javax.swing.JPanel();
-        textoX = new javax.swing.JLabel();
+        pnlFondo = new javax.swing.JPanel();
         panelDeArrastre = new javax.swing.JPanel();
+        botonX = new javax.swing.JPanel();
+        textoX = new javax.swing.JLabel();
+        iconoMyPills = new javax.swing.JLabel();
+        textoMyPills = new javax.swing.JLabel();
         panelDeMedicamentos = new javax.swing.JPanel();
-        panelDondeSeVenLosMedicamentos = new javax.swing.JScrollPane();
+        scrollPaneMeds = new javax.swing.JScrollPane();
+        tableMeds = new javax.swing.JTable();
         medicamentos = new javax.swing.JLabel();
         panelBotonAceptar = new javax.swing.JPanel();
         textoAceptar = new javax.swing.JLabel();
@@ -44,41 +67,12 @@ public class quitar extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setToolTipText("");
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlFondo.setBackground(new java.awt.Color(51, 153, 255));
+        pnlFondo.setToolTipText("");
+        pnlFondo.setPreferredSize(new java.awt.Dimension(800, 500));
+        pnlFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelX.setBackground(new java.awt.Color(255, 255, 255));
-
-        textoX.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoX.setText("X");
-        textoX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        textoX.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        textoX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textoXMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelXLayout = new javax.swing.GroupLayout(panelX);
-        panelX.setLayout(panelXLayout);
-        panelXLayout.setHorizontalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textoX, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-        panelXLayout.setVerticalGroup(
-            panelXLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelXLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textoX, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(panelX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 50));
-
-        panelDeArrastre.setBackground(new java.awt.Color(255, 255, 255));
+        panelDeArrastre.setBackground(new java.awt.Color(204, 204, 204));
         panelDeArrastre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelDeArrastreMouseDragged(evt);
@@ -89,64 +83,91 @@ public class quitar extends javax.swing.JFrame {
                 panelDeArrastreMousePressed(evt);
             }
         });
+        panelDeArrastre.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout panelDeArrastreLayout = new javax.swing.GroupLayout(panelDeArrastre);
-        panelDeArrastre.setLayout(panelDeArrastreLayout);
-        panelDeArrastreLayout.setHorizontalGroup(
-            panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        panelDeArrastreLayout.setVerticalGroup(
-            panelDeArrastreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
+        botonX.setBackground(new java.awt.Color(255, 0, 0));
+        botonX.setOpaque(false);
+        botonX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonXMouseExited(evt);
+            }
+        });
+        botonX.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
+        textoX.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoX.setText("X");
+        botonX.add(textoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
+
+        panelDeArrastre.add(botonX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 30));
+        panelDeArrastre.add(iconoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        textoMyPills.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoMyPills.setText("MyPills");
+        panelDeArrastre.add(textoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 30));
+
+        pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 30));
+
+        scrollPaneMeds.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollPaneMedsMouseClicked(evt);
+            }
+        });
+
+        tableMeds.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Medicina", "Cantidad"
+            }
+        ));
+        scrollPaneMeds.setViewportView(tableMeds);
 
         javax.swing.GroupLayout panelDeMedicamentosLayout = new javax.swing.GroupLayout(panelDeMedicamentos);
         panelDeMedicamentos.setLayout(panelDeMedicamentosLayout);
         panelDeMedicamentosLayout.setHorizontalGroup(
             panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(scrollPaneMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         panelDeMedicamentosLayout.setVerticalGroup(
             panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(scrollPaneMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
-        jPanel1.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
+        pnlFondo.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
 
-        medicamentos.setFont(new java.awt.Font("Letter Gothic Std", 0, 18)); // NOI18N
-        medicamentos.setText("MEDICAMENTOS ");
-        jPanel1.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        medicamentos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        medicamentos.setForeground(new java.awt.Color(255, 255, 255));
+        medicamentos.setText("DELETE MEDICINES:");
+        pnlFondo.add(medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 40));
 
-        panelBotonAceptar.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelBotonAceptarLayout = new javax.swing.GroupLayout(panelBotonAceptar);
-        panelBotonAceptar.setLayout(panelBotonAceptarLayout);
-        panelBotonAceptarLayout.setHorizontalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelBotonAceptarLayout.setVerticalGroup(
-            panelBotonAceptarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, 30));
+        panelBotonAceptar.setBackground(new java.awt.Color(255, 0, 0));
+        panelBotonAceptar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textoAceptar.setBackground(new java.awt.Color(255, 255, 255));
-        textoAceptar.setFont(new java.awt.Font("Letter Gothic Std", 0, 13)); // NOI18N
+        textoAceptar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoAceptar.setForeground(new java.awt.Color(255, 255, 255));
         textoAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoAceptar.setText("ACEPTAR");
-        textoAceptar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textoAceptar.setText("<html>CONFIRM DELETE<html>");
         textoAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         textoAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 textoAceptarMouseClicked(evt);
             }
         });
-        jPanel1.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 80, -1));
+        panelBotonAceptar.add(textoAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+
+        pnlFondo.add(panelBotonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 390, 120, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,21 +175,21 @@ public class quitar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 542, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelDeArrastreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelDeArrastreMousePressed
-       xMouse = evt.getX();
-       yMouse = evt.getY();
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_panelDeArrastreMousePressed
 
     private void panelDeArrastreMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelDeArrastreMouseDragged
@@ -177,58 +198,84 @@ public class quitar extends javax.swing.JFrame {
         this.setLocation(x - xMouse,y - yMouse);
     }//GEN-LAST:event_panelDeArrastreMouseDragged
 
-    private void textoXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoXMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_textoXMouseClicked
-
     private void textoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoAceptarMouseClicked
-       System.exit(0);
+        selectedRow = tableMeds.getSelectedRow();
+        System.out.println(selectedRow);
+        if (selectedRow != -1) {
+            // Obtener nombre del medicamento
+            String nombreMedicamento = tableMeds.getValueAt(selectedRow, 0).toString();
+
+            // Eliminar de la base de datos
+            String[] condColumns = {"user_id", "medicine_id"};
+            String idMedicamento = DatabaseFunctions.SELECT("medicines", new String[] {"id"}, "name", nombreMedicamento).get(0).get("id");
+            String[] condValues = {userData.get("id"), idMedicamento};
+            DatabaseFunctions.DELETE("user_meds", condColumns, condValues);
+
+            // Actualizar tabla
+            cargarMedicamentos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento para eliminar.");
+        }
     }//GEN-LAST:event_textoAceptarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void botonXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseEntered
+        botonX.setOpaque(true);
+        textoX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_botonXMouseEntered
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new quitar().setVisible(true);
+    private void botonXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseExited
+        botonX.setOpaque(false);
+        textoX.setForeground(Color.BLACK);
+    }//GEN-LAST:event_botonXMouseExited
+
+    private void botonXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseClicked
+        dispose();
+    }//GEN-LAST:event_botonXMouseClicked
+
+    private void scrollPaneMedsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMedsMouseClicked
+        
+    }//GEN-LAST:event_scrollPaneMedsMouseClicked
+    
+    private void showMeds() {
+        String userId = userData.get("id");
+        ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+        String[] columnNames = {"Medicine", "Amount"};
+        Object[][] data = new Object[meds.size()][2];
+
+        for (int i = 0; i < meds.size(); i++) {
+            String medicineId = meds.get(i).get("medicine_id");
+            ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+            if (!medDetails.isEmpty()) {
+                data[i][0] = medDetails.get(0).get("name");
+                data[i][1] = meds.get(i).get("remaining_amount");
             }
-        });
+            else{
+                data[0][0] = "No medicine";
+                data[0][1] = "NULL";
+            }
+        }
+        tableMeds.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+    }
+    
+    private void setImageLabel(JLabel labelN, String root){
+        ImageIcon imagen = new ImageIcon(getClass().getResource(root));
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
+        labelN.setIcon(icon);
+        this.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel botonX;
+    private javax.swing.JLabel iconoMyPills;
     private javax.swing.JLabel medicamentos;
     private javax.swing.JPanel panelBotonAceptar;
     private javax.swing.JPanel panelDeArrastre;
     private javax.swing.JPanel panelDeMedicamentos;
-    private javax.swing.JScrollPane panelDondeSeVenLosMedicamentos;
-    private javax.swing.JPanel panelX;
+    private javax.swing.JPanel pnlFondo;
+    private javax.swing.JScrollPane scrollPaneMeds;
+    private javax.swing.JTable tableMeds;
     private javax.swing.JLabel textoAceptar;
+    private javax.swing.JLabel textoMyPills;
     private javax.swing.JLabel textoX;
     // End of variables declaration//GEN-END:variables
 }
