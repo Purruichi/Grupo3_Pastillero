@@ -245,17 +245,17 @@ public class mainWindow extends javax.swing.JFrame {
 
         medTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Medicina", "Cantidad"
+                "Medicine", "Amount", "Dose", "Hour", "Notify?"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Long.class, java.lang.Float.class, java.lang.String.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -360,7 +360,7 @@ public class mainWindow extends javax.swing.JFrame {
     private void showMeds() {
         String userId = userData.get("id");
         ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
-        String[] columnNames = {"Medicine", "Amount"};
+        String[] columnNames = {"Medicine", "Amount", "Dose"};
         Object[][] data = new Object[meds.size()][2];
 
         for (int i = 0; i < meds.size(); i++) {
@@ -369,10 +369,12 @@ public class mainWindow extends javax.swing.JFrame {
             if (!medDetails.isEmpty()) {
                 data[i][0] = medDetails.get(0).get("name");
                 data[i][1] = meds.get(i).get("remaining_amount");
+                data[i][2] = meds.get(i).get("dose");
             }
             else{
                 data[0][0] = "No medicine";
                 data[0][1] = "NULL";
+                data[0][2] = "NULL";
             }
         }
         medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
