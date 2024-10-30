@@ -4,14 +4,10 @@
  */
 package mainWindow;
 
-import java.awt.Color;
+import Database.DatabaseFunctions;
+import anadir.anadir;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import quitar.quitar;
 
 /**
@@ -20,7 +16,8 @@ import quitar.quitar;
  */
 public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
-    private quitar quitarWindow = null;
+    private quitar quitarWindow;
+    private anadir anadirWindow;
     
     public HashMap<String, String> userData = new HashMap<>();
     /**
@@ -30,6 +27,7 @@ public class mainWindow extends javax.swing.JFrame {
     public mainWindow(HashMap<String, String> userData) {
         this.userData = userData;
         initComponents();
+        showMeds();
     }
 
     /**
@@ -168,11 +166,17 @@ public class mainWindow extends javax.swing.JFrame {
         EastPan.setBackground(new java.awt.Color(102, 204, 255));
 
         addPanel.setBackground(new java.awt.Color(0, 204, 102));
+        addPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addPanelMouseClicked(evt);
+            }
+        });
 
         addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addlabel.setText("Añadir");
+        addlabel.setText("Add");
+        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -196,7 +200,8 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        QuitLabel.setText("Quitar");
+        QuitLabel.setText("Remove");
+        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -282,21 +287,40 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_quitMouseClicked
 
     private void addlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addlabelMouseClicked
-        // TODO add your handling code here:
+        System.out.println("Patata");
+        if (anadirWindow == null || !anadirWindow.isShowing()) {
+            anadirWindow = new anadir(userData);
+            anadirWindow.setVisible(true);
+            anadirWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
     }//GEN-LAST:event_addlabelMouseClicked
 
     private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
     // Verificar si la ventana ya está abierta
     if (quitarWindow == null || !quitarWindow.isShowing()) {
         // Crear una nueva instancia de la ventana "quitar" si no está abierta
-        quitarWindow = new quitar();
+        quitarWindow = new quitar(userData);
         
         // Añadir un listener para detectar cuando se cierra la ventana "quitar"
         quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                // Volver a mostrar la ventana principal cuando se cierre "quitar"
+            public void windowClosed(java.awt.event.WindowEvent e) {
                 mainWindow.this.setVisible(true);
+                mainWindow.this.showMeds();
+            }
+            @Override
+            public void windowOpened(java.awt.event.WindowEvent e) {
+                mainWindow.this.setVisible(false);
             }
         });
         
@@ -328,9 +352,30 @@ public class mainWindow extends javax.swing.JFrame {
     private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
         quit.setOpaque(false);
     }//GEN-LAST:event_quitMouseExited
-    
-    private void ShowMeds(){
+
+    private void addPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseClicked
         
+    }//GEN-LAST:event_addPanelMouseClicked
+    
+    private void showMeds() {
+        String userId = userData.get("id");
+        ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+        String[] columnNames = {"Medicine", "Amount"};
+        Object[][] data = new Object[meds.size()][2];
+
+        for (int i = 0; i < meds.size(); i++) {
+            String medicineId = meds.get(i).get("medicine_id");
+            ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+            if (!medDetails.isEmpty()) {
+                data[i][0] = medDetails.get(0).get("name");
+                data[i][1] = meds.get(i).get("remaining_amount");
+            }
+            else{
+                data[0][0] = "No medicine";
+                data[0][1] = "NULL";
+            }
+        }
+        medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
