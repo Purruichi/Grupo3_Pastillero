@@ -354,12 +354,9 @@
             <Component class="javax.swing.JTable" name="medTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="true" title="Medicine" type="java.lang.String"/>
-                    <Column editable="true" title="Amount" type="java.lang.Long"/>
-                    <Column editable="true" title="Dose" type="java.lang.Float"/>
-                    <Column editable="true" title="Hour" type="java.lang.String"/>
-                    <Column editable="true" title="Notify?" type="java.lang.Boolean"/>
+                  <Table columnCount="2" rowCount="4">
+                    <Column editable="true" title="Medicina" type="java.lang.String"/>
+                    <Column editable="true" title="Cantidad" type="java.lang.Long"/>
                   </Table>
                 </Property>
                 <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
