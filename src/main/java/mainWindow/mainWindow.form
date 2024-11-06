@@ -408,7 +408,7 @@
                     <Column editable="true" title="Medicine" type="java.lang.String"/>
                     <Column editable="true" title="Remaining" type="java.lang.Long"/>
                     <Column editable="true" title="Dose" type="java.lang.String"/>
-                    <Column editable="true" title="Hour" type="java.lang.String"/>
+                    <Column editable="true" title="Frequency" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

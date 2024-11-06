@@ -283,7 +283,7 @@ public class mainWindow extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Medicine", "Remaining", "Dose", "Hour"
+                "Medicine", "Remaining", "Dose", "Frequency"
             }
         ) {
             Class[] types = new Class [] {
@@ -397,7 +397,7 @@ public class mainWindow extends javax.swing.JFrame {
     private void showMeds() {
         String userId = userData.get("id");
         ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
-        String[] columnNames = {"Medicine", "Amount", "Dose", "Hour"};
+        String[] columnNames = {"Medicine", "Amount", "Dose", "Frequency"};
         Object[][] data = new Object[meds.size()][4];
 
         for (int i = 0; i < meds.size(); i++) {
@@ -407,7 +407,7 @@ public class mainWindow extends javax.swing.JFrame {
                 data[i][0] = medDetails.get(0).get("name");
                 data[i][1] = meds.get(i).get("remaining_amount");
                 data[i][2] = meds.get(i).get("dose");
-                data[i][3]=meds.get(i).get("hour");
+                data[i][3]=meds.get(i).get("frequency");
             }
             else{
                 data[0][0] = "No medicine";
