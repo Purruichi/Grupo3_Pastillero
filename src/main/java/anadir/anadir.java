@@ -249,7 +249,7 @@ public class anadir extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldQuantityFocusLost
 
     private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
-        String[] values = new String[6];
+        /*String[] values = new String[6];
         values[0] = userData.get("id");
         ArrayList<HashMap<String, String>> medicinas = DatabaseFunctions.SELECT("medicines", new String[0], "name", txtFieldName.getText());
         String medId = medicinas.get(0).get("id");
@@ -258,8 +258,19 @@ public class anadir extends javax.swing.JFrame {
         values[3] = "0";
         values[4] = "2024-10-04 08:00:00.000";
         values[5] = txtFieldDose.getText();
-        DatabaseFunctions.INSERT("user_meds", values);
+        DatabaseFunctions.INSERT("user_meds", values);*/
+        
+        boolean condicion
+        if condicion{
+            JOptionPane.showMessageDialog(null, "La medicina ha sido correctamente añadida", "Confirmación", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "La medicina no se ha añadido correctamente, por favor inténtelo de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
         dispose();
+        
+        
     }//GEN-LAST:event_btnAnadirMouseClicked
 
     private void txtFieldDoseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDoseFocusGained

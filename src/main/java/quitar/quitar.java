@@ -199,7 +199,7 @@ public class quitar extends javax.swing.JFrame {
     }//GEN-LAST:event_panelDeArrastreMouseDragged
 
     private void textoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoAceptarMouseClicked
-        selectedRow = tableMeds.getSelectedRow();
+        /*selectedRow = tableMeds.getSelectedRow();
         System.out.println(selectedRow);
         if (selectedRow != -1) {
             // Obtener nombre del medicamento
@@ -215,7 +215,16 @@ public class quitar extends javax.swing.JFrame {
             cargarMedicamentos();
         } else {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento para eliminar.");
+        }*/
+        
+        boolean condicion
+        if condicion{
+            JOptionPane.showMessageDialog(null, "La medicina ha sido correctamente eliminada", "Confirmación", JOptionPane.ERROR_MESSAGE);
         }
+        else{
+            JOptionPane.showMessageDialog(null, "La medicina no se ha eliminado correctamente, por favor inténtelo de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_textoAceptarMouseClicked
 
     private void botonXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseEntered
