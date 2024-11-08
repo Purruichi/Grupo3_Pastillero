@@ -4,6 +4,7 @@
  */
 package login;
 
+import Client.Client;
 import Database.DatabaseFunctions;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -17,6 +18,8 @@ import mainWindow.mainWindow;
  * @author purru
  */
 public class LogIn extends javax.swing.JFrame {
+    
+    Client cliente;
     
     int xMouse, yMouse;
     private boolean isMouseInside = false;
@@ -38,6 +41,7 @@ public class LogIn extends javax.swing.JFrame {
         lblMaximize.setOpaque(false);
         setSize(800, 500);
         setLocationRelativeTo(null);
+        cliente = new Client();
     }
     private void configurarListeners() {
         // MouseListener compartido
@@ -432,7 +436,19 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void panelLogInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLogInButtonMouseClicked
-        ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
+        
+        HashMap<String, Object> sessionIn = new HashMap<>();
+        sessionIn.put("username", usernameField.getText());
+        sessionIn.put("password", String.valueOf(passField.getPassword()));
+        
+        HashMap<String, Object> sessionOut = cliente.sentMessage("/checkLogIn", sessionIn);
+        boolean logedIn = (boolean)sessionOut.get("check");
+        HashMap<String, String> userData = (HashMap<String, String>)sessionOut.get("userData");
+        
+        if (logedIn)
+            LogedIn(userData);
+        
+        /*ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
         if (userData.isEmpty()){
             lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
         } else {
@@ -441,7 +457,7 @@ public class LogIn extends javax.swing.JFrame {
             } else {
                 lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
             }
-        }
+        }*/
         /*String[] condColumns = {"username"};
         String[] condValues = {"AndyChupipandy"};
         DatabaseFunctions.DELETE("users", condColumns, condValues);*/
