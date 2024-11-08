@@ -6,22 +6,41 @@ package quitar;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import Database.DatabaseFunctions;
+import mainWindow.mainWindow;
 
 /**
  *
  * @author salvadorcabreraparra
  */
 public class quitar extends javax.swing.JFrame {
-   
-    int xMouse,yMouse;
-    public quitar() {
+
+    private HashMap<String, String> userData;
+    int xMouse,yMouse, selectedRow;
+    
+    public quitar(HashMap<String, String> userData) {
+        
+        this.userData = userData;
         initComponents();
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
+        cargarMedicamentos();
+        
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
-    
-   
+    private void cargarMedicamentos() {
+        /*String userId = userData.get("id");  // Supongo que tienes el ID del usuario
+        String[] columns = {"id", "name", "remaining_amount"};
+        ArrayList<HashMap<String, String>> medicamentos = DatabaseFunctions.SELECT("user_meds", columns, "user_id", userId);
+
+        DefaultTableModel model = (DefaultTableModel) tablaMedicamentos.getModel();
+        model.setRowCount(0);  // Limpia la tabla
+
+        for (HashMap<String, String> med : medicamentos) {
+            model.addRow(new Object[]{med.get("name"), med.get("remaining_amount")});*/
+        showMeds();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,8 +57,8 @@ public class quitar extends javax.swing.JFrame {
         iconoMyPills = new javax.swing.JLabel();
         textoMyPills = new javax.swing.JLabel();
         panelDeMedicamentos = new javax.swing.JPanel();
-        panelDondeSeVenLosMedicamentos = new javax.swing.JScrollPane();
-        tablaMedicamentos = new javax.swing.JTable();
+        scrollPaneMeds = new javax.swing.JScrollPane();
+        tableMeds = new javax.swing.JTable();
         medicamentos = new javax.swing.JLabel();
         panelBotonAceptar = new javax.swing.JPanel();
         textoAceptar = new javax.swing.JLabel();
@@ -95,7 +114,13 @@ public class quitar extends javax.swing.JFrame {
 
         pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 30));
 
-        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
+        scrollPaneMeds.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollPaneMedsMouseClicked(evt);
+            }
+        });
+
+        tableMeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -106,17 +131,17 @@ public class quitar extends javax.swing.JFrame {
                 "Medicina", "Cantidad"
             }
         ));
-        panelDondeSeVenLosMedicamentos.setViewportView(tablaMedicamentos);
+        scrollPaneMeds.setViewportView(tableMeds);
 
         javax.swing.GroupLayout panelDeMedicamentosLayout = new javax.swing.GroupLayout(panelDeMedicamentos);
         panelDeMedicamentos.setLayout(panelDeMedicamentosLayout);
         panelDeMedicamentosLayout.setHorizontalGroup(
             panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(scrollPaneMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         panelDeMedicamentosLayout.setVerticalGroup(
             panelDeMedicamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDondeSeVenLosMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(scrollPaneMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pnlFondo.add(panelDeMedicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 620, 250));
@@ -174,7 +199,23 @@ public class quitar extends javax.swing.JFrame {
     }//GEN-LAST:event_panelDeArrastreMouseDragged
 
     private void textoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoAceptarMouseClicked
-        dispose();
+        selectedRow = tableMeds.getSelectedRow();
+        System.out.println(selectedRow);
+        if (selectedRow != -1) {
+            // Obtener nombre del medicamento
+            String nombreMedicamento = tableMeds.getValueAt(selectedRow, 0).toString();
+
+            // Eliminar de la base de datos
+            String[] condColumns = {"user_id", "medicine_id"};
+            String idMedicamento = DatabaseFunctions.SELECT("medicines", new String[] {"id"}, "name", nombreMedicamento).get(0).get("id");
+            String[] condValues = {userData.get("id"), idMedicamento};
+            DatabaseFunctions.DELETE("user_meds", condColumns, condValues);
+
+            // Actualizar tabla
+            cargarMedicamentos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento para eliminar.");
+        }
     }//GEN-LAST:event_textoAceptarMouseClicked
 
     private void botonXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseEntered
@@ -190,47 +231,37 @@ public class quitar extends javax.swing.JFrame {
     private void botonXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonXMouseClicked
         dispose();
     }//GEN-LAST:event_botonXMouseClicked
+
+    private void scrollPaneMedsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMedsMouseClicked
+        
+    }//GEN-LAST:event_scrollPaneMedsMouseClicked
+    
+    private void showMeds() {
+        String userId = userData.get("id");
+        ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+        String[] columnNames = {"Medicine", "Amount"};
+        Object[][] data = new Object[meds.size()][2];
+
+        for (int i = 0; i < meds.size(); i++) {
+            String medicineId = meds.get(i).get("medicine_id");
+            ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+            if (!medDetails.isEmpty()) {
+                data[i][0] = medDetails.get(0).get("name");
+                data[i][1] = meds.get(i).get("remaining_amount");
+            }
+            else{
+                data[0][0] = "No medicine";
+                data[0][1] = "NULL";
+            }
+        }
+        tableMeds.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+    }
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
         Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
         labelN.setIcon(icon);
         this.repaint();
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quitar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new quitar().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -240,9 +271,9 @@ public class quitar extends javax.swing.JFrame {
     private javax.swing.JPanel panelBotonAceptar;
     private javax.swing.JPanel panelDeArrastre;
     private javax.swing.JPanel panelDeMedicamentos;
-    private javax.swing.JScrollPane panelDondeSeVenLosMedicamentos;
     private javax.swing.JPanel pnlFondo;
-    private javax.swing.JTable tablaMedicamentos;
+    private javax.swing.JScrollPane scrollPaneMeds;
+    private javax.swing.JTable tableMeds;
     private javax.swing.JLabel textoAceptar;
     private javax.swing.JLabel textoMyPills;
     private javax.swing.JLabel textoX;

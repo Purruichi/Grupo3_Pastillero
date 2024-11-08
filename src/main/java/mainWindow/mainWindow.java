@@ -4,14 +4,10 @@
  */
 package mainWindow;
 
-import java.awt.Color;
+import Database.DatabaseFunctions;
+import anadir.anadir;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import quitar.quitar;
 
 /**
@@ -20,7 +16,8 @@ import quitar.quitar;
  */
 public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
-    private quitar quitarWindow = null;
+    private quitar quitarWindow;
+    private anadir anadirWindow;
     
     public HashMap<String, String> userData = new HashMap<>();
     /**
@@ -30,6 +27,7 @@ public class mainWindow extends javax.swing.JFrame {
     public mainWindow(HashMap<String, String> userData) {
         this.userData = userData;
         initComponents();
+        showMeds();
     }
 
     /**
@@ -55,6 +53,8 @@ public class mainWindow extends javax.swing.JFrame {
         addlabel = new javax.swing.JLabel();
         QuitPanel = new javax.swing.JPanel();
         QuitLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JScrollPane();
         medTable = new javax.swing.JTable();
 
@@ -168,11 +168,17 @@ public class mainWindow extends javax.swing.JFrame {
         EastPan.setBackground(new java.awt.Color(102, 204, 255));
 
         addPanel.setBackground(new java.awt.Color(0, 204, 102));
+        addPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addPanelMouseClicked(evt);
+            }
+        });
 
         addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         addlabel.setForeground(new java.awt.Color(255, 255, 255));
         addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addlabel.setText("Añadir");
+        addlabel.setText("Add");
+        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -184,11 +190,11 @@ public class mainWindow extends javax.swing.JFrame {
         addPanel.setLayout(addPanelLayout);
         addPanelLayout.setHorizontalGroup(
             addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         addPanelLayout.setVerticalGroup(
             addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
 
         QuitPanel.setBackground(new java.awt.Color(204, 51, 0));
@@ -196,7 +202,8 @@ public class mainWindow extends javax.swing.JFrame {
         QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
         QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        QuitLabel.setText("Quitar");
+        QuitLabel.setText("Remove");
+        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -208,11 +215,35 @@ public class mainWindow extends javax.swing.JFrame {
         QuitPanel.setLayout(QuitPanelLayout);
         QuitPanelLayout.setHorizontalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
         );
         QuitPanelLayout.setVerticalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, QuitPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(QuitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settingsIcon.png"))); // NOI18N
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout EastPanLayout = new javax.swing.GroupLayout(EastPan);
@@ -222,16 +253,22 @@ public class mainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EastPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(QuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(QuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EastPanLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
         EastPanLayout.setVerticalGroup(
             EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EastPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(QuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -240,17 +277,17 @@ public class mainWindow extends javax.swing.JFrame {
 
         medTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Medicina", "Cantidad"
+                "Medicine", "Remaining", "Dose", "Frequency"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -282,30 +319,23 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_quitMouseClicked
 
     private void addlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addlabelMouseClicked
-        // TODO add your handling code here:
+        System.out.println("Patata");
+        if (anadirWindow == null || !anadirWindow.isShowing()) {
+            anadirWindow = new anadir(userData);
+            anadirWindow.setVisible(true);
+            anadirWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
     }//GEN-LAST:event_addlabelMouseClicked
-
-    private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
-    // Verificar si la ventana ya está abierta
-    if (quitarWindow == null || !quitarWindow.isShowing()) {
-        // Crear una nueva instancia de la ventana "quitar" si no está abierta
-        quitarWindow = new quitar();
-        
-        // Añadir un listener para detectar cuando se cierra la ventana "quitar"
-        quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                // Volver a mostrar la ventana principal cuando se cierre "quitar"
-                mainWindow.this.setVisible(true);
-            }
-        });
-        
-        // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
-        
-        // Mostrar la ventana "quitar"
-        quitarWindow.setVisible(true);
-    }
-    }//GEN-LAST:event_QuitLabelMouseClicked
 
     private void NorthPanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NorthPanMousePressed
         // TODO add your handling code here:
@@ -328,9 +358,65 @@ public class mainWindow extends javax.swing.JFrame {
     private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
         quit.setOpaque(false);
     }//GEN-LAST:event_quitMouseExited
-    
-    private void ShowMeds(){
+
+    private void addPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseClicked
         
+    }//GEN-LAST:event_addPanelMouseClicked
+
+    private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData);
+
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+
+            // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
+
+            // Mostrar la ventana "quitar"
+            quitarWindow.setVisible(true);
+        }
+    }//GEN-LAST:event_QuitLabelMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jLabel1MouseClicked
+    
+    private void showMeds() {
+        String userId = userData.get("id");
+        ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
+        String[] columnNames = {"Medicine", "Amount", "Dose", "Frequency"};
+        Object[][] data = new Object[meds.size()][4];
+
+        for (int i = 0; i < meds.size(); i++) {
+            String medicineId = meds.get(i).get("medicine_id");
+            ArrayList<HashMap<String, String>> medDetails = DatabaseFunctions.SELECT("medicines", new String[]{"name"}, "id", medicineId);
+            if (!medDetails.isEmpty()) {
+                data[i][0] = medDetails.get(0).get("name");
+                data[i][1] = meds.get(i).get("remaining_amount");
+                data[i][2] = meds.get(i).get("dose");
+                data[i][3]=meds.get(i).get("frequency");
+            }
+            else{
+                data[0][0] = "No medicine";
+                data[0][1] = "NULL";
+                data[0][2] = "NULL";
+                data[0][3] = "NULL";
+            }
+        }
+        medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -343,7 +429,9 @@ public class mainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel addlabel;
     private javax.swing.JLabel date;
     private javax.swing.JLabel datename;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel logo;
     private javax.swing.JScrollPane mainPanel;
     private javax.swing.JTable medTable;
