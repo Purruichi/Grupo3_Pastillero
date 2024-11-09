@@ -302,12 +302,12 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.setBackground(new java.awt.Color(255, 255, 255));
         pnlSignUp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitleSignUp.setFont(new java.awt.Font("Shree Devanagari 714", 0, 36)); // NOI18N
+        lblTitleSignUp.setFont(new java.awt.Font("PT Mono", 0, 36)); // NOI18N
         lblTitleSignUp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitleSignUp.setText("Sign Up");
-        pnlSignUp.add(lblTitleSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 169, 50));
+        pnlSignUp.add(lblTitleSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 169, 50));
 
-        newEmailField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        newEmailField.setFont(new java.awt.Font("PT Mono", 0, 18)); // NOI18N
         newEmailField.setForeground(java.awt.Color.lightGray);
         newEmailField.setText("Email");
         newEmailField.setToolTipText("");
@@ -319,9 +319,9 @@ public class LogIn extends javax.swing.JFrame {
                 newEmailFieldFocusLost(evt);
             }
         });
-        pnlSignUp.add(newEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 230, 40));
+        pnlSignUp.add(newEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 230, 40));
 
-        newUsernameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        newUsernameField.setFont(new java.awt.Font("PT Mono", 0, 18)); // NOI18N
         newUsernameField.setForeground(java.awt.Color.lightGray);
         newUsernameField.setText("Username");
         newUsernameField.setToolTipText("");
@@ -335,7 +335,7 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUp.add(newUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 230, 40));
 
-        lblPassword.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblPassword.setText("Password:");
         pnlSignUp.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 230, 30));
 
@@ -351,7 +351,7 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUp.add(newPassField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 230, 40));
 
-        lblConfirmPassword.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        lblConfirmPassword.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblConfirmPassword.setText("Confirm Password:");
         pnlSignUp.add(lblConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 230, 30));
 
@@ -379,7 +379,7 @@ public class LogIn extends javax.swing.JFrame {
         lblSignUp.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblSignUp.setText("Sign Up");
         lblSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlSignUpButton.add(lblSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
+        pnlSignUpButton.add(lblSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, 30));
 
         pnlSignUp.add(pnlSignUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 230, 50));
 
@@ -401,7 +401,7 @@ public class LogIn extends javax.swing.JFrame {
         lblVolver.setBackground(new java.awt.Color(255, 255, 255));
         btnVolver.add(lblVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 20));
 
-        pnlSignUp.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 40, 30));
+        pnlSignUp.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 40, 30));
 
         panelFondo.add(pnlSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 500));
         pnlSignUp.setVisible(false);
