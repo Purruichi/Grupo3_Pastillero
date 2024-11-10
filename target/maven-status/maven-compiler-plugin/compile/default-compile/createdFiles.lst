@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 anadir\anadir$5.class
 Message\Message.class
 Client\Client.class
@@ -17,3 +18,38 @@ anadir\anadir$10.class
 anadir\anadir$1.class
 Customer\Customer.class
 anadir\anadir$4.class
+=======
+<<<<<<< Updated upstream
+mainWindow\mainWindow$4.class
+quitar\quitar$1.class
+mainWindow\mainWindow.class
+quitar\quitar$2.class
+mainWindow\mainWindow$5.class
+login\LogIn$3.class
+mainWindow\mainWindow$1.class
+login\LogIn$2.class
+quitar\quitar$3.class
+login\LogIn$4.class
+quitar\quitar.class
+Database\DatabaseConnection.class
+login\LogIn$1.class
+mainWindow\mainWindow$6.class
+login\LogIn.class
+Database\DatabaseFunctions.class
+mainWindow\mainWindow$3.class
+mainWindow\mainWindow$2.class
+quitar\quitar$4.class
+mainWindow\mainWindow$7.class
+=======
+quitar/quitar.class
+login/LogIn$1.class
+quitar/quitar$1.class
+login/LogIn$2.class
+login/LogIn$4.class
+login/LogIn$3.class
+Database/DatabaseConnection.class
+Database/DatabaseFunctions.class
+quitar/quitar$2.class
+login/LogIn.class
+>>>>>>> Stashed changes
+>>>>>>> parent of 270208f (Restore del backup S1)

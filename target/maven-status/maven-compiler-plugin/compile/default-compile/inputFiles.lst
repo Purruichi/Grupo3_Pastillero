@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\anadir\anadir.java
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\Client\Client.java
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\Customer\Customer.java
@@ -10,3 +11,23 @@ C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\I
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\properties\properties.java
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\quitar\quitar.java
 C:\Users\purru\OneDrive - Universidad Pontificia Comillas\Documentos\3_Tercero\IngenieriaSoftware\Pastillero4\Pastillero\src\main\java\SocketServer\SocketServer.java
+=======
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+C:\Users\andre\Documents\GitHub\Grupo3_Pastillero\src\main\java\quitar\quitar.java
+C:\Users\andre\Documents\GitHub\Grupo3_Pastillero\src\main\java\Database\DatabaseConnection.java
+C:\Users\andre\Documents\GitHub\Grupo3_Pastillero\src\main\java\Database\DatabaseFunctions.java
+C:\Users\andre\Documents\GitHub\Grupo3_Pastillero\src\main\java\login\LogIn.java
+C:\Users\andre\Documents\GitHub\Grupo3_Pastillero\src\main\java\mainWindow\mainWindow.java
+=======
+=======
+>>>>>>> Develope_Salva
+/Users/salvadorcabreraparra/Desktop/ICAI/3º/Ingeniería del Software/PROYECTO ISW/Pastillero/src/main/java/Database/DatabaseConnection.java
+/Users/salvadorcabreraparra/Desktop/ICAI/3º/Ingeniería del Software/PROYECTO ISW/Pastillero/src/main/java/login/LogIn.java
+/Users/salvadorcabreraparra/Desktop/ICAI/3º/Ingeniería del Software/PROYECTO ISW/Pastillero/src/main/java/quitar/quitar.java
+/Users/salvadorcabreraparra/Desktop/ICAI/3º/Ingeniería del Software/PROYECTO ISW/Pastillero/src/main/java/Database/DatabaseFunctions.java
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> Develope_Salva
+>>>>>>> parent of 270208f (Restore del backup S1)
