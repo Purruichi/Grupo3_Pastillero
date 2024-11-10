@@ -77,9 +77,8 @@ public class DatabaseFunctions {
         System.out.println(selectSQL);
         
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
-            
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL);
+            ResultSet rs = pstmt.executeQuery()) {
             
             ArrayList<HashMap<String, String>> outputValuesArray = new ArrayList<>();
             
@@ -93,14 +92,12 @@ public class DatabaseFunctions {
                 outputValuesArray.add(outputValues);
             }
             
-            System.out.println(outputValuesArray);
-            
             return outputValuesArray;
             
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return new ArrayList<HashMap<String, String>>();
     }
     
     public static void DELETE (String table, String[] condColumns, String[] condValues) {
@@ -109,7 +106,7 @@ public class DatabaseFunctions {
         
         String condsStr = "";
         for (int i = 2; i < condColumns.length; i++){
-            condsStr += condColumns[i - 1] + " = '" + condValues[i - 1] + " AND";
+            condsStr += condColumns[i - 1] + " = '" + condValues[i - 1] + "¡ AND";
         }
         condsStr += condColumns[condColumns.length - 1] + " = '" + condValues[condValues.length - 1] + "';";
         
