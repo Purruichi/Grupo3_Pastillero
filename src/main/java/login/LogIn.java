@@ -73,8 +73,8 @@ public class LogIn extends javax.swing.JFrame {
             public void mouseEntered(MouseEvent e) {
                 if (!isMouseInside) {
                     isMouseInside = true;
-                    System.out.println("Ratón ha entrado en el área combinada");
-                    btnMINIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
+                    //System.out.println("Ratón ha entrado en el área combinada");
+                    btnMAXIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
                 }
             }
 
@@ -82,11 +82,11 @@ public class LogIn extends javax.swing.JFrame {
             public void mouseExited(MouseEvent e) {
                 // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
                 Component source = e.getComponent();
-                if (source.equals(btnMINIMIZAR) && !lblMinimize.getBounds().contains(e.getPoint()) ||
-                    source.equals(lblMinimize) && !btnMINIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMinimize, e.getPoint(), btnMINIMIZAR))) {
+                if (source.equals(btnMAXIMIZAR) && !lblMaximize.getBounds().contains(e.getPoint()) ||
+                    source.equals(lblMaximize) && !btnMAXIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMaximize, e.getPoint(), btnMAXIMIZAR))) {
                     isMouseInside = false;
-                    System.out.println("Ratón ha salido del área combinada");
-                    btnMINIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
+                    //System.out.println("Ratón ha salido del área combinada");
+                    btnMAXIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
                 }
             }
         };
@@ -208,6 +208,11 @@ public class LogIn extends javax.swing.JFrame {
         btnMINIMIZAR.setMinimumSize(new java.awt.Dimension(30, 20));
         btnMINIMIZAR.setOpaque(false);
         btnMINIMIZAR.setPreferredSize(new java.awt.Dimension(30, 20));
+        btnMINIMIZAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMINIMIZARMouseClicked(evt);
+            }
+        });
         btnMINIMIZAR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMinimize.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
@@ -221,7 +226,7 @@ public class LogIn extends javax.swing.JFrame {
         titleBar.add(btnMINIMIZAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 40, 20));
         titleBar.add(windowIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 20, 20));
 
-        lblMyPills.setFont(new java.awt.Font("Shree Devanagari 714", 1, 12)); // NOI18N
+        lblMyPills.setFont(new java.awt.Font("PT Mono", 1, 12)); // NOI18N
         lblMyPills.setText("MyPills");
         titleBar.add(lblMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 20));
 
@@ -230,12 +235,12 @@ public class LogIn extends javax.swing.JFrame {
         pnlLogIn.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogIn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitleLogIn.setFont(new java.awt.Font("Shree Devanagari 714", 0, 36)); // NOI18N
+        lblTitleLogIn.setFont(new java.awt.Font("PT Mono", 3, 36)); // NOI18N
         lblTitleLogIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitleLogIn.setText("MyPills");
         pnlLogIn.add(lblTitleLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 169, 50));
 
-        usernameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        usernameField.setFont(new java.awt.Font("PT Mono", 2, 18)); // NOI18N
         usernameField.setForeground(java.awt.Color.lightGray);
         usernameField.setText("Username");
         usernameField.setToolTipText("");
@@ -258,11 +263,11 @@ public class LogIn extends javax.swing.JFrame {
         });
         panelLogInButton.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelLogIn.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        labelLogIn.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         labelLogIn.setText("Log In");
-        panelLogInButton.add(labelLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        panelLogInButton.add(labelLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 1, -1, 50));
 
-        pnlLogIn.add(panelLogInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 230, 50));
+        pnlLogIn.add(panelLogInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 230, 50));
 
         passField.setForeground(java.awt.Color.lightGray);
         passField.setText("Password");
@@ -276,10 +281,12 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlLogIn.add(passField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 230, 40));
 
+        lblForgotPass.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
         lblForgotPass.setForeground(new java.awt.Color(0, 153, 255));
         lblForgotPass.setText("Forgot your password?");
         pnlLogIn.add(lblForgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 230, -1));
 
+        lblSignUpAccess.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
         lblSignUpAccess.setForeground(new java.awt.Color(0, 153, 255));
         lblSignUpAccess.setText("Don't have an account? Sign up here");
         lblSignUpAccess.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -288,7 +295,7 @@ public class LogIn extends javax.swing.JFrame {
                 lblSignUpAccessMouseClicked(evt);
             }
         });
-        pnlLogIn.add(lblSignUpAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, -1));
+        pnlLogIn.add(lblSignUpAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 230, 30));
 
         lblErrorLogIn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblErrorLogIn.setForeground(new java.awt.Color(255, 0, 0));
@@ -299,12 +306,12 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.setBackground(new java.awt.Color(255, 255, 255));
         pnlSignUp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitleSignUp.setFont(new java.awt.Font("Shree Devanagari 714", 0, 36)); // NOI18N
+        lblTitleSignUp.setFont(new java.awt.Font("PT Mono", 0, 36)); // NOI18N
         lblTitleSignUp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitleSignUp.setText("Sign Up");
-        pnlSignUp.add(lblTitleSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 169, 50));
+        pnlSignUp.add(lblTitleSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 169, 50));
 
-        newEmailField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        newEmailField.setFont(new java.awt.Font("PT Mono", 0, 18)); // NOI18N
         newEmailField.setForeground(java.awt.Color.lightGray);
         newEmailField.setText("Email");
         newEmailField.setToolTipText("");
@@ -316,9 +323,9 @@ public class LogIn extends javax.swing.JFrame {
                 newEmailFieldFocusLost(evt);
             }
         });
-        pnlSignUp.add(newEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 230, 40));
+        pnlSignUp.add(newEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 230, 40));
 
-        newUsernameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        newUsernameField.setFont(new java.awt.Font("PT Mono", 0, 18)); // NOI18N
         newUsernameField.setForeground(java.awt.Color.lightGray);
         newUsernameField.setText("Username");
         newUsernameField.setToolTipText("");
@@ -332,7 +339,7 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUp.add(newUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 230, 40));
 
-        lblPassword.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblPassword.setText("Password:");
         pnlSignUp.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 230, 30));
 
@@ -348,7 +355,7 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUp.add(newPassField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 230, 40));
 
-        lblConfirmPassword.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        lblConfirmPassword.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblConfirmPassword.setText("Confirm Password:");
         pnlSignUp.add(lblConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 230, 30));
 
@@ -373,10 +380,10 @@ public class LogIn extends javax.swing.JFrame {
         });
         pnlSignUpButton.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSignUp.setFont(new java.awt.Font("Shree Devanagari 714", 1, 18)); // NOI18N
+        lblSignUp.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
         lblSignUp.setText("Sign Up");
         lblSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlSignUpButton.add(lblSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
+        pnlSignUpButton.add(lblSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, 30));
 
         pnlSignUp.add(pnlSignUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 230, 50));
 
@@ -386,6 +393,7 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.add(lblErrorSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 230, 70));
 
         btnVolver.setBackground(new java.awt.Color(255, 255, 255));
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVolver.setOpaque(false);
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -397,7 +405,7 @@ public class LogIn extends javax.swing.JFrame {
         lblVolver.setBackground(new java.awt.Color(255, 255, 255));
         btnVolver.add(lblVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 20));
 
-        pnlSignUp.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 40, 30));
+        pnlSignUp.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 40, 30));
 
         panelFondo.add(pnlSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 500));
         pnlSignUp.setVisible(false);
@@ -592,6 +600,11 @@ public class LogIn extends javax.swing.JFrame {
         pnlSignUp.setVisible(false);
         pnlLogIn.setVisible(true);
     }//GEN-LAST:event_btnVolverMouseClicked
+
+    private void btnMINIMIZARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINIMIZARMouseClicked
+        // TODO add your handling code here:
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMINIMIZARMouseClicked
     
     private void LogedIn(HashMap<String, String> userData){
         mainWindow menuWindow = new mainWindow(userData);
