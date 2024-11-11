@@ -4,8 +4,11 @@
  */
 package login;
 
+import Client.Client;
 import Database.DatabaseFunctions;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import mainWindow.mainWindow;
@@ -16,20 +19,85 @@ import mainWindow.mainWindow;
  */
 public class LogIn extends javax.swing.JFrame {
     
+    Client cliente;
+    
     int xMouse, yMouse;
+    private boolean isMouseInside = false;
     
     /**
      * Creates new form LogIn
      */
     public LogIn() {
         initComponents();
+        configurarListeners();
         setImageLabel(bgImage, "/LogInBackground.png");
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
         setImageLabel(lblMinimize, "/Guion.png");
         setImageLabel(lblVolver, "/Volver.png");
+        btnMINIMIZAR.setOpaque(true);
+        lblMinimize.setOpaque(false);
+        btnMAXIMIZAR.setOpaque(true);
+        lblMaximize.setOpaque(false);
         setSize(800, 500);
         setLocationRelativeTo(null);
+        cliente = new Client();
+    }
+    private void configurarListeners() {
+        // MouseListener compartido
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!isMouseInside) {
+                    isMouseInside = true;
+                    System.out.println("Ratón ha entrado en el área combinada");
+                    btnMINIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
+                Component source = e.getComponent();
+                if (source.equals(btnMINIMIZAR) && !lblMinimize.getBounds().contains(e.getPoint()) ||
+                    source.equals(lblMinimize) && !btnMINIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMinimize, e.getPoint(), btnMINIMIZAR))) {
+                    isMouseInside = false;
+                    System.out.println("Ratón ha salido del área combinada");
+                    btnMINIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
+                }
+            }
+        };
+        
+        MouseAdapter mouseAdapter2 = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!isMouseInside) {
+                    isMouseInside = true;
+                    System.out.println("Ratón ha entrado en el área combinada");
+                    btnMINIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
+                Component source = e.getComponent();
+                if (source.equals(btnMINIMIZAR) && !lblMinimize.getBounds().contains(e.getPoint()) ||
+                    source.equals(lblMinimize) && !btnMINIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMinimize, e.getPoint(), btnMINIMIZAR))) {
+                    isMouseInside = false;
+                    System.out.println("Ratón ha salido del área combinada");
+                    btnMINIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
+                }
+            }
+        };
+        
+        
+
+        // Agrega el MouseListener al JPanel y al JLabel
+        btnMINIMIZAR.addMouseListener(mouseAdapter);
+        lblMinimize.addMouseListener(mouseAdapter);
+        btnMAXIMIZAR.addMouseListener(mouseAdapter2);
+        lblMaximize.addMouseListener(mouseAdapter2);
     }
 
     /**
@@ -122,17 +190,6 @@ public class LogIn extends javax.swing.JFrame {
         btnMAXIMIZAR.setBackground(new java.awt.Color(204, 204, 204));
         btnMAXIMIZAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMAXIMIZAR.setOpaque(false);
-        btnMAXIMIZAR.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMAXIMIZARMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMAXIMIZARMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMAXIMIZARMouseExited(evt);
-            }
-        });
         btnMAXIMIZAR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMaximize.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -142,14 +199,6 @@ public class LogIn extends javax.swing.JFrame {
         lblMaximize.setMaximumSize(new java.awt.Dimension(8, 17));
         lblMaximize.setMinimumSize(new java.awt.Dimension(8, 17));
         lblMaximize.setPreferredSize(new java.awt.Dimension(8, 17));
-        lblMaximize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblMaximizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblMaximizeMouseExited(evt);
-            }
-        });
         btnMAXIMIZAR.add(lblMaximize, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 20));
 
         titleBar.add(btnMAXIMIZAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 40, 20));
@@ -159,29 +208,12 @@ public class LogIn extends javax.swing.JFrame {
         btnMINIMIZAR.setMinimumSize(new java.awt.Dimension(30, 20));
         btnMINIMIZAR.setOpaque(false);
         btnMINIMIZAR.setPreferredSize(new java.awt.Dimension(30, 20));
-        btnMINIMIZAR.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMINIMIZARMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMINIMIZARMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMINIMIZARMouseExited(evt);
-            }
-        });
         btnMINIMIZAR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMinimize.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblMinimizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblMinimizeMouseExited(evt);
             }
         });
         btnMINIMIZAR.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 20));
@@ -404,7 +436,19 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void panelLogInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLogInButtonMouseClicked
-        ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
+        
+        HashMap<String, Object> sessionIn = new HashMap<>();
+        sessionIn.put("username", usernameField.getText());
+        sessionIn.put("password", String.valueOf(passField.getPassword()));
+        
+        HashMap<String, Object> sessionOut = cliente.sentMessage("/checkLogIn", sessionIn);
+        boolean logedIn = (boolean)sessionOut.get("check");
+        HashMap<String, String> userData = (HashMap<String, String>)sessionOut.get("userData");
+        
+        if (logedIn)
+            LogedIn(userData);
+        
+        /*ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
         if (userData.isEmpty()){
             lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
         } else {
@@ -413,7 +457,7 @@ public class LogIn extends javax.swing.JFrame {
             } else {
                 lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
             }
-        }
+        }*/
         /*String[] condColumns = {"username"};
         String[] condValues = {"AndyChupipandy"};
         DatabaseFunctions.DELETE("users", condColumns, condValues);*/
@@ -537,60 +581,6 @@ public class LogIn extends javax.swing.JFrame {
         pnlLogIn.setVisible(false);
         pnlSignUp.setVisible(true);
     }//GEN-LAST:event_lblSignUpAccessMouseClicked
-
-    private void btnMINIMIZARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINIMIZARMouseClicked
-        // TODO add your handling code here:
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_btnMINIMIZARMouseClicked
-
-    private void btnMAXIMIZARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMAXIMIZARMouseClicked
-        // TODO add your handling code here:
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_btnMAXIMIZARMouseClicked
-
-    private void btnMAXIMIZARMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMAXIMIZARMouseEntered
-        // TODO add your handling code here:
-        btnMAXIMIZAR.setOpaque(true);
-        btnMAXIMIZAR.setBackground(Color.white);
-    }//GEN-LAST:event_btnMAXIMIZARMouseEntered
-
-    private void lblMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMaximizeMouseEntered
-        // TODO add your handling code here:
-        btnMAXIMIZAR.setOpaque(true);
-        btnMAXIMIZAR.setBackground(Color.white);
-    }//GEN-LAST:event_lblMaximizeMouseEntered
-
-    private void lblMaximizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMaximizeMouseExited
-        // TODO add your handling code here:
-        lblMaximize.setBackground(new Color(204,204,204));
-    }//GEN-LAST:event_lblMaximizeMouseExited
-
-    private void btnMAXIMIZARMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMAXIMIZARMouseExited
-        // TODO add your handling code here:
-         btnMAXIMIZAR.setBackground(new Color(204,204,204));
-    }//GEN-LAST:event_btnMAXIMIZARMouseExited
-
-    private void btnMINIMIZARMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINIMIZARMouseEntered
-        // TODO add your handling code here:
-        btnMINIMIZAR.setOpaque(true);
-        btnMINIMIZAR.setBackground(Color.white);
-    }//GEN-LAST:event_btnMINIMIZARMouseEntered
-
-    private void btnMINIMIZARMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINIMIZARMouseExited
-        // TODO add your handling code here:
-        btnMINIMIZAR.setBackground(new Color(204,204,204));
-    }//GEN-LAST:event_btnMINIMIZARMouseExited
-
-    private void lblMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMouseEntered
-        // TODO add your handling code here:
-        btnMINIMIZAR.setOpaque(true);
-        btnMINIMIZAR.setBackground(Color.white);
-    }//GEN-LAST:event_lblMinimizeMouseEntered
-
-    private void lblMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMouseExited
-        // TODO add your handling code here:
-        lblMinimize.setBackground(new Color(204,204,204));
-    }//GEN-LAST:event_lblMinimizeMouseExited
 
     private void lblMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMouseClicked
         // TODO add your handling code here:
