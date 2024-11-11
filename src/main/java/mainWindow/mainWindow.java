@@ -9,6 +9,7 @@ import anadir.anadir;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import quitar.quitar;
+import ajustes.Ajustes;
 
 /**
  *
@@ -390,7 +391,11 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_QuitLabelMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
+        if(evt.getSource()==jLabel1){
+            Ajustes ajustes= new Ajustes();
+            ajustes.setVisible(true);
+            setVisible(false);
+        }
         
     }//GEN-LAST:event_jLabel1MouseClicked
     
