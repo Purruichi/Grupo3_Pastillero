@@ -170,6 +170,9 @@
                   <Dimension value="[30, 20]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnMINIMIZARMouseClicked"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="680" y="0" width="40" height="20"/>
@@ -207,7 +210,7 @@
             <Component class="javax.swing.JLabel" name="lblMyPills">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Shree Devanagari 714" size="12" style="1"/>
+                  <Font name="PT Mono" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="MyPills"/>
               </Properties>
@@ -238,7 +241,7 @@
             <Component class="javax.swing.JLabel" name="lblTitleLogIn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Shree Devanagari 714" size="36" style="0"/>
+                  <Font name="PT Mono" size="36" style="3"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="MyPills"/>
@@ -252,7 +255,7 @@
             <Component class="javax.swing.JTextField" name="usernameField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="0"/>
+                  <Font name="PT Mono" size="18" style="2"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -284,7 +287,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="370" width="230" height="50"/>
+                  <AbsoluteConstraints x="20" y="380" width="230" height="50"/>
                 </Constraint>
               </Constraints>
 
@@ -295,13 +298,13 @@
                 <Component class="javax.swing.JLabel" name="labelLogIn">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Shree Devanagari 714" size="18" style="1"/>
+                      <Font name="PT Mono" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Log In"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="90" y="10" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="80" y="1" width="-1" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -326,6 +329,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblForgotPass">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="PT Mono" size="13" style="0"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
@@ -339,6 +345,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblSignUpAccess">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="PT Mono" size="13" style="0"/>
+                </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
@@ -352,7 +361,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="340" width="230" height="-1"/>
+                  <AbsoluteConstraints x="20" y="340" width="230" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -395,21 +404,21 @@
             <Component class="javax.swing.JLabel" name="lblTitleSignUp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Shree Devanagari 714" size="36" style="0"/>
+                  <Font name="PT Mono" size="36" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Sign Up"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="60" y="70" width="169" height="50"/>
+                  <AbsoluteConstraints x="50" y="60" width="169" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="newEmailField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="0"/>
+                  <Font name="PT Mono" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -423,14 +432,14 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="120" width="230" height="40"/>
+                  <AbsoluteConstraints x="20" y="130" width="230" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="newUsernameField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="0"/>
+                  <Font name="PT Mono" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
@@ -451,7 +460,7 @@
             <Component class="javax.swing.JLabel" name="lblPassword">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Shree Devanagari 714" size="18" style="1"/>
+                  <Font name="PT Mono" size="18" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Password:"/>
               </Properties>
@@ -481,7 +490,7 @@
             <Component class="javax.swing.JLabel" name="lblConfirmPassword">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Shree Devanagari 714" size="18" style="1"/>
+                  <Font name="PT Mono" size="18" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Confirm Password:"/>
               </Properties>
@@ -533,7 +542,7 @@
                 <Component class="javax.swing.JLabel" name="lblSignUp">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Shree Devanagari 714" size="18" style="1"/>
+                      <Font name="PT Mono" size="18" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Sign Up"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -542,7 +551,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="85" y="13" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="80" y="10" width="-1" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -571,6 +580,9 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -578,7 +590,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="30" width="40" height="30"/>
+                  <AbsoluteConstraints x="20" y="30" width="40" height="30"/>
                 </Constraint>
               </Constraints>
 
