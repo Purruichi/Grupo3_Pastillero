@@ -39,15 +39,6 @@ public class anadir extends javax.swing.JFrame {
     public anadir(HashMap<String, String> userData) {
         this.userData = userData;
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-    
-    public anadir(){
-        this(new HashMap<>(){{
-            put("username", "Salvador Cabrera Parra");
-            put("email", "demo@example.com");
-        }});
-        configurarListeners();
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
         setImageLabel(lblMinimize, "/Guion.png");
@@ -58,8 +49,19 @@ public class anadir extends javax.swing.JFrame {
         lblMinimize.setOpaque(false);
         btnMAXIMIZAR.setOpaque(true);
         lblMaximize.setOpaque(false);
+        configurarListeners();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+    
+    /*public anadir(){
+        this(new HashMap<>(){{
+            put("username", "Salvador Cabrera Parra");
+            put("email", "demo@example.com");
+        }});
+        
+        
+    }*/
     private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -379,6 +381,11 @@ public class anadir extends javax.swing.JFrame {
         btnCancelar.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
         btnCancelar.setText("CANCEL");
         btnCancelar.setBorder(null);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
         pnlFondo.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 420, 90, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -498,6 +505,11 @@ public class anadir extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectImage(lblTablet);
     }//GEN-LAST:event_lblTabletMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
@@ -506,13 +518,13 @@ public class anadir extends javax.swing.JFrame {
         this.repaint();
     }
     
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -531,12 +543,12 @@ public class anadir extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new anadir().setVisible(true);
             }
         });
-    }
+    }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxDuration;

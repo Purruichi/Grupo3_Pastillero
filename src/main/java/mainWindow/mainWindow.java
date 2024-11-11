@@ -38,17 +38,9 @@ public class mainWindow extends javax.swing.JFrame {
      * Creates new form mainWindow
      * @param userData
      */
-    public mainWindow(HashMap<String, String> userData){                        
+    public mainWindow(HashMap<String, String> userData){    
         this.userData = userData;
         initComponents();
-        showMeds();
-    }
-    public mainWindow(){
-        this(new HashMap<>(){{
-            put("username", "Salvador Cabrera Parra");
-            put("email", "demo@example.com");
-        }});
-        configurarListeners();
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
         setImageLabel(lblMinimize, "/Guion.png");
@@ -65,7 +57,18 @@ public class mainWindow extends javax.swing.JFrame {
         lblAdd.setOpaque(true);
         lblRemove.setOpaque(true);
         setLocationRelativeTo(null);
+        pnlInfoMedicine1.setOpaque(true);
+        configurarListeners();
+        showMeds();
     }
+    /*public mainWindow(){
+        this(new HashMap<>(){{
+            put("username", "Salvador Cabrera Parra");
+            put("email", "demo@example.com");
+        }});
+        configurarListeners();
+        
+    }*/
     
     private void configurarListeners() {
         // MouseListener compartido
@@ -163,15 +166,7 @@ public class mainWindow extends javax.swing.JFrame {
         EastPan = new javax.swing.JPanel();
         pnlScrollMedicines = new javax.swing.JScrollPane();
         pnlMedicines = new javax.swing.JPanel();
-        pnlInfoMedicine1 = new javax.swing.JPanel();
-        lblName1 = new javax.swing.JLabel();
-        lblNameMedicine1 = new javax.swing.JLabel();
-        lblRemainig1 = new javax.swing.JLabel();
-        lblRemainingMedicine1 = new javax.swing.JLabel();
-        lblDose1 = new javax.swing.JLabel();
-        lblDoseMedicines1 = new javax.swing.JLabel();
-        lblFrequency1 = new javax.swing.JLabel();
-        lblFrequencyMedicine1 = new javax.swing.JLabel();
+        pnlInfoMedicine1 = new PanelMedicines();
         pnlInfoMedicine2 = new javax.swing.JPanel();
         lblName2 = new javax.swing.JLabel();
         lblNameMedicine2 = new javax.swing.JLabel();
@@ -190,8 +185,6 @@ public class mainWindow extends javax.swing.JFrame {
         lblDoseMedicines = new javax.swing.JLabel();
         lblFrequency = new javax.swing.JLabel();
         lblFrequencyMedicine = new javax.swing.JLabel();
-        mainPanel = new javax.swing.JScrollPane();
-        medTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -300,6 +293,9 @@ public class mainWindow extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addPanelMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addPanelMouseEntered(evt);
+            }
         });
         addPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -319,9 +315,9 @@ public class mainWindow extends javax.swing.JFrame {
                 lblAddMouseExited(evt);
             }
         });
-        addPanel.add(lblAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, 40));
+        addPanel.add(lblAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        NorthPan.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 110, 90));
+        NorthPan.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 40, 40));
 
         pnlUsername.setBackground(new java.awt.Color(51, 153, 255));
         pnlUsername.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -409,9 +405,9 @@ public class mainWindow extends javax.swing.JFrame {
                 lblRemoveMouseExited(evt);
             }
         });
-        QuitPanel.add(lblRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 40, 40));
+        QuitPanel.add(lblRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        NorthPan.add(QuitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 110, 90));
+        NorthPan.add(QuitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 40, 40));
 
         JPanelFondo.add(NorthPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 150));
 
@@ -421,43 +417,6 @@ public class mainWindow extends javax.swing.JFrame {
 
         pnlMedicines.setBackground(new java.awt.Color(255, 255, 255));
         pnlMedicines.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pnlInfoMedicine1.setBackground(new java.awt.Color(153, 204, 255));
-        pnlInfoMedicine1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnlInfoMedicine1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblName1.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
-        lblName1.setText("NAME:");
-        pnlInfoMedicine1.add(lblName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 20));
-
-        lblNameMedicine1.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        lblNameMedicine1.setText("jLabel1");
-        pnlInfoMedicine1.add(lblNameMedicine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 240, 20));
-
-        lblRemainig1.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
-        lblRemainig1.setText("REMAINING:");
-        pnlInfoMedicine1.add(lblRemainig1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 20));
-
-        lblRemainingMedicine1.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        lblRemainingMedicine1.setText("jLabel1");
-        pnlInfoMedicine1.add(lblRemainingMedicine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 200, 20));
-
-        lblDose1.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
-        lblDose1.setText("DOSE:");
-        pnlInfoMedicine1.add(lblDose1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, 20));
-
-        lblDoseMedicines1.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        lblDoseMedicines1.setText("jLabel1");
-        pnlInfoMedicine1.add(lblDoseMedicines1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
-
-        lblFrequency1.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
-        lblFrequency1.setText("FREQUENCY:");
-        pnlInfoMedicine1.add(lblFrequency1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 80, 20));
-
-        lblFrequencyMedicine1.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        lblFrequencyMedicine1.setText("jLabel1");
-        pnlInfoMedicine1.add(lblFrequencyMedicine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 200, 20));
-
         pnlMedicines.add(pnlInfoMedicine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 330, 140));
 
         pnlInfoMedicine2.setBackground(new java.awt.Color(153, 204, 255));
@@ -539,30 +498,6 @@ public class mainWindow extends javax.swing.JFrame {
         pnlScrollMedicines.setViewportView(pnlMedicines);
 
         JPanelFondo.add(pnlScrollMedicines, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 750, 300));
-
-        medTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Medicine", "Remaining", "Dose", "Frequency"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        medTable.setGridColor(new java.awt.Color(204, 255, 255));
-        mainPanel.setViewportView(medTable);
-
-        JPanelFondo.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 190, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -704,6 +639,10 @@ public class mainWindow extends javax.swing.JFrame {
         lblRemove.setBackground(new Color(51,153,255));
         lblRemove.setBorder(null);
     }//GEN-LAST:event_lblRemoveMouseExited
+
+    private void addPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addPanelMouseEntered
     
     private void showMeds() {
         String userId = userData.get("id");
@@ -727,7 +666,7 @@ public class mainWindow extends javax.swing.JFrame {
                 data[0][3] = "NULL";
             }
         }
-        medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+        
         
         
     }
@@ -737,13 +676,14 @@ public class mainWindow extends javax.swing.JFrame {
         labelN.setIcon(icon);
         this.repaint();
     }
-    public static void main(String args[]) {
+    
+    //public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -762,12 +702,12 @@ public class mainWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainWindow().setVisible(true);
             }
         });
-    } 
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CodigoEmail;
@@ -786,37 +726,27 @@ public class mainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblAjustes;
     private javax.swing.JLabel lblDose;
-    private javax.swing.JLabel lblDose1;
     private javax.swing.JLabel lblDose2;
     private javax.swing.JLabel lblDoseMedicines;
-    private javax.swing.JLabel lblDoseMedicines1;
     private javax.swing.JLabel lblDoseMedicines2;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblFrequency;
-    private javax.swing.JLabel lblFrequency1;
     private javax.swing.JLabel lblFrequency2;
     private javax.swing.JLabel lblFrequencyMedicine;
-    private javax.swing.JLabel lblFrequencyMedicine1;
     private javax.swing.JLabel lblFrequencyMedicine2;
     private javax.swing.JLabel lblMaximize;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblMyPills;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblName2;
     private javax.swing.JLabel lblNameMedicine;
-    private javax.swing.JLabel lblNameMedicine1;
     private javax.swing.JLabel lblNameMedicine2;
     private javax.swing.JLabel lblRemainig;
-    private javax.swing.JLabel lblRemainig1;
     private javax.swing.JLabel lblRemainig2;
     private javax.swing.JLabel lblRemainingMedicine;
-    private javax.swing.JLabel lblRemainingMedicine1;
     private javax.swing.JLabel lblRemainingMedicine2;
     private javax.swing.JLabel lblRemove;
     private javax.swing.JLabel lblX;
-    private javax.swing.JScrollPane mainPanel;
-    private javax.swing.JTable medTable;
     private javax.swing.JPanel pnlAjustes;
     private javax.swing.JPanel pnlDate;
     private javax.swing.JPanel pnlEmail;
