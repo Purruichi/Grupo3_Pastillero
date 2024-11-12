@@ -31,7 +31,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblName1">
+    <Component class="javax.swing.JLabel" name="lblName">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="3"/>
@@ -44,7 +44,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNameMedicine1">
+    <Component class="javax.swing.JLabel" name="lblNameMedicine">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="0"/>
@@ -56,7 +56,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblRemainig1">
+    <Component class="javax.swing.JLabel" name="lblRemainig">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="3"/>
@@ -69,7 +69,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblRemainingMedicine1">
+    <Component class="javax.swing.JLabel" name="lblRemainingMedicine">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="0"/>
@@ -81,7 +81,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDose1">
+    <Component class="javax.swing.JLabel" name="lblDose">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="3"/>
@@ -94,7 +94,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDoseMedicines1">
+    <Component class="javax.swing.JLabel" name="lblDoseMedicine">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="0"/>
@@ -106,7 +106,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblFrequency1">
+    <Component class="javax.swing.JLabel" name="lblFrequency">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="3"/>
@@ -119,7 +119,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblFrequencyMedicine1">
+    <Component class="javax.swing.JLabel" name="lblFrequencyMedicine">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="PT Mono" size="13" style="0"/>

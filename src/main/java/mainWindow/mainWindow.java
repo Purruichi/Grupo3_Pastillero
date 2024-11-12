@@ -4,22 +4,13 @@
  */
 package mainWindow;
 
-import login.LogIn;
+import Client.Client;
 import Database.DatabaseFunctions;
 import anadir.anadir;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import quitar.quitar;
 
 /**
@@ -33,7 +24,12 @@ public class mainWindow extends javax.swing.JFrame {
     private quitar quitarWindow;
     private anadir anadirWindow;
     
+    private ArrayList<PanelMedicines> panelsMedicines = new ArrayList<>();
+    
+    Client cliente;
+    
     public HashMap<String, String> userData = new HashMap<>();
+    public ArrayList<HashMap<String, String>> userMeds = new ArrayList<>();
     /**
      * Creates new form mainWindow
      * @param userData
@@ -58,19 +54,11 @@ public class mainWindow extends javax.swing.JFrame {
         lblRemove.setOpaque(true);
         setLocationRelativeTo(null);
         pnlInfoMedicine1.setOpaque(true);
-        configurarListeners();
+        //configurarListeners();
         showMeds();
     }
-    /*public mainWindow(){
-        this(new HashMap<>(){{
-            put("username", "Salvador Cabrera Parra");
-            put("email", "demo@example.com");
-        }});
-        configurarListeners();
-        
-    }*/
     
-    private void configurarListeners() {
+    /*private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {
             @Override
@@ -125,7 +113,7 @@ public class mainWindow extends javax.swing.JFrame {
         lblMinimize.addMouseListener(mouseAdapter);
         btnMAXIMIZAR.addMouseListener(mouseAdapter2);
         lblMaximize.addMouseListener(mouseAdapter2);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,6 +284,9 @@ public class mainWindow extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 addPanelMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addPanelMouseExited(evt);
+            }
         });
         addPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -387,6 +378,17 @@ public class mainWindow extends javax.swing.JFrame {
         NorthPan.add(pnlAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, 40));
 
         QuitPanel.setBackground(new java.awt.Color(51, 153, 255));
+        QuitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseExited(evt);
+            }
+        });
         QuitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblRemove.setBackground(new java.awt.Color(51, 153, 255));
@@ -551,33 +553,10 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addPanelMouseClicked
 
     private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
-        // Verificar si la ventana ya está abierta
-        if (quitarWindow == null || !quitarWindow.isShowing()) {
-            // Crear una nueva instancia de la ventana "quitar" si no está abierta
-            quitarWindow = new quitar(userData);
-
-            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
-            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(true);
-                    mainWindow.this.showMeds();
-                }
-                @Override
-                public void windowOpened(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(false);
-                }
-            });
-
-            // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
-
-            // Mostrar la ventana "quitar"
-            quitarWindow.setVisible(true);
-        }
+        
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
-        // TODO add your handling code here:
         
     }//GEN-LAST:event_lblAjustesMouseClicked
 
@@ -617,35 +596,78 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_titleBarMousePressed
 
     private void lblAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseEntered
-        // TODO add your handling code here:
-        lblAdd.setBackground(Color.GREEN);
-        lblAdd.setBorder(BorderFactory.createLineBorder(new Color(56,121,71), 2, true));
+        
     }//GEN-LAST:event_lblAddMouseEntered
 
     private void lblAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseExited
-        // TODO add your handling code here:
-        lblAdd.setBackground(new Color(51,153,255));
-        lblAdd.setBorder(null);
+        
     }//GEN-LAST:event_lblAddMouseExited
 
     private void lblRemoveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseEntered
-        // TODO add your handling code here:
-        lblRemove.setBackground(Color.RED);
-        lblRemove.setBorder(BorderFactory.createLineBorder(new Color(139,51,69), 2, true));
+        
     }//GEN-LAST:event_lblRemoveMouseEntered
 
     private void lblRemoveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseExited
-        // TODO add your handling code here:
-        lblRemove.setBackground(new Color(51,153,255));
-        lblRemove.setBorder(null);
+        
     }//GEN-LAST:event_lblRemoveMouseExited
 
     private void addPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseEntered
-        // TODO add your handling code here:
+        setImageLabel(lblAdd, "/agregarVerde.png");
     }//GEN-LAST:event_addPanelMouseEntered
+
+    private void addPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseExited
+        setImageLabel(lblAdd, "/agregar.png");
+    }//GEN-LAST:event_addPanelMouseExited
+
+    private void QuitPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseEntered
+        setImageLabel(lblRemove, "/borrarRojo.png");
+    }//GEN-LAST:event_QuitPanelMouseEntered
+
+    private void QuitPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseExited
+        setImageLabel(lblRemove, "/borrar.png");
+    }//GEN-LAST:event_QuitPanelMouseExited
+
+    private void QuitPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseClicked
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData);
+
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+
+            // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
+
+            // Mostrar la ventana "quitar"
+            quitarWindow.setVisible(true);
+        }
+    }//GEN-LAST:event_QuitPanelMouseClicked
     
     private void showMeds() {
-        String userId = userData.get("id");
+        
+        HashMap<String, Object> session = new HashMap<>();
+        session.put("user_id", userData.get("id"));
+        session = cliente.sentMessage("/getUserMeds", session);
+        
+        userMeds = (ArrayList<HashMap<String, String>>)session.get("userMeds");
+        for (HashMap<String, String> med : userMeds) {
+            panelsMedicines.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frequency")), Integer.parseInt(med.get("remaining"))));
+        }
+        for (PanelMedicines pnl : panelsMedicines){
+            // Añadirlos en bucle anidado doble CAMBIAR DE ITERAR OBJETOS A ITERAR NUMEROS HAS SIZE()/2 Y DESPUES ANIDAR OTRO "n" DE DOS ITERACIONES (2 COLUMNAS)
+        }
+        
+        /*String userId = userData.get("id");
         ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
         String[] columnNames = {"Medicine", "Amount", "Dose", "Frequency"};
         Object[][] data = new Object[meds.size()][4];
@@ -665,10 +687,7 @@ public class mainWindow extends javax.swing.JFrame {
                 data[0][2] = "NULL";
                 data[0][3] = "NULL";
             }
-        }
-        
-        
-        
+        }*/
     }
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));

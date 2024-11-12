@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import properties.properties;
-import Customer.Customer;
-import CustomerControler.CustomerControler;
+import Domain.Customer;
+import Controler.CustomerControler;
+import Controler.MedicineControler;
 import Message.Message;
 
 public class SocketServer extends Thread {
@@ -71,10 +72,18 @@ public class SocketServer extends Thread {
                     case "/checkLogIn":
                         HashMap<String, String> userData = CustomerControler.checkLogIn((String)session.get("username"), (String)session.get("password"));
                         mensajeOut.setContext("/checkLogInResponse");
-                        HashMap<String, Object> sessionOut = new HashMap<>();
-                        sessionOut.put("check", true);
-                        sessionOut.put("userData", userData);
-                        mensajeOut.setSession(sessionOut);
+                        session = new HashMap<>();
+                        session.put("check", true);
+                        session.put("userData", userData);
+                        mensajeOut.setSession(session);
+                        objectOutputStream.writeObject(mensajeOut);
+                        
+                    case "/getUserMeds":
+                        ArrayList<HashMap<String, String>> userMeds = MedicineControler.getUserMeds(String.valueOf(session.get("user_id")));
+                        mensajeOut.setContext("/getMedicinesResponse");
+                        session = new HashMap<>();
+                        session.put("userMeds", userMeds);
+                        mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
 
                     default:

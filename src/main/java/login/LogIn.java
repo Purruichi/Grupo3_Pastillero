@@ -29,7 +29,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
-        configurarListeners();
+        //configurarListeners();
         setImageLabel(bgImage, "/LogInBackground.png");
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
@@ -43,7 +43,7 @@ public class LogIn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cliente = new Client();
     }
-    private void configurarListeners() {
+    /*private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {
             @Override
@@ -98,7 +98,7 @@ public class LogIn extends javax.swing.JFrame {
         lblMinimize.addMouseListener(mouseAdapter);
         btnMAXIMIZAR.addMouseListener(mouseAdapter2);
         lblMaximize.addMouseListener(mouseAdapter2);
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -455,6 +455,8 @@ public class LogIn extends javax.swing.JFrame {
         
         if (logedIn)
             LogedIn(userData);
+        else
+            lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
         
         /*ArrayList<HashMap<String, String>> userData = DatabaseFunctions.SELECT("users", new String[0], "username", usernameField.getText());
         if (userData.isEmpty()){
@@ -466,9 +468,6 @@ public class LogIn extends javax.swing.JFrame {
                 lblErrorLogIn.setText("<html>Username or password are incorrect<html>");
             }
         }*/
-        /*String[] condColumns = {"username"};
-        String[] condValues = {"AndyChupipandy"};
-        DatabaseFunctions.DELETE("users", condColumns, condValues);*/
     }//GEN-LAST:event_panelLogInButtonMouseClicked
 
     private void passFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFieldFocusGained
