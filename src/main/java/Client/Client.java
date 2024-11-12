@@ -69,6 +69,7 @@ public class Client {
                         session = mensajeVuelta.getSession();
                         
                     case "/getUserMedsResponse":
+                        System.out.println("Llega");
                         session = mensajeVuelta.getSession();
                         
                     default:

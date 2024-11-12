@@ -80,7 +80,7 @@ public class SocketServer extends Thread {
                         
                     case "/getUserMeds":
                         ArrayList<HashMap<String, String>> userMeds = MedicineControler.getUserMeds(String.valueOf(session.get("user_id")));
-                        mensajeOut.setContext("/getMedicinesResponse");
+                        mensajeOut.setContext("/getUserMedsResponse");
                         session = new HashMap<>();
                         session.put("userMeds", userMeds);
                         mensajeOut.setSession(session);

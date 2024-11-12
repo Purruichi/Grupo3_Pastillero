@@ -26,7 +26,7 @@ public class mainWindow extends javax.swing.JFrame {
     
     private ArrayList<PanelMedicines> panelsMedicines = new ArrayList<>();
     
-    Client cliente;
+    Client cliente = new Client();
     
     public HashMap<String, String> userData = new HashMap<>();
     public ArrayList<HashMap<String, String>> userMeds = new ArrayList<>();
