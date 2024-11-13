@@ -718,7 +718,7 @@ public class mainWindow extends javax.swing.JFrame {
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
         Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
         labelN.setIcon(icon);
-        this.repaint();
+        labelN.repaint();
     }
     
     //public static void main(String args[]) {

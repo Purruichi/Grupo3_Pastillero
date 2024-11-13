@@ -28,4 +28,14 @@ import java.util.HashMap;public class CustomerControler {
         }
         return userData;
     }
+    
+    public static boolean signUpUser(String[] values) {
+        try {
+            DatabaseFunctions.INSERT("users", values);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
 }

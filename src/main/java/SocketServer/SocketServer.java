@@ -28,6 +28,7 @@ public class SocketServer extends Thread {
 		start();
 	}
 
+        @Override
 	public void run() {
             InputStream in = null;
             OutputStream out = null;
@@ -44,42 +45,18 @@ public class SocketServer extends Thread {
                 HashMap<String,Object> session = mensajeIn.getSession();
                 
                 switch (mensajeIn.getContext()) {
-                    /*case "/getCustomers":
-                            customerControler = new CustomerControler();
-                            ArrayList<Customer> lista=new ArrayList<Customer>();
-                            customerControler.getCustomers(lista);
-                            mensajeOut.setContext("/getCustomersResponse");
-                            //HashMap<String,Object> session=new HashMap<String, Object>();
-                            session.put("Customers",lista);
-                            mensajeOut.setSession(session);
-                            objectOutputStream.writeObject(mensajeOut);		    		
-                            break;
-                            case "/getCustomer":
-                                    int id= (int) session.get("id");
-                                    customerControler = new CustomerControler();
-                                    Customer cu=customerControler.getCustomer(id);
-                                    if (cu!=null){
-                                            System.out.println("id:"+cu.getId());
-                                    }else {
-                                            System.out.println("No encontrado en la base de datos");
-                                    }
 
-                                    mensajeOut.setContext("/getCustomerResponse");
-                                    session.put("Customer",cu);
-                                    mensajeOut.setSession(session);
-                                    objectOutputStream.writeObject(mensajeOut);
-                                    break;*/
                     
-                    case "/getUserMeds":
+                    case "/getUserMeds" -> {
                         ArrayList<HashMap<String, String>> userMeds = MedicineControler.getUserMeds(String.valueOf(session.get("user_id")));
                         mensajeOut.setContext("/getUserMedsResponse");
                         session = new HashMap<>();
                         session.put("userMeds", userMeds);
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
-                        break;
+                    }
                     
-                    case "/checkLogIn":
+                    case "/checkLogIn" -> {
                         HashMap<String, String> userData = CustomerControler.checkLogIn((String)session.get("username"), (String)session.get("password"));
                         mensajeOut.setContext("/checkLogInResponse");
                         session = new HashMap<>();
@@ -87,23 +64,53 @@ public class SocketServer extends Thread {
                         session.put("userData", userData);
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
-                        break;
+                    }
                         
-                    case "/getMedicineName":
+                    case "/getMedicineName" -> {
                         String name = MedicineControler.getMedicineName((int)session.get("id"));
                         mensajeOut.setContext("/getMedicineNameResponse");
                         session = new HashMap<>();
                         session.put("name", name);
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
-                        break;
+                    }
+                        
+                    case "/signUpUser" -> {
+                        boolean check = CustomerControler.signUpUser((String[])session.get("values"));
+                        mensajeOut.setContext("/signUpUserResponse");
+                        session = new HashMap<>();
+                        session.put("check", check);
+                        mensajeOut.setSession(session);
+                        objectOutputStream.writeObject(mensajeOut);
+                    }
 
-                    default:
-                        System.out.println("\nParámetro no encontrado");
-                        break;
+                    default -> System.out.println("\nParámetro no encontrado");
                 }
-
-                //Lógica del controlador 
+                /*case "/getCustomers":
+                customerControler = new CustomerControler();
+                ArrayList<Customer> lista=new ArrayList<Customer>();
+                customerControler.getCustomers(lista);
+                mensajeOut.setContext("/getCustomersResponse");
+                //HashMap<String,Object> session=new HashMap<String, Object>();
+                session.put("Customers",lista);
+                mensajeOut.setSession(session);
+                objectOutputStream.writeObject(mensajeOut);
+                break;
+                case "/getCustomer":
+                int id= (int) session.get("id");
+                customerControler = new CustomerControler();
+                Customer cu=customerControler.getCustomer(id);
+                if (cu!=null){
+                System.out.println("id:"+cu.getId());
+                }else {
+                System.out.println("No encontrado en la base de datos");
+                }
+                mensajeOut.setContext("/getCustomerResponse");
+                session.put("Customer",cu);
+                mensajeOut.setSession(session);
+                objectOutputStream.writeObject(mensajeOut);
+                break;*/
+                                //Lógica del controlador 
                 //System.out.println("\n1.- He leído: "+mensaje.getContext());
                 //System.out.println("\n2.- He leído: "+(String)mensaje.getSession().get("Nombre"));
 
