@@ -26,16 +26,18 @@ public class mainWindow extends javax.swing.JFrame {
     
     private ArrayList<PanelMedicines> panelsMedicines = new ArrayList<>();
     
-    Client cliente = new Client();
+    Client cliente;
     
     public HashMap<String, String> userData = new HashMap<>();
     public ArrayList<HashMap<String, String>> userMeds = new ArrayList<>();
     /**
      * Creates new form mainWindow
      * @param userData
+     * @param cliente
      */
-    public mainWindow(HashMap<String, String> userData){    
+    public mainWindow(HashMap<String, String> userData, Client cliente){    
         this.userData = userData;
+        this.cliente = cliente;
         initComponents();
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");

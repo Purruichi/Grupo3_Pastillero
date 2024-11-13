@@ -69,6 +69,16 @@ public class SocketServer extends Thread {
                                     mensajeOut.setSession(session);
                                     objectOutputStream.writeObject(mensajeOut);
                                     break;*/
+                    
+                    case "/getUserMeds":
+                        ArrayList<HashMap<String, String>> userMeds = MedicineControler.getUserMeds(String.valueOf(session.get("user_id")));
+                        mensajeOut.setContext("/getUserMedsResponse");
+                        session = new HashMap<>();
+                        session.put("userMeds", userMeds);
+                        mensajeOut.setSession(session);
+                        objectOutputStream.writeObject(mensajeOut);
+                        break;
+                    
                     case "/checkLogIn":
                         HashMap<String, String> userData = CustomerControler.checkLogIn((String)session.get("username"), (String)session.get("password"));
                         mensajeOut.setContext("/checkLogInResponse");
@@ -77,14 +87,7 @@ public class SocketServer extends Thread {
                         session.put("userData", userData);
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
-                        
-                    case "/getUserMeds":
-                        ArrayList<HashMap<String, String>> userMeds = MedicineControler.getUserMeds(String.valueOf(session.get("user_id")));
-                        mensajeOut.setContext("/getUserMedsResponse");
-                        session = new HashMap<>();
-                        session.put("userMeds", userMeds);
-                        mensajeOut.setSession(session);
-                        objectOutputStream.writeObject(mensajeOut);
+                        break;
 
                     default:
                         System.out.println("\nParámetro no encontrado");

@@ -606,7 +606,7 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMINIMIZARMouseClicked
     
     private void LogedIn(HashMap<String, String> userData){
-        mainWindow menuWindow = new mainWindow(userData);
+        mainWindow menuWindow = new mainWindow(userData, cliente);
         menuWindow.setVisible(true);
         dispose();
     }
