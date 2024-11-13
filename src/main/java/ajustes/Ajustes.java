@@ -6,7 +6,7 @@ package ajustes;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import mainWindow.mainWindow;
+
 
 /**
  *
@@ -15,6 +15,8 @@ import mainWindow.mainWindow;
 public class Ajustes extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
+    boolean notificacion;
+    
     /**
      * Creates new form Ajustes
      */
@@ -27,16 +29,24 @@ public class Ajustes extends javax.swing.JFrame {
         //panelManualUso.setVisible(false);
     
     }
+    public boolean getNotificacion(){
+        return notificacion;
+    }
     
+    
+    //POR IMPLEMENTAR
     public void cambiarIdioma(String idioma, String pais) {
         Locale localizacion = new Locale(idioma, pais);
         ResourceBundle bundle = ResourceBundle.getBundle("miPaquete.miArchivoDeIdiomas", localizacion);
     
         // Cambiar textos de la interfaz
-        lblAjustes.setText(bundle.getString("Ajustes"));
-        jButtonIdioma.setText(bundle.getString("Soporte y ayuda"));
-        jButtonNotificacion.setText(bundle.getString("Idioma"));
-        jButtonSoporte.setText(bundle.getString("Soporte y ayuda"));
+        lblAjustes.setText(bundle.getString("ajustes"));
+        jButtonIdioma.setText(bundle.getString("idioma"));
+        jButtonNotificacion.setText(bundle.getString("notificaciones"));
+        jButtonSoporte.setText(bundle.getString("soporte_ayuda"));
+        jNotificacionONOFF.setText(bundle.getString("notificaciones_desactivadas"));
+        jManualUso.setText(bundle.getString("manual_uso"));
+        jNumContacto.setText(bundle.getString("num_contacto"));
        
     }   
 
@@ -280,9 +290,11 @@ public class Ajustes extends javax.swing.JFrame {
     private void jNotificacionONOFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNotificacionONOFFActionPerformed
         if (jNotificacionONOFF.isSelected()){
             jNotificacionONOFF.setText("Notificaciones activadas");
+            notificacion = true;
         }
         else{
             jNotificacionONOFF.setText("Notificaciones desactivadas");
+            notificacion=false;
         }
     }//GEN-LAST:event_jNotificacionONOFFActionPerformed
 

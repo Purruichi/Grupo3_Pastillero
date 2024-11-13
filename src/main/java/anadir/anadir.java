@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import login.LogIn;
 import mainWindow.mainWindow;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -62,6 +64,8 @@ public class anadir extends javax.swing.JFrame {
         
         
     }*/
+    
+    
     private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -518,6 +522,20 @@ public class anadir extends javax.swing.JFrame {
         this.repaint();
     }
     
+    
+    public void cambiarIdioma(String idioma, String pais) {
+        Locale localizacion = new Locale(idioma, pais);
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", localizacion);
+    
+        // Cambiar textos de la interfaz
+        setTitle(bundle.getString("anadir_usuario"));  // Título de la ventana
+        lblType.setText(bundle.getString("tipo"));
+        lblTimeline.setText(bundle.getString("cronograma"));
+        btnAnadir.setText(bundle.getString("boton_guardar"));
+        btnCancelar.setText(bundle.getString("boton_cancelar"));
+        txtFieldName.setText(bundle.getString("nombre_medicina"));
+        txtFieldQuantity.setText(bundle.getString("cantidad_medicina"));
+    }
     /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

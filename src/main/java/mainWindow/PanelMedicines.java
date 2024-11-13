@@ -5,6 +5,8 @@
 package mainWindow;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -19,6 +21,7 @@ public class PanelMedicines extends javax.swing.JPanel {
         initComponents();
         setSize(330, 140);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

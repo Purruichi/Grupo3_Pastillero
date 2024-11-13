@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import mainWindow.mainWindow;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -618,6 +620,7 @@ public class LogIn extends javax.swing.JFrame {
         labelN.setIcon(icon);
         this.repaint();
     }
+    
     
     /**
      * @param args the command line arguments
