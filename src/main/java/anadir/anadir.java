@@ -20,12 +20,13 @@ import login.LogIn;
 import mainWindow.mainWindow;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import Languages.*;
 
 /**
  *
  * @author javieribarra
  */
-public class anadir extends javax.swing.JFrame {
+public class anadir extends javax.swing.JFrame implements IdiomaListener {
     
     private boolean isMouseInside = false;
     int xMouse, yMouse;
@@ -54,6 +55,8 @@ public class anadir extends javax.swing.JFrame {
         configurarListeners();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        IdiomaManager.getInstance().addIdiomaListener(this);
+        actualizarTextos();
     }
     
     /*public anadir(){
@@ -64,6 +67,22 @@ public class anadir extends javax.swing.JFrame {
         
         
     }*/
+    
+    @Override
+    public void onIdiomaChanged(){
+        actualizarTextos();
+    }
+    
+    public void actualizarTextos(){
+        lblType.setText(IdiomaManager.getInstance().getString("lblType"));
+        jLabel1.setText(IdiomaManager.getInstance().getString("jLabel1"));
+        lblTimeline.setText(IdiomaManager.getInstance().getString("lblTimeline"));
+        btnCancelar.setText(IdiomaManager.getInstance().getString("btnCancelar"));
+        //boxDuration.setText(IdiomaManager.getInstance().getString("boxDuration"));
+        txtFieldName.setText(IdiomaManager.getInstance().getString("txtFieldName"));
+        txtFieldQuantity.setText(IdiomaManager.getInstance().getString("txtFieldQuantity"));
+        
+    }
     
     
     private void configurarListeners() {

@@ -21,12 +21,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import quitar.quitar;
+import Languages.*;
 
 /**
  *
  * @author andre
  */
-public class mainWindow extends javax.swing.JFrame {
+public class mainWindow extends javax.swing.JFrame implements IdiomaListener{
     
     private boolean isMouseInside = false;
     int xMouse, yMouse;
@@ -60,6 +61,8 @@ public class mainWindow extends javax.swing.JFrame {
         pnlInfoMedicine1.setOpaque(true);
         configurarListeners();
         showMeds();
+        IdiomaManager.getInstance().addIdiomaListener(this);
+        actualizarTextos();
     }
     /*public mainWindow(){
         this(new HashMap<>(){{
@@ -69,6 +72,15 @@ public class mainWindow extends javax.swing.JFrame {
         configurarListeners();
         
     }*/
+    
+    private void actualizarTextos() {
+        
+    }
+    @Override
+    public void onIdiomaChanged() {
+        actualizarTextos();
+    }
+    
     
     private void configurarListeners() {
         // MouseListener compartido

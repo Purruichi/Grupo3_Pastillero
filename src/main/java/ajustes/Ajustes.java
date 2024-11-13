@@ -6,6 +6,9 @@ package ajustes;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import Languages.*;
+
+
 
 
 /**
@@ -22,6 +25,7 @@ public class Ajustes extends javax.swing.JFrame {
      */
     public Ajustes() {
         initComponents();
+        jComboBoxIdiomas.addActionListener(evt -> cambiarIdioma());
         jNotificacionONOFF.setVisible(false);
         jNumContacto.setVisible(false);
         jManualUso.setVisible(false);
@@ -35,20 +39,26 @@ public class Ajustes extends javax.swing.JFrame {
     
     
     //POR IMPLEMENTAR
-    public void cambiarIdioma(String idioma, String pais) {
-        Locale localizacion = new Locale(idioma, pais);
-        ResourceBundle bundle = ResourceBundle.getBundle("miPaquete.miArchivoDeIdiomas", localizacion);
+    private void cambiarIdioma() {
+        String selectedLanguage = (String) jComboBoxIdiomas.getSelectedItem();
+        if ("English".equals(selectedLanguage)) {
+            IdiomaManager.getInstance().setLocale(new Locale("en", "US"));
+        } else if ("Español".equals(selectedLanguage)) {
+            IdiomaManager.getInstance().setLocale(new Locale("es", "ES"));
+        }
+    }
     
-        // Cambiar textos de la interfaz
-        lblAjustes.setText(bundle.getString("ajustes"));
-        jButtonIdioma.setText(bundle.getString("idioma"));
-        jButtonNotificacion.setText(bundle.getString("notificaciones"));
-        jButtonSoporte.setText(bundle.getString("soporte_ayuda"));
-        jNotificacionONOFF.setText(bundle.getString("notificaciones_desactivadas"));
-        jManualUso.setText(bundle.getString("manual_uso"));
-        jNumContacto.setText(bundle.getString("num_contacto"));
-       
-    }   
+    private void actualizarTextos(){
+        IdiomaManager idiomaManager = IdiomaManager.getInstance();
+        jButtonNotificacion.setText(idiomaManager.getString("jButtonNotificacion"));
+        jButtonIdioma.setText(idiomaManager.getString("jButtonIdioma"));
+        jButtonSoporte.setText(idiomaManager.getString("jButtonSoporte"));
+        jNotificacionONOFF.setText(idiomaManager.getString("jNotificacionONOFF"));
+        //jComboBoxIdiomas.setText(idiomaManager.getString("jComboBoxIdiomas"));
+        jNumContacto.setText(idiomaManager.getString("jNumContacto"));
+        jManualUso.setText(idiomaManager.getString("jManualUso"));
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -299,7 +309,8 @@ public class Ajustes extends javax.swing.JFrame {
     }//GEN-LAST:event_jNotificacionONOFFActionPerformed
 
     private void jComboBoxIdiomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIdiomasActionPerformed
-        // TODO add your handling code here:    
+        // TODO add your handling code here:  
+        
     }//GEN-LAST:event_jComboBoxIdiomasActionPerformed
 
     private void jNumContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNumContactoActionPerformed

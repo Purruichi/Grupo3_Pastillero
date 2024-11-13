@@ -8,12 +8,13 @@ import java.util.*;
 import javax.swing.*;
 import Database.DatabaseFunctions;
 import mainWindow.mainWindow;
+import Languages.*;
 
 /**
  *
  * @author salvadorcabreraparra
  */
-public class quitar extends javax.swing.JFrame {
+public class quitar extends javax.swing.JFrame implements IdiomaListener {
 
     private HashMap<String, String> userData;
     int xMouse,yMouse, selectedRow;
@@ -25,6 +26,8 @@ public class quitar extends javax.swing.JFrame {
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
         cargarMedicamentos();
+        IdiomaManager.getInstance().addIdiomaListener(this);
+        actualizarTextos();
         
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
@@ -39,6 +42,16 @@ public class quitar extends javax.swing.JFrame {
         for (HashMap<String, String> med : medicamentos) {
             model.addRow(new Object[]{med.get("name"), med.get("remaining_amount")});*/
         showMeds();
+    }
+    
+    private void actualizarTextos() {
+        medicamentos.setText(IdiomaManager.getInstance().getString("medicamentos"));
+        textoAceptar.setText(IdiomaManager.getInstance().getString("textoAceptar"));
+    }
+    
+    @Override
+    public void onIdiomaChanged() {
+        actualizarTextos();
     }
 
     /**
