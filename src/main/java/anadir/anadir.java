@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import login.LogIn;
 import mainWindow.mainWindow;
@@ -160,12 +161,12 @@ public class anadir extends javax.swing.JFrame {
         lblDrops = new javax.swing.JLabel();
         pnlGeneralInformation = new javax.swing.JPanel();
         txtFieldName = new javax.swing.JTextField();
-        txtFieldQuantity = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        txtFieldDose = new javax.swing.JTextField();
         pnlTimeline = new javax.swing.JPanel();
         lblTimeline = new javax.swing.JLabel();
-        textFieldFrequency = new javax.swing.JTextField();
-        textFieldDose = new javax.swing.JTextField();
+        txtFieldFrequency = new javax.swing.JTextField();
+        txtFieldDuration = new javax.swing.JTextField();
         btnAnadir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -314,29 +315,29 @@ public class anadir extends javax.swing.JFrame {
         });
         pnlGeneralInformation.add(txtFieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 550, -1));
 
-        txtFieldQuantity.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
-        txtFieldQuantity.setForeground(new java.awt.Color(153, 153, 153));
-        txtFieldQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFieldQuantity.setText("Enter the dose of the medication.");
-        txtFieldQuantity.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFieldQuantityFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFieldQuantityFocusLost(evt);
-            }
-        });
-        txtFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldQuantityActionPerformed(evt);
-            }
-        });
-        pnlGeneralInformation.add(txtFieldQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 550, -1));
-
         jLabel1.setBackground(new java.awt.Color(153, 204, 255));
         jLabel1.setFont(new java.awt.Font("PT Mono", 3, 18)); // NOI18N
         jLabel1.setText("GENERAL INFORMATION");
         pnlGeneralInformation.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
+
+        txtFieldDose.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
+        txtFieldDose.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldDose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldDose.setText("Enter the dose of the medication.");
+        txtFieldDose.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFieldDoseFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFieldDoseFocusLost(evt);
+            }
+        });
+        txtFieldDose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldDoseActionPerformed(evt);
+            }
+        });
+        pnlGeneralInformation.add(txtFieldDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 550, -1));
 
         pnlFondo.add(pnlGeneralInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 720, 140));
 
@@ -347,28 +348,28 @@ public class anadir extends javax.swing.JFrame {
         lblTimeline.setText("TIMELINE & SCHEDULE");
         pnlTimeline.add(lblTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        textFieldFrequency.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
-        textFieldFrequency.setForeground(new java.awt.Color(153, 153, 153));
-        textFieldFrequency.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldFrequency.setText("Enter the frequency of the medicine");
-        textFieldFrequency.setPreferredSize(new java.awt.Dimension(279, 23));
-        textFieldFrequency.setRequestFocusEnabled(false);
-        textFieldFrequency.setSelectionEnd(33);
-        textFieldFrequency.setSelectionStart(33);
-        textFieldFrequency.addActionListener(new java.awt.event.ActionListener() {
+        txtFieldFrequency.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        txtFieldFrequency.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldFrequency.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldFrequency.setText("Enter the frequency of the medicine");
+        txtFieldFrequency.setPreferredSize(new java.awt.Dimension(279, 23));
+        txtFieldFrequency.setRequestFocusEnabled(false);
+        txtFieldFrequency.setSelectionEnd(33);
+        txtFieldFrequency.setSelectionStart(33);
+        txtFieldFrequency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldFrequencyActionPerformed(evt);
+                txtFieldFrequencyActionPerformed(evt);
             }
         });
-        pnlTimeline.add(textFieldFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 550, -1));
+        pnlTimeline.add(txtFieldFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 550, -1));
 
-        textFieldDose.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
-        textFieldDose.setForeground(new java.awt.Color(153, 153, 153));
-        textFieldDose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldDose.setText("Enter the duration of the medicine");
-        textFieldDose.setCaretPosition(33);
-        textFieldDose.setPreferredSize(new java.awt.Dimension(279, 23));
-        pnlTimeline.add(textFieldDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 550, -1));
+        txtFieldDuration.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        txtFieldDuration.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldDuration.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldDuration.setText("Enter the duration of the medicine");
+        txtFieldDuration.setCaretPosition(33);
+        txtFieldDuration.setPreferredSize(new java.awt.Dimension(279, 23));
+        pnlTimeline.add(txtFieldDuration, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 550, -1));
 
         pnlFondo.add(pnlTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 720, 120));
 
@@ -417,9 +418,9 @@ public class anadir extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldNameActionPerformed
 
-    private void txtFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldQuantityActionPerformed
+    private void txtFieldDoseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldDoseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldQuantityActionPerformed
+    }//GEN-LAST:event_txtFieldDoseActionPerformed
 
     private void txtFieldNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusGained
         if(txtFieldName.getText().equals("Ingrese el nombre de la medicina")){
@@ -427,11 +428,11 @@ public class anadir extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFieldNameFocusGained
 
-    private void txtFieldQuantityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusGained
-        if(txtFieldQuantity.getText().equals("Ingrese la cantidad de la medicina")){
-            txtFieldQuantity.setText("");
+    private void txtFieldDoseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDoseFocusGained
+        if(txtFieldDose.getText().equals("Ingrese la cantidad de la medicina")){
+            txtFieldDose.setText("");
         }
-    }//GEN-LAST:event_txtFieldQuantityFocusGained
+    }//GEN-LAST:event_txtFieldDoseFocusGained
 
     private void txtFieldNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusLost
         if(txtFieldName.getText().equals("")){
@@ -439,25 +440,32 @@ public class anadir extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFieldNameFocusLost
 
-    private void txtFieldQuantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusLost
-        if(txtFieldQuantity.getText().equals("")){
-            txtFieldQuantity.setText("Ingrese la cantidad de la medicina");
+    private void txtFieldDoseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDoseFocusLost
+        if(txtFieldDose.getText().equals("")){
+            txtFieldDose.setText("Ingrese la cantidad de la medicina");
         }
-    }//GEN-LAST:event_txtFieldQuantityFocusLost
+    }//GEN-LAST:event_txtFieldDoseFocusLost
 
     private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
         
         HashMap<String, Object> sessionIn = new HashMap<>();
-        String[] values = new String[6];
-        values[0] = userData.get("id");
+        String[] values = new String[5];
+        values[0] = userData.get("id");             // en el 0 va el id de la persona, que conecta las distintas tablas en la base de datos.
         ArrayList<HashMap<String, String>> medicinas = DatabaseFunctions.SELECT("medicines", new String[0], "name", txtFieldName.getText());
+        if (medicinas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La medicina no existe en la base de datos.");
+            return;  // Salimos del método si la medicina no existe
+        }
         String medId = medicinas.get(0).get("id");
-        values[1] = medId;
-        values[2] = txtFieldQuantity.getText();
-        values[3] = "0";
-        values[4] = "2024-10-04 08:00:00.000";
-        values[5] = txtFieldQuantity.getText();
+        values[1] = txtFieldName.getText();         // en el 1 va el nombre de la medicina
+        values[2] = txtFieldDose.getText();         // en el 2 va la dosis de la medicacion
+        values[3] = txtFieldDuration.getText();     // en el 3 va la duracion de la medicacion ej: 1 semana 
+        values[4] = txtFieldFrequency.getText();      // en el 4 va cada cuanto se toma el medicamenot ej: cada 8h
         DatabaseFunctions.INSERT("user_meds", values);
+        
+        
+        HashMap<String, Object> sessionOut = cliente.sentMessage("/checkLogIn", sessionIn);
+        
         dispose();
     }//GEN-LAST:event_btnAnadirMouseClicked
     
@@ -531,9 +539,9 @@ public class anadir extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    private void textFieldFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFrequencyActionPerformed
+    private void txtFieldFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldFrequencyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldFrequencyActionPerformed
+    }//GEN-LAST:event_txtFieldFrequencyActionPerformed
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
@@ -595,11 +603,11 @@ public class anadir extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGeneralInformation;
     private javax.swing.JPanel pnlTimeline;
     private javax.swing.JPanel pnlType;
-    private javax.swing.JTextField textFieldDose;
-    private javax.swing.JTextField textFieldFrequency;
     private javax.swing.JPanel titleBar;
+    private javax.swing.JTextField txtFieldDose;
+    private javax.swing.JTextField txtFieldDuration;
+    private javax.swing.JTextField txtFieldFrequency;
     private javax.swing.JTextField txtFieldName;
-    private javax.swing.JTextField txtFieldQuantity;
     private javax.swing.JLabel windowIcon;
     // End of variables declaration//GEN-END:variables
 }

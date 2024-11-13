@@ -30,4 +30,8 @@ public class CustomerControler {
             }
             return userData;
         }
+        
+        public static HashMap<String, String> addMedicine(String username, String password) {
+            
+        }
 }
