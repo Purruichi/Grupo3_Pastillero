@@ -42,43 +42,35 @@ public class Client {
 		
 		Message mensajeEnvio=new Message();
 		Message mensajeVuelta=new Message();
-		mensajeEnvio.setContext(Context);///getCustomer"
+		mensajeEnvio.setContext(Context);
 		mensajeEnvio.setSession(session);
 		this.sent(mensajeEnvio,mensajeVuelta);
 		
 		
 		switch (mensajeVuelta.getContext()) {
-                    /*case "/getCustomersResponse":
-                        ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
-                         for (Customer customer : customerList) {			
-                                        System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
-                                } 
-                        break;
                         
-                    case "/getCustomerResponse":
-                        session=mensajeVuelta.getSession();
-                        Customer customer =(Customer) (session.get("Customer"));
-                        if (customer!=null) {
-                                System.out.println("He leído el id: " + customer.getId() + " con nombre: " + customer.getName());
-                        }else {
-                                System.out.println("No se ha recuperado nada de la base de datos");
-                        }
-                        break;*/
+                    case "/checkLogInResponse" -> session = mensajeVuelta.getSession();
                         
-                    case "/checkLogInResponse":
-                        session = mensajeVuelta.getSession();
-                    
-                    
+                    case "/getUserMedsResponse" -> session = mensajeVuelta.getSession();
                         
-                    case "/getUserMedsResponse":
-                        System.out.println("Llega");
-                        session = mensajeVuelta.getSession();
-                        
-                    default:
-                        System.out.println("\nError a la vuelta");
-                        break;
+                    default -> System.out.println("\nError a la vuelta");
 		
 		}
+            /*case "/getCustomersResponse":
+            ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
+            for (Customer customer : customerList) {
+            System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
+            }
+            break;
+            case "/getCustomerResponse":
+            session=mensajeVuelta.getSession();
+            Customer customer =(Customer) (session.get("Customer"));
+            if (customer!=null) {
+            System.out.println("He leído el id: " + customer.getId() + " con nombre: " + customer.getName());
+            }else {
+            System.out.println("No se ha recuperado nada de la base de datos");
+            }
+            break;*/
 		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
 		return session;
 	}
