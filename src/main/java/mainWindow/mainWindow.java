@@ -19,12 +19,12 @@ import quitar.quitar;
  */
 public class mainWindow extends javax.swing.JFrame {
     
-    private boolean isMouseInside = false;
+    //private boolean isMouseInside = false;
     int xMouse, yMouse;
     private quitar quitarWindow;
     private anadir anadirWindow;
     
-    private ArrayList<PanelMedicines> panelsMedicines = new ArrayList<>();
+    private ArrayList<PanelMedicines> pnlMedArray = new ArrayList<>();
     
     Client cliente;
     
@@ -39,6 +39,8 @@ public class mainWindow extends javax.swing.JFrame {
         this.userData = userData;
         this.cliente = cliente;
         initComponents();
+        pnlInfoMedicine.setVisible(false);
+        pnlInfoMedicine2.setVisible(false);
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
         setImageLabel(lblMinimize, "/Guion.png");
@@ -657,16 +659,37 @@ public class mainWindow extends javax.swing.JFrame {
     
     private void showMeds() {
         
+        pnlMedicines.removeAll();
+        pnlMedicines.revalidate();
+        
         HashMap<String, Object> session = new HashMap<>();
         session.put("user_id", userData.get("id"));
         session = cliente.sentMessage("/getUserMeds", session);
         
         userMeds = (ArrayList<HashMap<String, String>>)session.get("userMeds");
         for (HashMap<String, String> med : userMeds) {
-            panelsMedicines.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frequency")), Integer.parseInt(med.get("remaining"))));
+            session = new HashMap<>();
+            session.put("id", Integer.valueOf(med.get("medicine_id")));
+            med.put("name", String.valueOf(cliente.sentMessage("/getMedicineName", session).get("name")));
+            pnlMedArray.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frecuency")), Integer.parseInt(med.get("remaining_amount"))));
         }
-        for (PanelMedicines pnl : panelsMedicines){
+        System.out.println(userMeds);
+        
+        // Coordenadas posicion panel
+        int x = 30;
+        int y = 30;
+        // Distancia entre paneles (Pto. Origen B - Pto. Origen A)
+        int dx = 360;
+        int dy = 170;
+        
+        for (int i = 0; i < pnlMedArray.size()/2; i++){
             // Añadirlos en bucle anidado doble CAMBIAR DE ITERAR OBJETOS A ITERAR NUMEROS HAS SIZE()/2 Y DESPUES ANIDAR OTRO "n" DE DOS ITERACIONES (2 COLUMNAS)
+            for (int n = 0; n <= 1; n++){
+                pnlMedicines.add(pnlMedArray.get(2 * i + n), new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, pnlMedArray.get(2 * i + n).getWidth(), pnlMedArray.get(2 * i + n).getHeight()));
+                x += dx;
+            }
+            x = 30;
+            y += dy;
         }
         
         /*String userId = userData.get("id");

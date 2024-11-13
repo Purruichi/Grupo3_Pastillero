@@ -7,13 +7,12 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 
 
 import properties.properties;
-import Domain.Customer;
+import Domain.*;
 import Message.Message;
 
 public class Client {
@@ -29,16 +28,8 @@ public class Client {
 		this.port = Integer.parseInt(properties.getInstance().getProperty("port"));
 	}
 	public HashMap<String, Object> sentMessage(String Context, HashMap<String, Object> session) {
-		//Configure connections
-		//String host = properties.getInstance().getProperty("host");
-		//int port = Integer.parseInt(properties.getInstance().getProperty("port"));
 
 		System.out.println("Host: " + host + " port: " + port);
-		//Create a cliente class
-		//Client cliente=new Client(host, port);
-		
-		//HashMap<String,Object> session=new HashMap<String, Object>();
-		//session.put("/getCustomer","");
 		
 		Message mensajeEnvio=new Message();
 		Message mensajeVuelta=new Message();
@@ -52,27 +43,13 @@ public class Client {
                     case "/checkLogInResponse" -> session = mensajeVuelta.getSession();
                         
                     case "/getUserMedsResponse" -> session = mensajeVuelta.getSession();
+                    
+                    case "/getMedicineNameResponse" -> session = mensajeVuelta.getSession();
                         
                     default -> System.out.println("\nError a la vuelta");
 		
 		}
-            /*case "/getCustomersResponse":
-            ArrayList<Customer> customerList=(ArrayList<Customer>)(mensajeVuelta.getSession().get("Customer"));
-            for (Customer customer : customerList) {
-            System.out.println("He leído el id: "+customer.getId()+" con nombre: "+customer.getName());
-            }
-            break;
-            case "/getCustomerResponse":
-            session=mensajeVuelta.getSession();
-            Customer customer =(Customer) (session.get("Customer"));
-            if (customer!=null) {
-            System.out.println("He leído el id: " + customer.getId() + " con nombre: " + customer.getName());
-            }else {
-            System.out.println("No se ha recuperado nada de la base de datos");
-            }
-            break;*/
-		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
-		return session;
+            	return session;
 	}
 	
 
@@ -100,9 +77,6 @@ public class Client {
                     Message msg=(Message)objectInputStream.readObject();
                     messageIn.setContext(msg.getContext());
                     messageIn.setSession(msg.getSession());
-                    /*System.out.println("\n1.- El valor devuelto es: "+messageIn.getContext());
-                    String cadena=(String) messageIn.getSession().get("Nombre");
-                    System.out.println("\n2.- La cadena devuelta es: "+cadena);*/
 
                 } catch (UnknownHostException e) {
                         System.err.println("Unknown host: " + host);
@@ -116,7 +90,7 @@ public class Client {
                 out.close();
                 in.close();			
                 echoSocket.close();
-            } catch (Exception e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 	}

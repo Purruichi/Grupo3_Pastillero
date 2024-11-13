@@ -14,10 +14,12 @@ import java.util.HashMap;
  */
 public class MedicineControler {
     
-    
-    
     public static ArrayList<HashMap<String, String>> getUserMeds(String user_id) {
         return DatabaseFunctions.SELECT("user_meds", new String[0], "user_id", user_id);
+    }
+    
+    public static String getMedicineName(int id) {
+        return DatabaseFunctions.SELECT("medicines", new String[] {"name"}, "id", String.valueOf(id)).get(0).get("name");
     }
     
 }

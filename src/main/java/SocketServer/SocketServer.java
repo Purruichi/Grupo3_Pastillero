@@ -88,6 +88,15 @@ public class SocketServer extends Thread {
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
                         break;
+                        
+                    case "/getMedicineName":
+                        String name = MedicineControler.getMedicineName((int)session.get("id"));
+                        mensajeOut.setContext("/getMedicineNameResponse");
+                        session = new HashMap<>();
+                        session.put("name", name);
+                        mensajeOut.setSession(session);
+                        objectOutputStream.writeObject(mensajeOut);
+                        break;
 
                     default:
                         System.out.println("\nParámetro no encontrado");
