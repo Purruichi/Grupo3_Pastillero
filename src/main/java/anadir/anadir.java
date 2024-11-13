@@ -164,8 +164,8 @@ public class anadir extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pnlTimeline = new javax.swing.JPanel();
         lblTimeline = new javax.swing.JLabel();
-        boxDuration = new javax.swing.JComboBox<>();
-        boxFrequency = new javax.swing.JComboBox<>();
+        textFieldFrequency = new javax.swing.JTextField();
+        textFieldDose = new javax.swing.JTextField();
         btnAnadir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -295,7 +295,7 @@ public class anadir extends javax.swing.JFrame {
         pnlGeneralInformation.setBackground(new java.awt.Color(255, 255, 255));
         pnlGeneralInformation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtFieldName.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
+        txtFieldName.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
         txtFieldName.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFieldName.setText("Enter the name of the medication.");
@@ -314,7 +314,7 @@ public class anadir extends javax.swing.JFrame {
         });
         pnlGeneralInformation.add(txtFieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 550, -1));
 
-        txtFieldQuantity.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
+        txtFieldQuantity.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
         txtFieldQuantity.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFieldQuantity.setText("Enter the dose of the medication.");
@@ -347,17 +347,28 @@ public class anadir extends javax.swing.JFrame {
         lblTimeline.setText("TIMELINE & SCHEDULE");
         pnlTimeline.add(lblTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        boxDuration.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        boxDuration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Duration" }));
-        boxDuration.addActionListener(new java.awt.event.ActionListener() {
+        textFieldFrequency.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        textFieldFrequency.setForeground(new java.awt.Color(153, 153, 153));
+        textFieldFrequency.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldFrequency.setText("Enter the frequency of the medicine");
+        textFieldFrequency.setPreferredSize(new java.awt.Dimension(279, 23));
+        textFieldFrequency.setRequestFocusEnabled(false);
+        textFieldFrequency.setSelectionEnd(33);
+        textFieldFrequency.setSelectionStart(33);
+        textFieldFrequency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxDurationActionPerformed(evt);
+                textFieldFrequencyActionPerformed(evt);
             }
         });
-        pnlTimeline.add(boxDuration, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 450, -1));
+        pnlTimeline.add(textFieldFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 550, -1));
 
-        boxFrequency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frequency" }));
-        pnlTimeline.add(boxFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 450, -1));
+        textFieldDose.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        textFieldDose.setForeground(new java.awt.Color(153, 153, 153));
+        textFieldDose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldDose.setText("Enter the duration of the medicine");
+        textFieldDose.setCaretPosition(33);
+        textFieldDose.setPreferredSize(new java.awt.Dimension(279, 23));
+        pnlTimeline.add(textFieldDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 550, -1));
 
         pnlFondo.add(pnlTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 720, 120));
 
@@ -435,6 +446,8 @@ public class anadir extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldQuantityFocusLost
 
     private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
+        
+        HashMap<String, Object> sessionIn = new HashMap<>();
         String[] values = new String[6];
         values[0] = userData.get("id");
         ArrayList<HashMap<String, String>> medicinas = DatabaseFunctions.SELECT("medicines", new String[0], "name", txtFieldName.getText());
@@ -447,7 +460,18 @@ public class anadir extends javax.swing.JFrame {
         DatabaseFunctions.INSERT("user_meds", values);
         dispose();
     }//GEN-LAST:event_btnAnadirMouseClicked
-
+    
+    /* HashMap<String, Object> sessionIn = new HashMap<>();
+        sessionIn.put("username", usernameField.getText());
+        sessionIn.put("password", String.valueOf(passField.getPassword()));
+        
+        HashMap<String, Object> sessionOut = cliente.sentMessage("/checkLogIn", sessionIn);
+        boolean logedIn = (boolean)sessionOut.get("check");
+        HashMap<String, String> userData = (HashMap<String, String>)sessionOut.get("userData");
+        
+        if (logedIn)
+            LogedIn(userData);*/
+    
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btnXMouseClicked
@@ -487,10 +511,6 @@ public class anadir extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnadirActionPerformed
 
-    private void boxDurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDurationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_boxDurationActionPerformed
-
     private void lblCapsuleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapsuleMouseClicked
         // TODO add your handling code here:
         selectImage(lblCapsule);
@@ -510,6 +530,10 @@ public class anadir extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void textFieldFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFrequencyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldFrequencyActionPerformed
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
@@ -551,8 +575,6 @@ public class anadir extends javax.swing.JFrame {
     }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxDuration;
-    private javax.swing.JComboBox<String> boxFrequency;
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel btnMAXIMIZAR;
@@ -573,6 +595,8 @@ public class anadir extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGeneralInformation;
     private javax.swing.JPanel pnlTimeline;
     private javax.swing.JPanel pnlType;
+    private javax.swing.JTextField textFieldDose;
+    private javax.swing.JTextField textFieldFrequency;
     private javax.swing.JPanel titleBar;
     private javax.swing.JTextField txtFieldName;
     private javax.swing.JTextField txtFieldQuantity;
