@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package mainWindow;
+import Domain.Medicine;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,13 +12,29 @@ import java.awt.*;
  * @author salvadorcabreraparra
  */
 public class PanelMedicines extends javax.swing.JPanel {
-
+    
+    private Medicine medicine;
+    
     /**
      * Creates new form PanelMedicines
      */
     public PanelMedicines() {
         initComponents();
         setSize(330, 140);
+    }
+    
+    public PanelMedicines(Medicine medicine) {
+        this.medicine = medicine;
+        initComponents();
+        setSize(330, 140);
+        reload();
+    }
+    
+    public PanelMedicines(String name, String dose, int id, int frequency, int remaining) {
+        this.medicine = new Medicine(name, dose, id, frequency, remaining);
+        initComponents();
+        setSize(330, 140);
+        reload();
     }
 
     /**
@@ -34,7 +51,7 @@ public class PanelMedicines extends javax.swing.JPanel {
         lblRemainig = new javax.swing.JLabel();
         lblRemainingMedicine = new javax.swing.JLabel();
         lblDose = new javax.swing.JLabel();
-        lblDoseMedicines = new javax.swing.JLabel();
+        lblDoseMedicine = new javax.swing.JLabel();
         lblFrequency = new javax.swing.JLabel();
         lblFrequencyMedicine = new javax.swing.JLabel();
 
@@ -61,8 +78,8 @@ public class PanelMedicines extends javax.swing.JPanel {
         lblDose.setText("DOSE:");
         add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, 20));
 
-        lblDoseMedicines.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        add(lblDoseMedicines, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
+        lblDoseMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        add(lblDoseMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
 
         lblFrequency.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
         lblFrequency.setText("FREQUENCY:");
@@ -71,11 +88,25 @@ public class PanelMedicines extends javax.swing.JPanel {
         lblFrequencyMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
         add(lblFrequencyMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 200, 20));
     }// </editor-fold>//GEN-END:initComponents
-
-
+    
+    public void setMedicine(Medicine medicine){
+        this.medicine = medicine;
+    }
+    
+    public Medicine getMedicine(){
+        return medicine;
+    }
+    
+    public void reload(){
+        lblNameMedicine.setText(medicine.getName());
+        lblDoseMedicine.setText(medicine.getDose());
+        lblFrequencyMedicine.setText(String.valueOf(medicine.getFrequency()));
+        lblRemainingMedicine.setText(String.valueOf(medicine.getRemaining()));
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblDose;
-    private javax.swing.JLabel lblDoseMedicines;
+    private javax.swing.JLabel lblDoseMedicine;
     private javax.swing.JLabel lblFrequency;
     private javax.swing.JLabel lblFrequencyMedicine;
     private javax.swing.JLabel lblName;
