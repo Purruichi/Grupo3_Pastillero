@@ -80,7 +80,6 @@ public class Ajustes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         pnlAjustes.setBackground(new java.awt.Color(255, 255, 255));
         pnlAjustes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -133,12 +132,12 @@ public class Ajustes extends javax.swing.JFrame {
 
         lblAjustes.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblAjustes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAjustes.setText("Ajustes");
+        lblAjustes.setText("Settings");
         pnlAjustes.add(lblAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 46, 169, 50));
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
-        jNotificacionONOFF.setText("Notificaciones desactivadas");
+        jNotificacionONOFF.setText("Notifications OFF");
         jNotificacionONOFF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jNotificacionONOFFMouseClicked(evt);
@@ -157,14 +156,14 @@ public class Ajustes extends javax.swing.JFrame {
             }
         });
 
-        jNumContacto.setText("Número de contacto");
+        jNumContacto.setText("Contact number");
         jNumContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNumContactoActionPerformed(evt);
             }
         });
 
-        jManualUso.setText("Manual de uso de la App");
+        jManualUso.setText("App Manual");
         jManualUso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jManualUsoMouseClicked(evt);
@@ -205,7 +204,7 @@ public class Ajustes extends javax.swing.JFrame {
 
         pnlAjustes.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 510, 500));
 
-        jButtonSoporte.setText("Soporte y ayuda");
+        jButtonSoporte.setText("Help and support");
         jButtonSoporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSoporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -219,8 +218,8 @@ public class Ajustes extends javax.swing.JFrame {
         });
         pnlAjustes.add(jButtonSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 240, 40));
 
+        jButtonNotificacion.setText("Notifications");
         jButtonNotificacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonNotificacion.setLabel("Notificaciones");
         jButtonNotificacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonNotificacionMouseClicked(evt);
@@ -233,7 +232,7 @@ public class Ajustes extends javax.swing.JFrame {
         });
         pnlAjustes.add(jButtonNotificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 240, 40));
 
-        jButtonIdioma.setText("Idioma");
+        jButtonIdioma.setText("Language");
         jButtonIdioma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIdioma.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -293,11 +292,11 @@ public class Ajustes extends javax.swing.JFrame {
 
     private void jNotificacionONOFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNotificacionONOFFActionPerformed
         if (jNotificacionONOFF.isSelected()){
-            jNotificacionONOFF.setText("Notificaciones activadas");
+            jNotificacionONOFF.setText("Notifications ON");
             notificacion = true;
         }
         else{
-            jNotificacionONOFF.setText("Notificaciones desactivadas");
+            jNotificacionONOFF.setText("Notifictions OFF");
             notificacion=false;
         }
     }//GEN-LAST:event_jNotificacionONOFFActionPerformed
@@ -308,7 +307,7 @@ public class Ajustes extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxIdiomasActionPerformed
 
     private void jNumContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNumContactoActionPerformed
-       
+        
     }//GEN-LAST:event_jNumContactoActionPerformed
 
     private void jButtonNotificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNotificacionMouseClicked
