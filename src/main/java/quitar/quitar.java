@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package quitar;
+import Client.Client;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
@@ -18,9 +19,12 @@ public class quitar extends javax.swing.JFrame  {
     private HashMap<String, String> userData;
     int xMouse,yMouse, selectedRow;
     
-    public quitar(HashMap<String, String> userData) {
+    Client cliente;
+    
+    public quitar(HashMap<String, String> userData, Client cliente) {
         
         this.userData = userData;
+        this.cliente = cliente;
         initComponents();
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
@@ -103,19 +107,19 @@ public class quitar extends javax.swing.JFrame  {
         });
         botonX.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textoX.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        textoX.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         textoX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoX.setText("X");
-        botonX.add(textoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
+        botonX.add(textoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 20));
 
-        panelDeArrastre.add(botonX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 30));
-        panelDeArrastre.add(iconoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+        panelDeArrastre.add(botonX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 20));
+        panelDeArrastre.add(iconoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 20));
 
-        textoMyPills.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        textoMyPills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textoMyPills.setText("MyPills");
-        panelDeArrastre.add(textoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 30));
+        panelDeArrastre.add(textoMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 20));
 
-        pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 30));
+        pnlFondo.add(panelDeArrastre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 20));
 
         scrollPaneMeds.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -205,16 +209,12 @@ public class quitar extends javax.swing.JFrame  {
         selectedRow = tableMeds.getSelectedRow();
         System.out.println(selectedRow);
         if (selectedRow != -1) {
-            // Obtener nombre del medicamento
-            String nombreMedicamento = tableMeds.getValueAt(selectedRow, 0).toString();
-
-            // Eliminar de la base de datos
-            String[] condColumns = {"user_id", "medicine_id"};
-            String idMedicamento = DatabaseFunctions.SELECT("medicines", new String[] {"id"}, "name", nombreMedicamento).get(0).get("id");
-            String[] condValues = {userData.get("id"), idMedicamento};
-            DatabaseFunctions.DELETE("user_meds", condColumns, condValues);
-
-            // Actualizar tabla
+            HashMap<String, Object> session = new HashMap<>();
+            session.put("user_id", userData.get("id"));
+            System.out.println(tableMeds.getValueAt(selectedRow, 0).toString());
+            System.out.println(session);
+            session.put("med_name", tableMeds.getValueAt(selectedRow, 0).toString());
+            cliente.sentMessage("/deleteUserMed", session);
             cargarMedicamentos();
         } else {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un medicamento para eliminar.");

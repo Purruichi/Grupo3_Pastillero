@@ -11,6 +11,7 @@ SocketServer\SocketServer.class
 ajustes\Ajustes$10.class
 anadir\anadir$6.class
 quitar\quitar$1.class
+mainWindow\mainWindow$16.class
 mainWindow\PanelMedicines.class
 Controler\CustomerControler.class
 mainWindow\mainWindow$13.class

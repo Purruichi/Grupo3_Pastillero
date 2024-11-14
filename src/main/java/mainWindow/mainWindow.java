@@ -559,7 +559,24 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addPanelMouseClicked
 
     private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
-        
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
@@ -652,8 +669,8 @@ public class mainWindow extends javax.swing.JFrame {
         // Verificar si la ventana ya está abierta
         if (quitarWindow == null || !quitarWindow.isShowing()) {
             // Crear una nueva instancia de la ventana "quitar" si no está abierta
-            quitarWindow = new quitar(userData);
-
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
             // Añadir un listener para detectar cuando se cierra la ventana "quitar"
             quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
@@ -666,11 +683,6 @@ public class mainWindow extends javax.swing.JFrame {
                     mainWindow.this.setVisible(false);
                 }
             });
-
-            // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
-
-            // Mostrar la ventana "quitar"
-            quitarWindow.setVisible(true);
         }
     }//GEN-LAST:event_QuitPanelMouseClicked
     

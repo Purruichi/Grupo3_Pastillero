@@ -55,4 +55,14 @@ public class MedicineControler {
         return false;
     }
     
+    public static boolean deleteUserMed(String[] condColumns, String[] condValues) {
+        try {
+            DatabaseFunctions.DELETE("user_meds", condColumns, condValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

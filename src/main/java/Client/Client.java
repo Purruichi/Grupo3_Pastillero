@@ -49,6 +49,8 @@ public class Client {
                     case "/signUpUserResponse" -> session = mensajeVuelta.getSession();
                     
                     case "/addUserMedResponse" -> session = mensajeVuelta.getSession();
+                    
+                    case "/deleteUserMedResponse" -> session = mensajeVuelta.getSession();
                         
                     default -> System.out.println("\nError a la vuelta");
 		

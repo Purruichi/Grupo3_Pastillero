@@ -93,58 +93,18 @@ public class SocketServer extends Thread {
                         mensajeOut.setContext("/addUserMedResponse");
                         objectOutputStream.writeObject(mensajeOut);
                     }
+                    
+                    case "/deleteUserMed" -> {
+                        String med_id = MedicineControler.getMedicineId((String)session.get("med_name"));
+                        boolean check = MedicineControler.deleteUserMed(new String[] {"user_id", "medicine_id"}, new String[] {(String)session.get("user_id"), med_id});
+                        session = new HashMap<>();
+                        session.put("check", check);
+                        mensajeOut.setContext("/deleteUserMedResponse");
+                        objectOutputStream.writeObject(mensajeOut);
+                    }
 
                     default -> System.out.println("\nParámetro no encontrado");
                 }
-                /*case "/getCustomers":
-                customerControler = new CustomerControler();
-                ArrayList<Customer> lista=new ArrayList<Customer>();
-                customerControler.getCustomers(lista);
-                mensajeOut.setContext("/getCustomersResponse");
-                //HashMap<String,Object> session=new HashMap<String, Object>();
-                session.put("Customers",lista);
-                mensajeOut.setSession(session);
-                objectOutputStream.writeObject(mensajeOut);
-                break;
-                case "/getCustomer":
-                int id= (int) session.get("id");
-                customerControler = new CustomerControler();
-                Customer cu=customerControler.getCustomer(id);
-                if (cu!=null){
-                System.out.println("id:"+cu.getId());
-                }else {
-                System.out.println("No encontrado en la base de datos");
-                }
-                mensajeOut.setContext("/getCustomerResponse");
-                session.put("Customer",cu);
-                mensajeOut.setSession(session);
-                objectOutputStream.writeObject(mensajeOut);
-                break;*/
-                                //Lógica del controlador 
-                //System.out.println("\n1.- He leído: "+mensaje.getContext());
-                //System.out.println("\n2.- He leído: "+(String)mensaje.getSession().get("Nombre"));
-
-
-
-                //Prueba para esperar
-                /*try {
-                    System.out.println("Me duermo");
-                            Thread.sleep(15000);
-                            System.out.println("Me levanto");
-                    } catch (InterruptedException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                    }*/
-                    // create an object output stream from the output stream so we can send an object through it
-                    /*ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
-
-                    //Create the object to send
-                    String cadena=((String)mensaje.getSession().get("Nombre"));
-                    cadena+=" añado información";
-                    mensaje.getSession().put("Nombre", cadena);
-                    //System.out.println("\n3.- He leído: "+(String)mensaje.getSession().get("Nombre"));
-                    objectOutputStream.writeObject(mensaje);*
-                    */
 
             } catch (IOException ex) {
                     System.out.println("Unable to get streams from client");
