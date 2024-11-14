@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import quitar.quitar;
-import ajustes.Ajustes;
+import Ajustes.Ajustes;
 
 /**
  *
@@ -24,6 +24,7 @@ public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
     private quitar quitarWindow;
     private anadir anadirWindow;
+    private Ajustes ajustesWindow;
     
     private ArrayList<PanelMedicines> pnlMedArray = new ArrayList<>();
     
@@ -61,12 +62,7 @@ public class mainWindow extends javax.swing.JFrame {
         pnlInfoMedicine1.setOpaque(true);
         //configurarListeners();
         showMeds();
-        
-        
     }
-    
-    
-    
     
     /*private void configurarListeners() {
         // MouseListener compartido
@@ -374,11 +370,6 @@ public class mainWindow extends javax.swing.JFrame {
         NorthPan.add(pnlDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 220, 30));
 
         pnlAjustes.setBackground(new java.awt.Color(51, 153, 255));
-        pnlAjustes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlAjustesMouseClicked(evt);
-            }
-        });
         pnlAjustes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblAjustes.setBackground(new java.awt.Color(51, 153, 255));
@@ -531,6 +522,7 @@ public class mainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
+        System.out.println("Patata");
         if (anadirWindow == null || !anadirWindow.isShowing()) {
             anadirWindow = new anadir(userData);
             anadirWindow.setVisible(true);
@@ -571,18 +563,22 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
-        Ajustes ajustes = new Ajustes();
-        ajustes.setVisible(true);
-            ajustes.addWindowListener(new java.awt.event.WindowAdapter() {
+        System.out.println("Ajustes");
+        if (ajustesWindow == null || !ajustesWindow.isShowing()) {
+            ajustesWindow = new Ajustes(userData);
+            ajustesWindow.setVisible(true);
+            ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
                     mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
                 }
                 @Override
                 public void windowOpened(java.awt.event.WindowEvent e) {
                     mainWindow.this.setVisible(false);
                 }
             });
+        }        
     }//GEN-LAST:event_lblAjustesMouseClicked
 
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
@@ -677,10 +673,6 @@ public class mainWindow extends javax.swing.JFrame {
             quitarWindow.setVisible(true);
         }
     }//GEN-LAST:event_QuitPanelMouseClicked
-
-    private void pnlAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAjustesMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnlAjustesMouseClicked
     
     private void showMeds() {
         
