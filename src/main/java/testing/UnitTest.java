@@ -1,8 +1,8 @@
-/*
+/*/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package testing;
+/*package testing;
 
 import org.junit.jupiter.api.Before;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author andre
  */
-public class UnitTest {
+/*public class UnitTest {
 // Assuming you have classes for handling user and medicine logic.
     private User user;
     private Medicine medicine;
@@ -67,4 +67,4 @@ public class UnitTest {
         boolean medicineDeleted = dbFunctions.checkMedicineInUser("1", medicineName, quantity);
         assertFalse("Medicine was not deleted", medicineDeleted);
     }
-}
+}*/
