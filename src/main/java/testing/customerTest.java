@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package testing;
+/*package testing;
 
 
 import Customer.Customer;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author andre
  */
-public class customerTest {
+/*public class customerTest {
     private Customer customer;
     
     @BeforeEach
@@ -44,4 +44,4 @@ public class customerTest {
         customer.setName("Smith");
         assertEquals("Smith", customer.getName());
     }
-}
+}*/

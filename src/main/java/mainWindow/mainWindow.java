@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import quitar.quitar;
+import Ajustes.Ajustes;
 
 /**
  *
@@ -23,6 +24,7 @@ public class mainWindow extends javax.swing.JFrame {
     int xMouse, yMouse;
     private quitar quitarWindow;
     private anadir anadirWindow;
+    private Ajustes ajustesWindow;
     
     private ArrayList<PanelMedicines> pnlMedArray = new ArrayList<>();
     
@@ -561,7 +563,22 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
-        
+        System.out.println("Ajustes");
+        if (ajustesWindow == null || !ajustesWindow.isShowing()) {
+            ajustesWindow = new Ajustes(userData);
+            ajustesWindow.setVisible(true);
+            ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }        
     }//GEN-LAST:event_lblAjustesMouseClicked
 
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked

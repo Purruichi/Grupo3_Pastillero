@@ -11,6 +11,8 @@ login\LogIn$14.class
 login\LogIn$2.class
 login\LogIn$8.class
 login\LogIn.class
+mainWindow\mainWindow$15.class
+Ajustes\Ajustes$2.class
 anadir\anadir$14.class
 login\LogIn$5.class
 SocketServer\SocketServer.class
@@ -26,8 +28,10 @@ properties\properties.class
 mainWindow\mainWindow$13.class
 Domain\Customer.class
 mainWindow\mainWindow$5.class
+Ajustes\Ajustes.class
 anadir\anadir$12.class
 mainWindow\mainWindow$1.class
+Ajustes\Ajustes$1.class
 login\LogIn$9.class
 anadir\anadir$2.class
 mainWindow\mainWindow$8.class
@@ -36,6 +40,7 @@ anadir\anadir$15.class
 login\LogIn$11.class
 anadir\anadir$18.class
 quitar\quitar$4.class
+Ajustes\Ajustes$4.class
 anadir\anadir$16.class
 Domain\Medicine.class
 anadir\anadir$7.class
@@ -57,6 +62,7 @@ anadir\anadir$17.class
 anadir\anadir$1.class
 login\LogIn$10.class
 mainWindow\mainWindow$14.class
+testing\UnitTest.class
 login\LogIn$13.class
 anadir\anadir$13.class
 login\LogIn$4.class
@@ -65,4 +71,5 @@ mainWindow\mainWindow$6.class
 anadir\anadir$4.class
 Database\DatabaseFunctions.class
 mainWindow\mainWindow$3.class
+Ajustes\Ajustes$3.class
 login\LogIn$16.class
