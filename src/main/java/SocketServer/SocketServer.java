@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import properties.properties;
-import Domain.Customer;
 import Controler.CustomerControler;
 import Controler.MedicineControler;
 import Message.Message;
+import java.sql.Timestamp;
 
 public class SocketServer extends Thread {
 	public static int port = Integer.parseInt(properties.getInstance().getProperty("port"));
@@ -42,6 +42,11 @@ public class SocketServer extends Thread {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
                 Message mensajeOut = new Message();
                 HashMap<String,Object> session = mensajeIn.getSession();
+                for (String key : session.keySet()) {
+                    System.out.println(key + session.get(key));
+                }
+                            
+                
                 
                 switch (mensajeIn.getContext()) {
                     /*case "/getCustomers":
@@ -88,6 +93,50 @@ public class SocketServer extends Thread {
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
                         break;
+                       
+                    case "/addMedicine":
+                        
+                        System.out.println(session.get("user_id"));
+                        //Primero comprobamos si está ya añadida la medicina en nuestro repositorio de medicinas.
+                        String checkMedicine = MedicineControler.checkMedicine((String)session.get("name"));
+                        boolean medicine = Boolean.parseBoolean(checkMedicine);
+                        
+                        //Si la medicina no se encuentra en la base de datos, la introducimos 
+                        if(medicine == false){
+                            String checkAdd = MedicineControler.addMedicine(session);
+                            boolean addMedicine = Boolean.parseBoolean(checkAdd);
+                        }
+                        
+                        
+                        //Ahora hay que añadir la medicina a la tabla de medicinas del usuario. 1º hay que obtener el id de la medicina, 2º insertar la medicina a la tabla de medicinas del usuariro
+                        String id = MedicineControler.getMedicineid((String)session.get("name"));  // ya tenemos el id de la medicina
+                        String user_id = new String();
+                        for (String key : session.keySet()) {
+                            if (key.equalsIgnoreCase("user_id")) {
+                                // Verifica si el valor asociado es una instancia de String
+                                if (session.get(key) instanceof String) {
+                                    System.out.println(session.get(key));
+                                    user_id = (String) session.get(key);  // Asigna el valor de "user_id"
+                                    break;  // Sale del bucle después de encontrar el "user_id"
+                                }
+                            }
+                        }
+                        
+                        //Ahora tenemos que añadir la medicina con el usuario a la tabla de user_meds
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                        String[] valuesMedicines = {(String)user_id, (String)id,String.valueOf(1),String.valueOf(1),String.valueOf(timestamp),String.valueOf(1)};
+                        String checkAddComplete = MedicineControler.addUserMedicine(valuesMedicines);
+                        boolean addUserMedicine = Boolean.parseBoolean(checkAddComplete);
+                        
+                        
+                        mensajeOut.setContext("/AddMedicineResponse");
+                        session = new HashMap<>();
+                        session.put("checkAdd", addUserMedicine);
+                        mensajeOut.setSession(session);
+                        objectOutputStream.writeObject(mensajeOut);
+                        break;
+                    
+                    
 
                     default:
                         System.out.println("\nParámetro no encontrado");

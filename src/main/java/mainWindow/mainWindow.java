@@ -57,7 +57,7 @@ public class mainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         pnlInfoMedicine1.setOpaque(true);
         //configurarListeners();
-        showMeds();
+        //showMeds();
     }
     
     /*private void configurarListeners() {
@@ -520,7 +520,7 @@ public class mainWindow extends javax.swing.JFrame {
     private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
         System.out.println("Patata");
         if (anadirWindow == null || !anadirWindow.isShowing()) {
-            anadirWindow = new anadir(userData);
+            anadirWindow = new anadir(userData, cliente);
             anadirWindow.setVisible(true);
             anadirWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override

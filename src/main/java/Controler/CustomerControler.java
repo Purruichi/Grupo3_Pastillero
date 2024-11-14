@@ -11,7 +11,7 @@ import java.util.HashMap;public class CustomerControler {
     }
 
     public static Customer getCustomer(int id) {
-        // HACER SELECT DEL CLIENTE SEGÚN EL ID
+        
         return new Customer();
     }
 
