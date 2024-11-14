@@ -307,6 +307,7 @@ public class anadir extends javax.swing.JFrame {
         txtFieldName.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
         txtFieldName.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldName.setText("Name");
         txtFieldName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtFieldNameFocusGained(evt);
@@ -320,6 +321,7 @@ public class anadir extends javax.swing.JFrame {
         txtFieldDose.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
         txtFieldDose.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldDose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldDose.setText("Dose");
         txtFieldDose.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtFieldDoseFocusGained(evt);
@@ -343,6 +345,7 @@ public class anadir extends javax.swing.JFrame {
         txtFieldRemaining.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
         txtFieldRemaining.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldRemaining.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldRemaining.setText("Remaining amount");
         txtFieldRemaining.setPreferredSize(new java.awt.Dimension(279, 23));
         txtFieldRemaining.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -357,6 +360,7 @@ public class anadir extends javax.swing.JFrame {
         txtFieldFrequency.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
         txtFieldFrequency.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldFrequency.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldFrequency.setText("Frequency");
         txtFieldFrequency.setPreferredSize(new java.awt.Dimension(279, 23));
         txtFieldFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
