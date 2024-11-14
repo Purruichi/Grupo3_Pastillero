@@ -118,7 +118,7 @@
               <Font name="Segoe UI" size="36" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Ajustes"/>
+            <Property name="text" type="java.lang.String" value="Settings"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -144,14 +144,10 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jNotificacionONOFF" max="32767" attributes="0"/>
+                          <Component id="jNotificacionONOFF" pref="409" max="32767" attributes="0"/>
                           <Component id="jComboBoxIdiomas" alignment="0" max="32767" attributes="0"/>
                           <Component id="jManualUso" alignment="0" max="32767" attributes="0"/>
                           <Component id="jNumContacto" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblConsulta" min="-2" pref="446" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
@@ -160,9 +156,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="lblConsulta" min="-2" pref="83" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                       <Component id="jNotificacionONOFF" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       <Component id="jComboBoxIdiomas" min="-2" pref="32" max="-2" attributes="0"/>
@@ -178,7 +172,7 @@
           <SubComponents>
             <Component class="javax.swing.JToggleButton" name="jNotificacionONOFF">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Notificaciones desactivadas"/>
+                <Property name="text" type="java.lang.String" value="Notifications OFF"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jNotificacionONOFFMouseClicked"/>
@@ -204,7 +198,7 @@
             </Component>
             <Component class="javax.swing.JToggleButton" name="jNumContacto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="N&#xfa;mero de contacto"/>
+                <Property name="text" type="java.lang.String" value="Contact number"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNumContactoActionPerformed"/>
@@ -212,29 +206,18 @@
             </Component>
             <Component class="javax.swing.JButton" name="jManualUso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Manual de uso de la App"/>
+                <Property name="text" type="java.lang.String" value="App Manual"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jManualUsoMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jManualUsoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblConsulta">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Si necesita realizar alguna consulta, llamar al +34 618 89 90 46"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="jButtonSoporte">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Soporte y ayuda"/>
+            <Property name="text" type="java.lang.String" value="Help and support"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
@@ -251,10 +234,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonNotificacion">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Notifications"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
-            <Property name="label" type="java.lang.String" value="Notificaciones"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNotificacionMouseClicked"/>
@@ -268,7 +251,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonIdioma">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Idioma"/>
+            <Property name="text" type="java.lang.String" value="Language"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>

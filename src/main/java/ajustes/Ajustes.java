@@ -7,7 +7,6 @@ package ajustes;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import mainWindow.mainWindow;
 
 
 
@@ -17,6 +16,8 @@ import mainWindow.mainWindow;
  * @author bolli
  */
 public class Ajustes extends javax.swing.JFrame {
+
+    private static HashMap<String, String> userData;
     int xMouse;
     int yMouse;
     boolean notificacion;
@@ -26,21 +27,32 @@ public class Ajustes extends javax.swing.JFrame {
      */
     public Ajustes(HashMap<String, String> userData) {
         initComponents();
+        jComboBoxIdiomas.addActionListener(evt -> cambiarIdioma());
         jNotificacionONOFF.setVisible(false);
         jNumContacto.setVisible(false);
         jManualUso.setVisible(false);
         jComboBoxIdiomas.setVisible(false);
         //panelManualUso.setVisible(false);
-        lblConsulta.setVisible(false);
+    
     }
     public boolean getNotificacion(){
         return notificacion;
     }
     
     
-   
+    //POR IMPLEMENTAR
+    private void cambiarIdioma() {
+        String selectedLanguage = (String) jComboBoxIdiomas.getSelectedItem();
+        if ("English".equals(selectedLanguage)) {
+        } else if ("Español".equals(selectedLanguage)) {
+        }
+    }
     
-   
+    private void actualizarTextos(){
+
+
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,7 +73,6 @@ public class Ajustes extends javax.swing.JFrame {
         jComboBoxIdiomas = new javax.swing.JComboBox<>();
         jNumContacto = new javax.swing.JToggleButton();
         jManualUso = new javax.swing.JButton();
-        lblConsulta = new javax.swing.JLabel();
         jButtonSoporte = new javax.swing.JButton();
         jButtonNotificacion = new javax.swing.JButton();
         jButtonIdioma = new javax.swing.JButton();
@@ -69,7 +80,6 @@ public class Ajustes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         pnlAjustes.setBackground(new java.awt.Color(255, 255, 255));
         pnlAjustes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -122,12 +132,12 @@ public class Ajustes extends javax.swing.JFrame {
 
         lblAjustes.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblAjustes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAjustes.setText("Ajustes");
+        lblAjustes.setText("Settings");
         pnlAjustes.add(lblAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 46, 169, 50));
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
-        jNotificacionONOFF.setText("Notificaciones desactivadas");
+        jNotificacionONOFF.setText("Notifications OFF");
         jNotificacionONOFF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jNotificacionONOFFMouseClicked(evt);
@@ -146,14 +156,14 @@ public class Ajustes extends javax.swing.JFrame {
             }
         });
 
-        jNumContacto.setText("Número de contacto");
+        jNumContacto.setText("Contact number");
         jNumContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNumContactoActionPerformed(evt);
             }
         });
 
-        jManualUso.setText("Manual de uso de la App");
+        jManualUso.setText("App Manual");
         jManualUso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jManualUsoMouseClicked(evt);
@@ -165,10 +175,6 @@ public class Ajustes extends javax.swing.JFrame {
             }
         });
 
-        lblConsulta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblConsulta.setForeground(new java.awt.Color(255, 255, 255));
-        lblConsulta.setText("Si necesita realizar alguna consulta, llamar al +34 618 89 90 46");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,21 +182,16 @@ public class Ajustes extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jNotificacionONOFF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jNotificacionONOFF, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                     .addComponent(jComboBoxIdiomas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jManualUso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jNumContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jNumContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(lblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(143, 143, 143)
                 .addComponent(jNotificacionONOFF, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
                 .addComponent(jComboBoxIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +204,7 @@ public class Ajustes extends javax.swing.JFrame {
 
         pnlAjustes.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 510, 500));
 
-        jButtonSoporte.setText("Soporte y ayuda");
+        jButtonSoporte.setText("Help and support");
         jButtonSoporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSoporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,8 +218,8 @@ public class Ajustes extends javax.swing.JFrame {
         });
         pnlAjustes.add(jButtonSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 240, 40));
 
+        jButtonNotificacion.setText("Notifications");
         jButtonNotificacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonNotificacion.setLabel("Notificaciones");
         jButtonNotificacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonNotificacionMouseClicked(evt);
@@ -231,7 +232,7 @@ public class Ajustes extends javax.swing.JFrame {
         });
         pnlAjustes.add(jButtonNotificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 240, 40));
 
-        jButtonIdioma.setText("Idioma");
+        jButtonIdioma.setText("Language");
         jButtonIdioma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonIdioma.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -286,16 +287,16 @@ public class Ajustes extends javax.swing.JFrame {
     }//GEN-LAST:event_titleBarMouseDragged
 
     private void lblXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXMouseClicked
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_lblXMouseClicked
 
     private void jNotificacionONOFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNotificacionONOFFActionPerformed
         if (jNotificacionONOFF.isSelected()){
-            jNotificacionONOFF.setText("Notificaciones activadas");
+            jNotificacionONOFF.setText("Notifications ON");
             notificacion = true;
         }
         else{
-            jNotificacionONOFF.setText("Notificaciones desactivadas");
+            jNotificacionONOFF.setText("Notifictions OFF");
             notificacion=false;
         }
     }//GEN-LAST:event_jNotificacionONOFFActionPerformed
@@ -306,12 +307,7 @@ public class Ajustes extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxIdiomasActionPerformed
 
     private void jNumContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNumContactoActionPerformed
-        lblConsulta.setVisible(true);
-         jNumContacto.setVisible(false);
-         jManualUso.setVisible(false);
-         jNotificacionONOFF.setVisible(false);
-         jComboBoxIdiomas.setVisible(false);
-         //panelManualUso.setVisible(false);
+        
     }//GEN-LAST:event_jNumContactoActionPerformed
 
     private void jButtonNotificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNotificacionMouseClicked
@@ -322,7 +318,6 @@ public class Ajustes extends javax.swing.JFrame {
             jNumContacto.setVisible(false);
             jManualUso.setVisible(false);
             //panelManualUso.setVisible(false);
-            lblConsulta.setVisible(false);
         }   
     }//GEN-LAST:event_jButtonNotificacionMouseClicked
 
@@ -334,7 +329,6 @@ public class Ajustes extends javax.swing.JFrame {
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(false);
             //panelManualUso.setVisible(false);
-            lblConsulta.setVisible(false);
         }
     }//GEN-LAST:event_jButtonSoporteMouseClicked
 
@@ -345,7 +339,6 @@ public class Ajustes extends javax.swing.JFrame {
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(true);
             //panelManualUso.setVisible(false);
-            lblConsulta.setVisible(false);
         }
     }//GEN-LAST:event_jButtonIdiomaMouseClicked
 
@@ -367,9 +360,6 @@ public class Ajustes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jManualUsoMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIdioma;
@@ -381,7 +371,6 @@ public class Ajustes extends javax.swing.JFrame {
     private javax.swing.JToggleButton jNumContacto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAjustes;
-    private javax.swing.JLabel lblConsulta;
     private javax.swing.JLabel lblMyPills;
     private javax.swing.JLabel lblX;
     private javax.swing.JPanel pnlAjustes;
