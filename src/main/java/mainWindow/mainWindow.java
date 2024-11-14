@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import quitar.quitar;
-import Ajustes.Ajustes;
+import ajustes.Ajustes;
 
 /**
  *
