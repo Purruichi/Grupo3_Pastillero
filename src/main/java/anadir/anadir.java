@@ -4,6 +4,7 @@
  */
 package anadir;
 
+import Client.Client;
 import Database.DatabaseFunctions;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,18 +16,16 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import login.LogIn;
 import mainWindow.mainWindow;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 
 /**
  *
  * @author javieribarra
  */
-public class anadir extends javax.swing.JFrame  {
+public class anadir extends javax.swing.JFrame {
     
     private boolean isMouseInside = false;
     int xMouse, yMouse;
@@ -35,12 +34,19 @@ public class anadir extends javax.swing.JFrame  {
     
     public HashMap<String, String> userData = new HashMap<>();
     
+    Client cliente;
+    
     /**
      * Creates new form anadir
      * @param userData
+     * @param cliente
      */
-    public anadir(HashMap<String, String> userData) {
+    public anadir(HashMap<String, String> userData, Client cliente) {
+        this.cliente = cliente;
         this.userData = userData;
+        for (String key : userData.keySet()) {
+                    System.out.println(key + userData.get(key));
+                }
         initComponents();
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
@@ -55,7 +61,6 @@ public class anadir extends javax.swing.JFrame  {
         configurarListeners();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
     }
     
     /*public anadir(){
@@ -66,8 +71,6 @@ public class anadir extends javax.swing.JFrame  {
         
         
     }*/
-
-    
     private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -166,12 +169,12 @@ public class anadir extends javax.swing.JFrame  {
         lblDrops = new javax.swing.JLabel();
         pnlGeneralInformation = new javax.swing.JPanel();
         txtFieldName = new javax.swing.JTextField();
-        txtFieldQuantity = new javax.swing.JTextField();
+        txtFieldDose = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         pnlTimeline = new javax.swing.JPanel();
+        txtFieldRemaining = new javax.swing.JTextField();
+        txtFieldFrequency = new javax.swing.JTextField();
         lblTimeline = new javax.swing.JLabel();
-        boxDuration = new javax.swing.JComboBox<>();
-        boxFrequency = new javax.swing.JComboBox<>();
         btnAnadir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -301,10 +304,9 @@ public class anadir extends javax.swing.JFrame  {
         pnlGeneralInformation.setBackground(new java.awt.Color(255, 255, 255));
         pnlGeneralInformation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtFieldName.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
+        txtFieldName.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
         txtFieldName.setForeground(new java.awt.Color(153, 153, 153));
         txtFieldName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFieldName.setText("Enter the name of the medication.");
         txtFieldName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtFieldNameFocusGained(evt);
@@ -313,31 +315,20 @@ public class anadir extends javax.swing.JFrame  {
                 txtFieldNameFocusLost(evt);
             }
         });
-        txtFieldName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldNameActionPerformed(evt);
-            }
-        });
         pnlGeneralInformation.add(txtFieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 550, -1));
 
-        txtFieldQuantity.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
-        txtFieldQuantity.setForeground(new java.awt.Color(153, 153, 153));
-        txtFieldQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFieldQuantity.setText("Enter the dose of the medication.");
-        txtFieldQuantity.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFieldDose.setFont(new java.awt.Font("PT Mono", 2, 14)); // NOI18N
+        txtFieldDose.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldDose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldDose.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFieldQuantityFocusGained(evt);
+                txtFieldDoseFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFieldQuantityFocusLost(evt);
+                txtFieldDoseFocusLost(evt);
             }
         });
-        txtFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldQuantityActionPerformed(evt);
-            }
-        });
-        pnlGeneralInformation.add(txtFieldQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 550, -1));
+        pnlGeneralInformation.add(txtFieldDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 550, -1));
 
         jLabel1.setBackground(new java.awt.Color(153, 204, 255));
         jLabel1.setFont(new java.awt.Font("PT Mono", 3, 18)); // NOI18N
@@ -349,21 +340,37 @@ public class anadir extends javax.swing.JFrame  {
         pnlTimeline.setBackground(new java.awt.Color(255, 255, 255));
         pnlTimeline.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtFieldRemaining.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        txtFieldRemaining.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldRemaining.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldRemaining.setPreferredSize(new java.awt.Dimension(279, 23));
+        txtFieldRemaining.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFieldRemainingFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFieldRemainingFocusLost(evt);
+            }
+        });
+        pnlTimeline.add(txtFieldRemaining, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 550, -1));
+
+        txtFieldFrequency.setFont(new java.awt.Font("PT Mono", 2, 13)); // NOI18N
+        txtFieldFrequency.setForeground(new java.awt.Color(153, 153, 153));
+        txtFieldFrequency.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFieldFrequency.setPreferredSize(new java.awt.Dimension(279, 23));
+        txtFieldFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFieldFrequencyFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFieldFrequencyFocusLost(evt);
+            }
+        });
+        pnlTimeline.add(txtFieldFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 550, -1));
+
         lblTimeline.setFont(new java.awt.Font("PT Mono", 3, 18)); // NOI18N
         lblTimeline.setText("TIMELINE & SCHEDULE");
         pnlTimeline.add(lblTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
-        boxDuration.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        boxDuration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Duration" }));
-        boxDuration.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxDurationActionPerformed(evt);
-            }
-        });
-        pnlTimeline.add(boxDuration, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 450, -1));
-
-        boxFrequency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Frequency" }));
-        pnlTimeline.add(boxFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 450, -1));
 
         pnlFondo.add(pnlTimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 720, 120));
 
@@ -408,25 +415,17 @@ public class anadir extends javax.swing.JFrame  {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldNameActionPerformed
-
-    private void txtFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldQuantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldQuantityActionPerformed
-
     private void txtFieldNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusGained
         if(txtFieldName.getText().equals("Ingrese el nombre de la medicina")){
             txtFieldName.setText("");
         }
     }//GEN-LAST:event_txtFieldNameFocusGained
 
-    private void txtFieldQuantityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusGained
-        if(txtFieldQuantity.getText().equals("Ingrese la cantidad de la medicina")){
-            txtFieldQuantity.setText("");
+    private void txtFieldDoseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDoseFocusGained
+        if(txtFieldDose.getText().equals("Ingrese la cantidad de la medicina")){
+            txtFieldDose.setText("");
         }
-    }//GEN-LAST:event_txtFieldQuantityFocusGained
+    }//GEN-LAST:event_txtFieldDoseFocusGained
 
     private void txtFieldNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldNameFocusLost
         if(txtFieldName.getText().equals("")){
@@ -434,26 +433,46 @@ public class anadir extends javax.swing.JFrame  {
         }
     }//GEN-LAST:event_txtFieldNameFocusLost
 
-    private void txtFieldQuantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldQuantityFocusLost
-        if(txtFieldQuantity.getText().equals("")){
-            txtFieldQuantity.setText("Ingrese la cantidad de la medicina");
+    private void txtFieldDoseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDoseFocusLost
+        if(txtFieldDose.getText().equals("")){
+            txtFieldDose.setText("Ingrese la cantidad de la medicina");
         }
-    }//GEN-LAST:event_txtFieldQuantityFocusLost
+    }//GEN-LAST:event_txtFieldDoseFocusLost
 
     private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
         String[] values = new String[6];
+        HashMap<String, Object> session = new HashMap<>();
         values[0] = userData.get("id");
-        ArrayList<HashMap<String, String>> medicinas = DatabaseFunctions.SELECT("medicines", new String[0], "name", txtFieldName.getText());
-        String medId = medicinas.get(0).get("id");
-        values[1] = medId;
-        values[2] = txtFieldQuantity.getText();
-        values[3] = "0";
+        
+        values[1] = txtFieldName.getText();
+        values[2] = txtFieldRemaining.getText();
+        values[3] = txtFieldFrequency.getText();
         values[4] = "2024-10-04 08:00:00.000";
-        values[5] = txtFieldQuantity.getText();
-        DatabaseFunctions.INSERT("user_meds", values);
+        values[5] = txtFieldDose.getText();
+        session.put("values", values);
+        
+        cliente.sentMessage("/addUserMed", session);
         dispose();
+        
+        /*boolean check = (boolean)cliente.sentMessage("/addUserMed", session).get("check");
+        if (check) {
+            //JOptionPane confirmacion
+        } else {
+            //JOptionPane error
+        }*/
     }//GEN-LAST:event_btnAnadirMouseClicked
-
+    
+    /* HashMap<String, Object> sessionIn = new HashMap<>();
+        sessionIn.put("username", usernameField.getText());
+        sessionIn.put("password", String.valueOf(passField.getPassword()));
+        
+        HashMap<String, Object> sessionOut = cliente.sentMessage("/checkLogIn", sessionIn);
+        boolean logedIn = (boolean)sessionOut.get("check");
+        HashMap<String, String> userData = (HashMap<String, String>)sessionOut.get("userData");
+        
+        if (logedIn)
+            LogedIn(userData);*/
+    
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btnXMouseClicked
@@ -493,10 +512,6 @@ public class anadir extends javax.swing.JFrame  {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnadirActionPerformed
 
-    private void boxDurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDurationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_boxDurationActionPerformed
-
     private void lblCapsuleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapsuleMouseClicked
         // TODO add your handling code here:
         selectImage(lblCapsule);
@@ -516,6 +531,28 @@ public class anadir extends javax.swing.JFrame  {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void txtFieldRemainingFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldRemainingFocusGained
+        // TODO add your handling code here:
+        if(txtFieldRemaining.getText().equals("Specify the duration of the treatment")){
+            txtFieldRemaining.setText("");
+        }
+    }//GEN-LAST:event_txtFieldRemainingFocusGained
+
+    private void txtFieldRemainingFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldRemainingFocusLost
+        // TODO add your handling code here:
+        if(txtFieldDose.getText().equals("")){
+            txtFieldDose.setText("Specify the duration of the treatment");
+        }
+    }//GEN-LAST:event_txtFieldRemainingFocusLost
+
+    private void txtFieldFrequencyFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFrequencyFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldFrequencyFocusGained
+
+    private void txtFieldFrequencyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFrequencyFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldFrequencyFocusLost
     
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
@@ -524,20 +561,6 @@ public class anadir extends javax.swing.JFrame  {
         this.repaint();
     }
     
-    
-    public void cambiarIdioma(String idioma, String pais) {
-        Locale localizacion = new Locale(idioma, pais);
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", localizacion);
-    
-        // Cambiar textos de la interfaz
-        setTitle(bundle.getString("anadir_usuario"));  // Título de la ventana
-        lblType.setText(bundle.getString("tipo"));
-        lblTimeline.setText(bundle.getString("cronograma"));
-        btnAnadir.setText(bundle.getString("boton_guardar"));
-        btnCancelar.setText(bundle.getString("boton_cancelar"));
-        txtFieldName.setText(bundle.getString("nombre_medicina"));
-        txtFieldQuantity.setText(bundle.getString("cantidad_medicina"));
-    }
     /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -571,8 +594,6 @@ public class anadir extends javax.swing.JFrame  {
     }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxDuration;
-    private javax.swing.JComboBox<String> boxFrequency;
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel btnMAXIMIZAR;
@@ -594,8 +615,10 @@ public class anadir extends javax.swing.JFrame  {
     private javax.swing.JPanel pnlTimeline;
     private javax.swing.JPanel pnlType;
     private javax.swing.JPanel titleBar;
+    private javax.swing.JTextField txtFieldDose;
+    private javax.swing.JTextField txtFieldFrequency;
     private javax.swing.JTextField txtFieldName;
-    private javax.swing.JTextField txtFieldQuantity;
+    private javax.swing.JTextField txtFieldRemaining;
     private javax.swing.JLabel windowIcon;
     // End of variables declaration//GEN-END:variables
 }

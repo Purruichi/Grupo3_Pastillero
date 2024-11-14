@@ -524,7 +524,7 @@ public class mainWindow extends javax.swing.JFrame {
     private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
         System.out.println("Patata");
         if (anadirWindow == null || !anadirWindow.isShowing()) {
-            anadirWindow = new anadir(userData);
+            anadirWindow = new anadir(userData, cliente);
             anadirWindow.setVisible(true);
             anadirWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
@@ -676,6 +676,7 @@ public class mainWindow extends javax.swing.JFrame {
     
     private void showMeds() {
         
+        pnlMedArray.clear();
         pnlMedicines.removeAll();
         pnlMedicines.revalidate();
         

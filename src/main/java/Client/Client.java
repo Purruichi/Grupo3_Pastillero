@@ -47,6 +47,8 @@ public class Client {
                     case "/getMedicineNameResponse" -> session = mensajeVuelta.getSession();
                     
                     case "/signUpUserResponse" -> session = mensajeVuelta.getSession();
+                    
+                    case "/addUserMedResponse" -> session = mensajeVuelta.getSession();
                         
                     default -> System.out.println("\nError a la vuelta");
 		

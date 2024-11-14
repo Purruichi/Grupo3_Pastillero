@@ -83,6 +83,16 @@ public class SocketServer extends Thread {
                         mensajeOut.setSession(session);
                         objectOutputStream.writeObject(mensajeOut);
                     }
+                    
+                    case "/addUserMed" -> {
+                        String[] values = (String[])session.get("values");
+                        values[1] = MedicineControler.getMedicineId(values[1]);
+                        boolean check = MedicineControler.addUserMed(values);
+                        session = new HashMap<>();
+                        session.put("check", check);
+                        mensajeOut.setContext("/addUserMedResponse");
+                        objectOutputStream.writeObject(mensajeOut);
+                    }
 
                     default -> System.out.println("\nParámetro no encontrado");
                 }
