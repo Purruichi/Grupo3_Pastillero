@@ -13,7 +13,7 @@ import mainWindow.mainWindow;
  *
  * @author salvadorcabreraparra
  */
-public class quitar extends javax.swing.JFrame {
+public class quitar extends javax.swing.JFrame  {
 
     private HashMap<String, String> userData;
     int xMouse,yMouse, selectedRow;
@@ -25,6 +25,7 @@ public class quitar extends javax.swing.JFrame {
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
         cargarMedicamentos();
+    
         
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
@@ -40,6 +41,8 @@ public class quitar extends javax.swing.JFrame {
             model.addRow(new Object[]{med.get("name"), med.get("remaining_amount")});*/
         showMeds();
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

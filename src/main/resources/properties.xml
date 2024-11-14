@@ -2,9 +2,9 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>This is easy!</comment>
-    <entry key="ddbb.connection">jdbc:postgresql://postgres:5432/mypills</entry>
+    <entry key="ddbb.connection">jdbc:postgresql://mypillsdb.cfse6gaeoam1.eu-west-3.rds.amazonaws.com:5432/mypillsdb</entry>
     <entry key="ddbb.user">postgres</entry>
     <entry key="ddbb.password">postgres2024.</entry>
     <entry key="host">127.0.0.1</entry>
-    <entry key="port">8081</entry>
+    <entry key="port">5432</entry>
 </properties>
