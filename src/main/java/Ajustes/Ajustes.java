@@ -287,7 +287,7 @@ public class Ajustes extends javax.swing.JFrame {
     }//GEN-LAST:event_titleBarMouseDragged
 
     private void lblXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXMouseClicked
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_lblXMouseClicked
 
     private void jNotificacionONOFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNotificacionONOFFActionPerformed
