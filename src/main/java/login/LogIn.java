@@ -14,13 +14,12 @@ import javax.swing.*;
 import mainWindow.mainWindow;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import Languages.*;
 
 /**
  *
  * @author purru
  */
-public class LogIn extends javax.swing.JFrame implements IdiomaListener{
+public class LogIn extends javax.swing.JFrame{
     
     Client cliente;
     
@@ -45,24 +44,8 @@ public class LogIn extends javax.swing.JFrame implements IdiomaListener{
         setSize(800, 500);
         setLocationRelativeTo(null);
         cliente = new Client();
-        IdiomaManager.getInstance().addIdiomaListener(this);
-        actualizarTextos();
     }
     
-    @Override
-    public void onIdiomaChanged() {
-        actualizarTextos();
-    }
-    
-    private void actualizarTextos() {
-        usernameField.setText(IdiomaManager.getInstance().getString("usernameField"));
-        lblForgotPass.setText(IdiomaManager.getInstance().getString("lblForgotPass"));
-        lblSignUpAccess.setText(IdiomaManager.getInstance().getString("lblSignUpAccess"));
-        labelLogIn.setText(IdiomaManager.getInstance().getString("labelLogIn"));
-        
-    }
-    
-    private void configurarListeners() {
     /*private void configurarListeners() {
         // MouseListener compartido
         MouseAdapter mouseAdapter = new MouseAdapter() {

@@ -8,13 +8,12 @@ import java.util.*;
 import javax.swing.*;
 import Database.DatabaseFunctions;
 import mainWindow.mainWindow;
-import Languages.*;
 
 /**
  *
  * @author salvadorcabreraparra
  */
-public class quitar extends javax.swing.JFrame implements IdiomaListener {
+public class quitar extends javax.swing.JFrame  {
 
     private HashMap<String, String> userData;
     int xMouse,yMouse, selectedRow;
@@ -26,8 +25,7 @@ public class quitar extends javax.swing.JFrame implements IdiomaListener {
         setImageLabel(iconoMyPills, "/small-logo.png");
         setSize(800, 500);
         cargarMedicamentos();
-        IdiomaManager.getInstance().addIdiomaListener(this);
-        actualizarTextos();
+    
         
         //Arreglar para que no se cierre toda la app al cerrar la ventana de quitar
     }
@@ -44,15 +42,7 @@ public class quitar extends javax.swing.JFrame implements IdiomaListener {
         showMeds();
     }
     
-    private void actualizarTextos() {
-        medicamentos.setText(IdiomaManager.getInstance().getString("medicamentos"));
-        textoAceptar.setText(IdiomaManager.getInstance().getString("textoAceptar"));
-    }
-    
-    @Override
-    public void onIdiomaChanged() {
-        actualizarTextos();
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

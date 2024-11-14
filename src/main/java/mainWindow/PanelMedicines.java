@@ -8,13 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import Languages.*;
 
 /**
  *
  * @author salvadorcabreraparra
  */
-public class PanelMedicines extends javax.swing.JPanel implements IdiomaListener {
+public class PanelMedicines extends javax.swing.JPanel {
     
     private Medicine medicine;
     
@@ -24,19 +23,6 @@ public class PanelMedicines extends javax.swing.JPanel implements IdiomaListener
     public PanelMedicines() {
         initComponents();
         setSize(330, 140);
-        IdiomaManager.getInstance().addIdiomaListener(this);
-        actualizarTextos();
-    }
-    
-    private void actualizarTextos() {
-        //lblName.setText(IdiomaManager.getInstance().getString("medicines_name"));
-        //lblDose.setText(IdiomaManager.getInstance().getString("dose_label"));
-        // Actualizar el resto de los elementos...
-    }
-    
-    @Override
-    public void onIdiomaChanged() {
-        actualizarTextos();
     }
     
     public PanelMedicines(Medicine medicine) {
