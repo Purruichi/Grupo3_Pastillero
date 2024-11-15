@@ -73,9 +73,9 @@ public class Ajustes extends javax.swing.JFrame {
         jComboBoxIdiomas = new javax.swing.JComboBox<>();
         jNumContacto = new javax.swing.JToggleButton();
         jManualUso = new javax.swing.JButton();
-        jButtonSoporte = new javax.swing.JButton();
-        jButtonNotificacion = new javax.swing.JButton();
-        jButtonIdioma = new javax.swing.JButton();
+        lblHelpSupport = new javax.swing.JLabel();
+        lblNotification1 = new javax.swing.JLabel();
+        lblLanguage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -204,47 +204,35 @@ public class Ajustes extends javax.swing.JFrame {
 
         pnlAjustes.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 510, 500));
 
-        jButtonSoporte.setText("Help and support");
-        jButtonSoporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonSoporte.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblHelpSupport.setBackground(new java.awt.Color(153, 153, 153));
+        lblHelpSupport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblHelpSupport.setText("HELP AND SUPPORT");
+        lblHelpSupport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonSoporteMouseClicked(evt);
+                lblHelpSupportMouseClicked(evt);
             }
         });
-        jButtonSoporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSoporteActionPerformed(evt);
-            }
-        });
-        pnlAjustes.add(jButtonSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 240, 40));
+        pnlAjustes.add(lblHelpSupport, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 180, 40));
 
-        jButtonNotificacion.setText("Notifications");
-        jButtonNotificacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonNotificacion.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNotification1.setBackground(new java.awt.Color(153, 153, 153));
+        lblNotification1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNotification1.setText("NOTIFICATIONS");
+        lblNotification1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonNotificacionMouseClicked(evt);
+                lblNotification1MouseClicked(evt);
             }
         });
-        jButtonNotificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNotificacionActionPerformed(evt);
-            }
-        });
-        pnlAjustes.add(jButtonNotificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 240, 40));
+        pnlAjustes.add(lblNotification1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 140, 40));
 
-        jButtonIdioma.setText("Language");
-        jButtonIdioma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonIdioma.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblLanguage.setBackground(new java.awt.Color(153, 153, 153));
+        lblLanguage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLanguage.setText("LANGUAGE");
+        lblLanguage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonIdiomaMouseClicked(evt);
+                lblLanguageMouseClicked(evt);
             }
         });
-        jButtonIdioma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIdiomaActionPerformed(evt);
-            }
-        });
-        pnlAjustes.add(jButtonIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 240, 40));
+        pnlAjustes.add(lblLanguage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 140, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,19 +249,6 @@ public class Ajustes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonSoporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSoporteActionPerformed
-       
-        
-    }//GEN-LAST:event_jButtonSoporteActionPerformed
-
-    private void jButtonNotificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNotificacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonNotificacionActionPerformed
-
-    private void jButtonIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIdiomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonIdiomaActionPerformed
 
     private void titleBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleBarMousePressed
         xMouse=evt.getX();
@@ -310,38 +285,6 @@ public class Ajustes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jNumContactoActionPerformed
 
-    private void jButtonNotificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNotificacionMouseClicked
-        // TODO add your handling code here:
-        if(evt.getSource()==jButtonNotificacion){
-            jNotificacionONOFF.setVisible(true);
-            jComboBoxIdiomas.setVisible(false);
-            jNumContacto.setVisible(false);
-            jManualUso.setVisible(false);
-            //panelManualUso.setVisible(false);
-        }   
-    }//GEN-LAST:event_jButtonNotificacionMouseClicked
-
-    private void jButtonSoporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSoporteMouseClicked
-        // TODO add your handling code here:
-        if (evt.getSource() == jButtonSoporte) {
-            jNumContacto.setVisible(true);
-            jManualUso.setVisible(true);
-            jNotificacionONOFF.setVisible(false);
-            jComboBoxIdiomas.setVisible(false);
-            //panelManualUso.setVisible(false);
-        }
-    }//GEN-LAST:event_jButtonSoporteMouseClicked
-
-    private void jButtonIdiomaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIdiomaMouseClicked
-        if (evt.getSource() == jButtonIdioma) {
-            jNumContacto.setVisible(false);
-            jManualUso.setVisible(false);
-            jNotificacionONOFF.setVisible(false);
-            jComboBoxIdiomas.setVisible(true);
-            //panelManualUso.setVisible(false);
-        }
-    }//GEN-LAST:event_jButtonIdiomaMouseClicked
-
     private void jNotificacionONOFFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNotificacionONOFFMouseClicked
        
     }//GEN-LAST:event_jNotificacionONOFFMouseClicked
@@ -360,18 +303,48 @@ public class Ajustes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jManualUsoMouseClicked
 
+    private void lblHelpSupportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHelpSupportMouseClicked
+            if(evt.getSource() == lblHelpSupport){
+                jNumContacto.setVisible(true);
+                jManualUso.setVisible(true);
+                jNotificacionONOFF.setVisible(false);
+                jComboBoxIdiomas.setVisible(false);
+                //panelManualUso.setVisible(false);
+            }
+    }//GEN-LAST:event_lblHelpSupportMouseClicked
+
+    private void lblNotification1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotification1MouseClicked
+        if(evt.getSource() == lblNotification1){
+                jNumContacto.setVisible(false);
+                jManualUso.setVisible(false);
+                jNotificacionONOFF.setVisible(true);
+                jComboBoxIdiomas.setVisible(false);
+                //panelManualUso.setVisible(false);
+            }
+    }//GEN-LAST:event_lblNotification1MouseClicked
+
+    private void lblLanguageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLanguageMouseClicked
+        if(evt.getSource() == lblLanguage){
+                jNumContacto.setVisible(false);
+                jManualUso.setVisible(false);
+                jNotificacionONOFF.setVisible(false);
+                jComboBoxIdiomas.setVisible(true);
+                //panelManualUso.setVisible(false);
+            }
+    }//GEN-LAST:event_lblLanguageMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonIdioma;
-    private javax.swing.JButton jButtonNotificacion;
-    private javax.swing.JButton jButtonSoporte;
     private javax.swing.JComboBox<String> jComboBoxIdiomas;
     private javax.swing.JButton jManualUso;
     private javax.swing.JToggleButton jNotificacionONOFF;
     private javax.swing.JToggleButton jNumContacto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAjustes;
+    private javax.swing.JLabel lblHelpSupport;
+    private javax.swing.JLabel lblLanguage;
     private javax.swing.JLabel lblMyPills;
+    private javax.swing.JLabel lblNotification1;
     private javax.swing.JLabel lblX;
     private javax.swing.JPanel pnlAjustes;
     private javax.swing.JPanel titleBar;
