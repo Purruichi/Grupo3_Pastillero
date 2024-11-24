@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 import quitar.quitar;
+import ajustes.Ajustes;
 
 /**
  *
@@ -19,12 +20,13 @@ import quitar.quitar;
  */
 public class mainWindow extends javax.swing.JFrame {
     
-    private boolean isMouseInside = false;
+    //private boolean isMouseInside = false;
     int xMouse, yMouse;
     private quitar quitarWindow;
     private anadir anadirWindow;
+    private Ajustes ajustesWindow;
     
-    private ArrayList<PanelMedicines> panelsMedicines = new ArrayList<>();
+    private ArrayList<PanelMedicines> pnlMedArray = new ArrayList<>();
     
     Client cliente;
     
@@ -39,6 +41,8 @@ public class mainWindow extends javax.swing.JFrame {
         this.userData = userData;
         this.cliente = cliente;
         initComponents();
+        pnlInfoMedicine.setVisible(false);
+        pnlInfoMedicine2.setVisible(false);
         setImageLabel(windowIcon, "/small-logo.png");
         setImageLabel(lblMaximize, "/Maximizar.png");
         setImageLabel(lblMinimize, "/Guion.png");
@@ -555,11 +559,43 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addPanelMouseClicked
 
     private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
-        
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
-        
+        System.out.println("Ajustes");
+        if (ajustesWindow == null || !ajustesWindow.isShowing()) {
+            ajustesWindow = new Ajustes(userData);
+            ajustesWindow.setVisible(true);
+            ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }        
     }//GEN-LAST:event_lblAjustesMouseClicked
 
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
@@ -633,8 +669,8 @@ public class mainWindow extends javax.swing.JFrame {
         // Verificar si la ventana ya está abierta
         if (quitarWindow == null || !quitarWindow.isShowing()) {
             // Crear una nueva instancia de la ventana "quitar" si no está abierta
-            quitarWindow = new quitar(userData);
-
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
             // Añadir un listener para detectar cuando se cierra la ventana "quitar"
             quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
@@ -647,15 +683,14 @@ public class mainWindow extends javax.swing.JFrame {
                     mainWindow.this.setVisible(false);
                 }
             });
-
-            // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
-
-            // Mostrar la ventana "quitar"
-            quitarWindow.setVisible(true);
         }
     }//GEN-LAST:event_QuitPanelMouseClicked
     
     private void showMeds() {
+        
+        pnlMedArray.clear();
+        pnlMedicines.removeAll();
+        pnlMedicines.revalidate();
         
         HashMap<String, Object> session = new HashMap<>();
         session.put("user_id", userData.get("id"));
@@ -663,10 +698,28 @@ public class mainWindow extends javax.swing.JFrame {
         
         userMeds = (ArrayList<HashMap<String, String>>)session.get("userMeds");
         for (HashMap<String, String> med : userMeds) {
-            panelsMedicines.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frequency")), Integer.parseInt(med.get("remaining"))));
+            session = new HashMap<>();
+            session.put("id", Integer.valueOf(med.get("medicine_id")));
+            med.put("name", String.valueOf(cliente.sentMessage("/getMedicineName", session).get("name")));
+            pnlMedArray.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frecuency")), Integer.parseInt(med.get("remaining_amount"))));
         }
-        for (PanelMedicines pnl : panelsMedicines){
+        System.out.println(userMeds);
+        
+        // Coordenadas posicion panel
+        int x = 30;
+        int y = 30;
+        // Distancia entre paneles (Pto. Origen B - Pto. Origen A)
+        int dx = 360;
+        int dy = 170;
+        
+        for (int i = 0; i < pnlMedArray.size()/2; i++){
             // Añadirlos en bucle anidado doble CAMBIAR DE ITERAR OBJETOS A ITERAR NUMEROS HAS SIZE()/2 Y DESPUES ANIDAR OTRO "n" DE DOS ITERACIONES (2 COLUMNAS)
+            for (int n = 0; n <= 1; n++){
+                pnlMedicines.add(pnlMedArray.get(2 * i + n), new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, pnlMedArray.get(2 * i + n).getWidth(), pnlMedArray.get(2 * i + n).getHeight()));
+                x += dx;
+            }
+            x = 30;
+            y += dy;
         }
         
         /*String userId = userData.get("id");
@@ -695,7 +748,7 @@ public class mainWindow extends javax.swing.JFrame {
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
         Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
         labelN.setIcon(icon);
-        this.repaint();
+        labelN.repaint();
     }
     
     //public static void main(String args[]) {

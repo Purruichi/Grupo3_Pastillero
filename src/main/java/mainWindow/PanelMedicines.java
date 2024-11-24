@@ -6,6 +6,8 @@ package mainWindow;
 import Domain.Medicine;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -62,10 +64,10 @@ public class PanelMedicines extends javax.swing.JPanel {
 
         lblName.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
         lblName.setText("NAME:");
-        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 20));
+        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 45, 20));
 
         lblNameMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        add(lblNameMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 240, 20));
+        add(lblNameMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 10, 240, 20));
 
         lblRemainig.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
         lblRemainig.setText("REMAINING:");
@@ -76,17 +78,17 @@ public class PanelMedicines extends javax.swing.JPanel {
 
         lblDose.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
         lblDose.setText("DOSE:");
-        add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, 20));
+        add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 42, 20));
 
         lblDoseMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        add(lblDoseMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
+        add(lblDoseMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 70, 220, 20));
 
         lblFrequency.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
         lblFrequency.setText("FREQUENCY:");
-        add(lblFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 80, 20));
+        add(lblFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 85, 20));
 
         lblFrequencyMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
-        add(lblFrequencyMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 200, 20));
+        add(lblFrequencyMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 100, 190, 20));
     }// </editor-fold>//GEN-END:initComponents
     
     public void setMedicine(Medicine medicine){

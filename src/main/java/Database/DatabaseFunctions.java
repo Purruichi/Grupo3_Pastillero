@@ -107,13 +107,16 @@ public class DatabaseFunctions {
         // Insertar datos
         String deleteSQL = "DELETE FROM " + table + " WHERE ";
         
-        String condsStr = "";
-        for (int i = 2; i < condColumns.length; i++){
-            condsStr += condColumns[i - 1] + " = '" + condValues[i - 1] + " AND";
-        }
-        condsStr += condColumns[condColumns.length - 1] + " = '" + condValues[condValues.length - 1] + "';";
+        System.out.println(Arrays.toString(condColumns));
+        System.out.println(Arrays.toString(condValues));
         
-        deleteSQL += condsStr;
+        String condsStr = "";
+        for (int i = 1; i < condColumns.length; i++){
+            deleteSQL += "(" + condColumns[i - 1] + " = '" + condValues[i - 1] + "') AND ";
+        }
+        deleteSQL += "(" + condColumns[condColumns.length - 1] + " = '" + condValues[condValues.length - 1] + "');";
+        
+        System.out.println(deleteSQL);
         
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
