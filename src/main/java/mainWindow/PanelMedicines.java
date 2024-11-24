@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 public class PanelMedicines extends javax.swing.JPanel {
     
     private Medicine medicine;
+    private boolean selected;
     
     /**
      * Creates new form PanelMedicines
@@ -36,6 +37,12 @@ public class PanelMedicines extends javax.swing.JPanel {
         this.medicine = new Medicine(name, dose, id, frequency, remaining);
         initComponents();
         setSize(330, 140);
+        this.selected = false;
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toggleSelection();
+            }
+        });
         reload();
     }
 
@@ -90,6 +97,16 @@ public class PanelMedicines extends javax.swing.JPanel {
         lblFrequencyMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
         add(lblFrequencyMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 100, 190, 20));
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void toggleSelection() {
+        selected = !selected; // Cambia el estado de selección
+        System.out.println("Panel seleccionado: " + selected); // Imprime el estado en consola
+        // Cambiar el color de fondo para reflejar la selección visualmente
+        setBackground(selected ? new java.awt.Color(255, 0, 0) : new java.awt.Color(153, 204, 255));
+    }
+    public boolean isSelected() {
+        return selected;
+    }
     
     public void setMedicine(Medicine medicine){
         this.medicine = medicine;
