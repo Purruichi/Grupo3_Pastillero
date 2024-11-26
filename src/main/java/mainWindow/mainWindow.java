@@ -4,31 +4,122 @@
  */
 package mainWindow;
 
+import Client.Client;
 import Database.DatabaseFunctions;
 import anadir.anadir;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.*;
 import quitar.quitar;
+import ajustes.Ajustes;
 
 /**
  *
  * @author andre
  */
 public class mainWindow extends javax.swing.JFrame {
+    
+    //private boolean isMouseInside = false;
     int xMouse, yMouse;
     private quitar quitarWindow;
     private anadir anadirWindow;
+    private Ajustes ajustesWindow;
+    
+    private ArrayList<PanelMedicines> pnlMedArray = new ArrayList<>();
+    
+    Client cliente;
     
     public HashMap<String, String> userData = new HashMap<>();
+    public ArrayList<HashMap<String, String>> userMeds = new ArrayList<>();
     /**
      * Creates new form mainWindow
      * @param userData
+     * @param cliente
      */
-    public mainWindow(HashMap<String, String> userData) {
+    public mainWindow(HashMap<String, String> userData, Client cliente){    
         this.userData = userData;
+        this.cliente = cliente;
         initComponents();
+        pnlInfoMedicine.setVisible(false);
+        pnlInfoMedicine2.setVisible(false);
+        setImageLabel(windowIcon, "/small-logo.png");
+        setImageLabel(lblMaximize, "/Maximizar.png");
+        setImageLabel(lblMinimize, "/Guion.png");
+        setImageLabel(lblFoto,"/usuario.png");
+        setImageLabel(lblAjustes,"/engranaje.png");
+        setImageLabel(lblAdd,"/agregar.png");
+        setImageLabel(lblRemove,"/borrar.png");
+        btnMINIMIZAR.setOpaque(true);
+        lblMinimize.setOpaque(false);
+        btnMAXIMIZAR.setOpaque(true);
+        lblMaximize.setOpaque(false);
+        lblFoto.setOpaque(false);
+        lblAjustes.setOpaque(false);
+        lblAdd.setOpaque(true);
+        lblRemove.setOpaque(true);
+        setLocationRelativeTo(null);
+        pnlInfoMedicine1.setOpaque(true);
+        //configurarListeners();
         showMeds();
     }
+    
+    /*private void configurarListeners() {
+        // MouseListener compartido
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!isMouseInside) {
+                    isMouseInside = true;
+                    System.out.println("Ratón ha entrado en el área combinada");
+                    btnMINIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
+                Component source = e.getComponent();
+                if (source.equals(btnMINIMIZAR) && !lblMinimize.getBounds().contains(e.getPoint()) ||
+                    source.equals(lblMinimize) && !btnMINIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMinimize, e.getPoint(), btnMINIMIZAR))) {
+                    isMouseInside = false;
+                    System.out.println("Ratón ha salido del área combinada");
+                    btnMINIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
+                }
+            }
+        };
+        
+        MouseAdapter mouseAdapter2 = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!isMouseInside) {
+                    isMouseInside = true;
+                    //System.out.println("Ratón ha entrado en el área combinada");
+                    btnMAXIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
+                Component source = e.getComponent();
+                if (source.equals(btnMAXIMIZAR) && !lblMaximize.getBounds().contains(e.getPoint()) ||
+                    source.equals(lblMaximize) && !btnMAXIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMaximize, e.getPoint(), btnMAXIMIZAR))) {
+                    isMouseInside = false;
+                    //System.out.println("Ratón ha salido del área combinada");
+                    btnMAXIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
+                }
+            }
+        };
+        
+        
+
+        // Agrega el MouseListener al JPanel y al JLabel
+        btnMINIMIZAR.addMouseListener(mouseAdapter);
+        lblMinimize.addMouseListener(mouseAdapter);
+        btnMAXIMIZAR.addMouseListener(mouseAdapter2);
+        lblMaximize.addMouseListener(mouseAdapter2);
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,29 +130,144 @@ public class mainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        JPanelFondo = new javax.swing.JPanel();
+        titleBar = new javax.swing.JPanel();
+        btnX = new javax.swing.JPanel();
+        lblX = new javax.swing.JLabel();
+        btnMAXIMIZAR = new javax.swing.JPanel();
+        lblMaximize = new javax.swing.JLabel();
+        btnMINIMIZAR = new javax.swing.JPanel();
+        lblMinimize = new javax.swing.JLabel();
+        windowIcon = new javax.swing.JLabel();
+        lblMyPills = new javax.swing.JLabel();
         NorthPan = new javax.swing.JPanel();
-        logo = new javax.swing.JLabel();
-        MyPills = new javax.swing.JLabel();
-        username = new javax.swing.JLabel();
-        quit = new javax.swing.JLabel();
-        user = new javax.swing.JLabel();
+        addPanel = new javax.swing.JPanel();
+        lblAdd = new javax.swing.JLabel();
+        pnlUsername = new javax.swing.JPanel();
+        CodigoNombreUsuario = new javax.swing.JLabel();
+        pnlEmail = new javax.swing.JPanel();
+        Email = new javax.swing.JLabel();
+        CodigoEmail = new javax.swing.JLabel();
+        pnlFoto = new javax.swing.JPanel();
+        lblFoto = new javax.swing.JLabel();
+        pnlDate = new javax.swing.JPanel();
         datename = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
-        EastPan = new javax.swing.JPanel();
-        addPanel = new javax.swing.JPanel();
-        addlabel = new javax.swing.JLabel();
+        pnlAjustes = new javax.swing.JPanel();
+        lblAjustes = new javax.swing.JLabel();
         QuitPanel = new javax.swing.JPanel();
-        QuitLabel = new javax.swing.JLabel();
-        mainPanel = new javax.swing.JScrollPane();
-        medTable = new javax.swing.JTable();
+        lblRemove = new javax.swing.JLabel();
+        EastPan = new javax.swing.JPanel();
+        pnlScrollMedicines = new javax.swing.JScrollPane();
+        pnlMedicines = new javax.swing.JPanel();
+        pnlInfoMedicine1 = new PanelMedicines();
+        pnlInfoMedicine2 = new javax.swing.JPanel();
+        lblName2 = new javax.swing.JLabel();
+        lblNameMedicine2 = new javax.swing.JLabel();
+        lblRemainig2 = new javax.swing.JLabel();
+        lblRemainingMedicine2 = new javax.swing.JLabel();
+        lblDose2 = new javax.swing.JLabel();
+        lblDoseMedicines2 = new javax.swing.JLabel();
+        lblFrequency2 = new javax.swing.JLabel();
+        lblFrequencyMedicine2 = new javax.swing.JLabel();
+        pnlInfoMedicine = new javax.swing.JPanel();
+        lblName = new javax.swing.JLabel();
+        lblNameMedicine = new javax.swing.JLabel();
+        lblRemainig = new javax.swing.JLabel();
+        lblRemainingMedicine = new javax.swing.JLabel();
+        lblDose = new javax.swing.JLabel();
+        lblDoseMedicines = new javax.swing.JLabel();
+        lblFrequency = new javax.swing.JLabel();
+        lblFrequencyMedicine = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        JPanelFondo.setBackground(new java.awt.Color(153, 204, 255));
+        JPanelFondo.setPreferredSize(new java.awt.Dimension(800, 500));
+        JPanelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleBar.setBackground(new java.awt.Color(204, 204, 204));
+        titleBar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                titleBarMouseDragged(evt);
+            }
+        });
+        titleBar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                titleBarMousePressed(evt);
+            }
+        });
+        titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX.setBackground(new java.awt.Color(255, 0, 0));
+        btnX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnX.setOpaque(false);
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        btnX.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblX.setText("x");
+        lblX.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btnX.add(lblX, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 20));
+
+        titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 20));
+
+        btnMAXIMIZAR.setBackground(new java.awt.Color(204, 204, 204));
+        btnMAXIMIZAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMAXIMIZAR.setOpaque(false);
+        btnMAXIMIZAR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMaximize.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblMaximize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMaximize.setToolTipText("");
+        lblMaximize.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblMaximize.setMaximumSize(new java.awt.Dimension(8, 17));
+        lblMaximize.setMinimumSize(new java.awt.Dimension(8, 17));
+        lblMaximize.setPreferredSize(new java.awt.Dimension(8, 17));
+        btnMAXIMIZAR.add(lblMaximize, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 20));
+
+        titleBar.add(btnMAXIMIZAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 40, 20));
+
+        btnMINIMIZAR.setBackground(new java.awt.Color(204, 204, 204));
+        btnMINIMIZAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMINIMIZAR.setOpaque(false);
+        btnMINIMIZAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMINIMIZARMouseClicked(evt);
+            }
+        });
+        btnMINIMIZAR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMinimize.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
+        lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMinimizeMouseClicked(evt);
+            }
+        });
+        btnMINIMIZAR.add(lblMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 20));
+
+        titleBar.add(btnMINIMIZAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 40, 20));
+        titleBar.add(windowIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 20, 20));
+
+        lblMyPills.setFont(new java.awt.Font("PT Mono", 1, 12)); // NOI18N
+        lblMyPills.setText("MyPills");
+        titleBar.add(lblMyPills, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 250, 20));
+
+        JPanelFondo.add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 20));
 
         NorthPan.setBackground(new java.awt.Color(51, 153, 255));
         NorthPan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -74,222 +280,251 @@ public class mainWindow extends javax.swing.JFrame {
                 NorthPanMousePressed(evt);
             }
         });
+        NorthPan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/small-logo.png"))); // NOI18N
-        logo.setText("jLabel1");
-
-        MyPills.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        MyPills.setForeground(new java.awt.Color(255, 255, 255));
-        MyPills.setText("MyPills");
-
-        username.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        username.setForeground(new java.awt.Color(255, 255, 255));
-        username.setText("Username:");
-
-        quit.setBackground(new java.awt.Color(255, 51, 0));
-        quit.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        quit.setForeground(new java.awt.Color(255, 255, 255));
-        quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        quit.setText("X");
-        quit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        quit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                quitMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                quitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                quitMouseExited(evt);
-            }
-        });
-
-        user.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        user.setForeground(new java.awt.Color(255, 255, 255));
-        user.setText(userData.get("username")
-        );
-
-        datename.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        datename.setForeground(new java.awt.Color(255, 255, 255));
-        datename.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        datename.setText("Date: ");
-
-        date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        date.setForeground(new java.awt.Color(255, 255, 255));
-        date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        date.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-
-        javax.swing.GroupLayout NorthPanLayout = new javax.swing.GroupLayout(NorthPan);
-        NorthPan.setLayout(NorthPanLayout);
-        NorthPanLayout.setHorizontalGroup(
-            NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NorthPanLayout.createSequentialGroup()
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NorthPanLayout.createSequentialGroup()
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
-                    .addGroup(NorthPanLayout.createSequentialGroup()
-                        .addComponent(MyPills, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(datename, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        NorthPanLayout.setVerticalGroup(
-            NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NorthPanLayout.createSequentialGroup()
-                .addGroup(NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NorthPanLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(datename, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(59, 59, 59))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NorthPanLayout.createSequentialGroup()
-                        .addGroup(NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(MyPills, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(NorthPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-
-        jPanel1.add(NorthPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
-
-        EastPan.setBackground(new java.awt.Color(102, 204, 255));
-
-        addPanel.setBackground(new java.awt.Color(0, 204, 102));
+        addPanel.setBackground(new java.awt.Color(51, 153, 255));
         addPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addPanelMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addPanelMouseExited(evt);
+            }
         });
+        addPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        addlabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        addlabel.setForeground(new java.awt.Color(255, 255, 255));
-        addlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addlabel.setText("Add");
-        addlabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        addlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addlabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAdd.setBackground(new java.awt.Color(51, 153, 255));
+        lblAdd.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblAdd.setForeground(new java.awt.Color(255, 255, 255));
+        lblAdd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addlabelMouseClicked(evt);
+                lblAddMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAddMouseExited(evt);
             }
         });
+        addPanel.add(lblAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        javax.swing.GroupLayout addPanelLayout = new javax.swing.GroupLayout(addPanel);
-        addPanel.setLayout(addPanelLayout);
-        addPanelLayout.setHorizontalGroup(
-            addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+        NorthPan.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 40, 40));
+
+        pnlUsername.setBackground(new java.awt.Color(51, 153, 255));
+        pnlUsername.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CodigoNombreUsuario.setFont(new java.awt.Font("PT Mono", 1, 24)); // NOI18N
+        CodigoNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        CodigoNombreUsuario.setText(userData.get("username")
         );
-        addPanelLayout.setVerticalGroup(
-            addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        pnlUsername.add(CodigoNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 40));
+
+        NorthPan.add(pnlUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 420, 40));
+
+        pnlEmail.setBackground(new java.awt.Color(51, 153, 255));
+        pnlEmail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Email.setFont(new java.awt.Font("PT Mono", 3, 18)); // NOI18N
+        Email.setForeground(new java.awt.Color(255, 255, 255));
+        Email.setText("Email:");
+        pnlEmail.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 132, 40));
+
+        CodigoEmail.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
+        CodigoEmail.setForeground(new java.awt.Color(255, 255, 255));
+        CodigoEmail.setText(userData.get("email")
         );
+        pnlEmail.add(CodigoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 290, 40));
 
-        QuitPanel.setBackground(new java.awt.Color(204, 51, 0));
+        NorthPan.add(pnlEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 420, 40));
 
-        QuitLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        QuitLabel.setForeground(new java.awt.Color(255, 255, 255));
-        QuitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        QuitLabel.setText("Remove");
-        QuitLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        QuitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        QuitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlFoto.setBackground(new java.awt.Color(51, 153, 255));
+        pnlFoto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblFoto.setForeground(new java.awt.Color(51, 153, 255));
+        lblFoto.setText("jLabel2");
+        pnlFoto.add(lblFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 110));
+
+        NorthPan.add(pnlFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 120, 110));
+
+        pnlDate.setBackground(new java.awt.Color(51, 153, 255));
+        pnlDate.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        datename.setFont(new java.awt.Font("PT Mono", 3, 18)); // NOI18N
+        datename.setForeground(new java.awt.Color(255, 255, 255));
+        datename.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        datename.setText("Date: ");
+        pnlDate.add(datename, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
+
+        date.setFont(new java.awt.Font("PT Mono", 1, 18)); // NOI18N
+        date.setForeground(new java.awt.Color(255, 255, 255));
+        date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        date.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        pnlDate.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 140, 32));
+
+        NorthPan.add(pnlDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 220, 30));
+
+        pnlAjustes.setBackground(new java.awt.Color(51, 153, 255));
+        pnlAjustes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblAjustes.setBackground(new java.awt.Color(51, 153, 255));
+        lblAjustes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAjustes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                QuitLabelMouseClicked(evt);
+                lblAjustesMouseClicked(evt);
             }
         });
+        pnlAjustes.add(lblAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
-        javax.swing.GroupLayout QuitPanelLayout = new javax.swing.GroupLayout(QuitPanel);
-        QuitPanel.setLayout(QuitPanelLayout);
-        QuitPanelLayout.setHorizontalGroup(
-            QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        QuitPanelLayout.setVerticalGroup(
-            QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(QuitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-        );
+        NorthPan.add(pnlAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, 40));
 
-        javax.swing.GroupLayout EastPanLayout = new javax.swing.GroupLayout(EastPan);
-        EastPan.setLayout(EastPanLayout);
-        EastPanLayout.setHorizontalGroup(
-            EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EastPanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(QuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        EastPanLayout.setVerticalGroup(
-            EastPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EastPanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(QuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(EastPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 156, -1, -1));
-
-        medTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Medicina", "Cantidad"
+        QuitPanel.setBackground(new java.awt.Color(51, 153, 255));
+        QuitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseClicked(evt);
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                QuitPanelMouseExited(evt);
             }
         });
-        medTable.setGridColor(new java.awt.Color(204, 255, 255));
-        mainPanel.setViewportView(medTable);
+        QuitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 550, 350));
+        lblRemove.setBackground(new java.awt.Color(51, 153, 255));
+        lblRemove.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblRemove.setForeground(new java.awt.Color(255, 255, 255));
+        lblRemove.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRemoveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblRemoveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblRemoveMouseExited(evt);
+            }
+        });
+        QuitPanel.add(lblRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        NorthPan.add(QuitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 40, 40));
+
+        JPanelFondo.add(NorthPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 150));
+
+        EastPan.setBackground(new java.awt.Color(102, 204, 255));
+        EastPan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        JPanelFondo.add(EastPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 156, -1, -1));
+
+        pnlMedicines.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMedicines.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlMedicines.add(pnlInfoMedicine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 330, 140));
+
+        pnlInfoMedicine2.setBackground(new java.awt.Color(153, 204, 255));
+        pnlInfoMedicine2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlInfoMedicine2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblName2.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblName2.setText("NAME:");
+        pnlInfoMedicine2.add(lblName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 20));
+
+        lblNameMedicine2.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblNameMedicine2.setText("jLabel1");
+        pnlInfoMedicine2.add(lblNameMedicine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 240, 20));
+
+        lblRemainig2.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblRemainig2.setText("REMAINING:");
+        pnlInfoMedicine2.add(lblRemainig2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 20));
+
+        lblRemainingMedicine2.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblRemainingMedicine2.setText("jLabel1");
+        pnlInfoMedicine2.add(lblRemainingMedicine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 200, 20));
+
+        lblDose2.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblDose2.setText("DOSE:");
+        pnlInfoMedicine2.add(lblDose2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, 20));
+
+        lblDoseMedicines2.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblDoseMedicines2.setText("jLabel1");
+        pnlInfoMedicine2.add(lblDoseMedicines2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
+
+        lblFrequency2.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblFrequency2.setText("FREQUENCY:");
+        pnlInfoMedicine2.add(lblFrequency2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 80, 20));
+
+        lblFrequencyMedicine2.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblFrequencyMedicine2.setText("jLabel1");
+        pnlInfoMedicine2.add(lblFrequencyMedicine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 200, 20));
+
+        pnlMedicines.add(pnlInfoMedicine2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 330, 140));
+
+        pnlInfoMedicine.setBackground(new java.awt.Color(153, 204, 255));
+        pnlInfoMedicine.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlInfoMedicine.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblName.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblName.setText("NAME:");
+        pnlInfoMedicine.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 20));
+
+        lblNameMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblNameMedicine.setText("jLabel1");
+        pnlInfoMedicine.add(lblNameMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 240, 20));
+
+        lblRemainig.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblRemainig.setText("REMAINING:");
+        pnlInfoMedicine.add(lblRemainig, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 20));
+
+        lblRemainingMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblRemainingMedicine.setText("jLabel1");
+        pnlInfoMedicine.add(lblRemainingMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 200, 20));
+
+        lblDose.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblDose.setText("DOSE:");
+        pnlInfoMedicine.add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 40, 20));
+
+        lblDoseMedicines.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblDoseMedicines.setText("jLabel1");
+        pnlInfoMedicine.add(lblDoseMedicines, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 240, 20));
+
+        lblFrequency.setFont(new java.awt.Font("PT Mono", 3, 13)); // NOI18N
+        lblFrequency.setText("FREQUENCY:");
+        pnlInfoMedicine.add(lblFrequency, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 80, 20));
+
+        lblFrequencyMedicine.setFont(new java.awt.Font("PT Mono", 0, 13)); // NOI18N
+        lblFrequencyMedicine.setText("jLabel1");
+        pnlInfoMedicine.add(lblFrequencyMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 200, 20));
+
+        pnlMedicines.add(pnlInfoMedicine, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 330, 140));
+
+        pnlScrollMedicines.setViewportView(pnlMedicines);
+
+        JPanelFondo.add(pnlScrollMedicines, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 750, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void quitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_quitMouseClicked
-
-    private void addlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addlabelMouseClicked
+    private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
         System.out.println("Patata");
         if (anadirWindow == null || !anadirWindow.isShowing()) {
-            anadirWindow = new anadir(userData);
+            anadirWindow = new anadir(userData, cliente);
             anadirWindow.setVisible(true);
             anadirWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
@@ -303,33 +538,7 @@ public class mainWindow extends javax.swing.JFrame {
                 }
             });
         }
-    }//GEN-LAST:event_addlabelMouseClicked
-
-    private void QuitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitLabelMouseClicked
-    // Verificar si la ventana ya está abierta
-    if (quitarWindow == null || !quitarWindow.isShowing()) {
-        // Crear una nueva instancia de la ventana "quitar" si no está abierta
-        quitarWindow = new quitar(userData);
-        
-        // Añadir un listener para detectar cuando se cierra la ventana "quitar"
-        quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                mainWindow.this.setVisible(true);
-                mainWindow.this.showMeds();
-            }
-            @Override
-            public void windowOpened(java.awt.event.WindowEvent e) {
-                mainWindow.this.setVisible(false);
-            }
-        });
-        
-        // Ocultar la ventana principal (opcional, si quieres ocultarla mientras está abierta "quitar")
-        
-        // Mostrar la ventana "quitar"
-        quitarWindow.setVisible(true);
-    }
-    }//GEN-LAST:event_QuitLabelMouseClicked
+    }//GEN-LAST:event_lblAddMouseClicked
 
     private void NorthPanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NorthPanMousePressed
         // TODO add your handling code here:
@@ -345,23 +554,178 @@ public class mainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_NorthPanMouseDragged
 
-    private void quitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseEntered
-        quit.setOpaque(true);
-    }//GEN-LAST:event_quitMouseEntered
-
-    private void quitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitMouseExited
-        quit.setOpaque(false);
-    }//GEN-LAST:event_quitMouseExited
-
     private void addPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseClicked
         
     }//GEN-LAST:event_addPanelMouseClicked
+
+    private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
+    }//GEN-LAST:event_lblRemoveMouseClicked
+
+    private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
+        System.out.println("Ajustes");
+        if (ajustesWindow == null || !ajustesWindow.isShowing()) {
+            ajustesWindow = new Ajustes(userData);
+            ajustesWindow.setVisible(true);
+            ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }        
+    }//GEN-LAST:event_lblAjustesMouseClicked
+
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        btnX.setOpaque(true);
+        lblX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        btnX.setOpaque(false);
+        lblX.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void lblMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_lblMinimizeMouseClicked
+
+    private void btnMINIMIZARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMINIMIZARMouseClicked
+        // TODO add your handling code here:
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_btnMINIMIZARMouseClicked
+
+    private void titleBarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleBarMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_titleBarMouseDragged
+
+    private void titleBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleBarMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_titleBarMousePressed
+
+    private void lblAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseEntered
+        
+    }//GEN-LAST:event_lblAddMouseEntered
+
+    private void lblAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseExited
+        
+    }//GEN-LAST:event_lblAddMouseExited
+
+    private void lblRemoveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseEntered
+        
+    }//GEN-LAST:event_lblRemoveMouseEntered
+
+    private void lblRemoveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseExited
+        
+    }//GEN-LAST:event_lblRemoveMouseExited
+
+    private void addPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseEntered
+        setImageLabel(lblAdd, "/agregarVerde.png");
+    }//GEN-LAST:event_addPanelMouseEntered
+
+    private void addPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseExited
+        setImageLabel(lblAdd, "/agregar.png");
+    }//GEN-LAST:event_addPanelMouseExited
+
+    private void QuitPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseEntered
+        setImageLabel(lblRemove, "/borrarRojo.png");
+    }//GEN-LAST:event_QuitPanelMouseEntered
+
+    private void QuitPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseExited
+        setImageLabel(lblRemove, "/borrar.png");
+    }//GEN-LAST:event_QuitPanelMouseExited
+
+    private void QuitPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseClicked
+        // Verificar si la ventana ya está abierta
+        if (quitarWindow == null || !quitarWindow.isShowing()) {
+            // Crear una nueva instancia de la ventana "quitar" si no está abierta
+            quitarWindow = new quitar(userData, cliente);
+            quitarWindow.setVisible(true);
+            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
+            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(true);
+                    mainWindow.this.showMeds();
+                }
+                @Override
+                public void windowOpened(java.awt.event.WindowEvent e) {
+                    mainWindow.this.setVisible(false);
+                }
+            });
+        }
+    }//GEN-LAST:event_QuitPanelMouseClicked
     
     private void showMeds() {
-        String userId = userData.get("id");
+        
+        pnlMedArray.clear();
+        pnlMedicines.removeAll();
+        pnlMedicines.revalidate();
+        
+        HashMap<String, Object> session = new HashMap<>();
+        session.put("user_id", userData.get("id"));
+        session = cliente.sentMessage("/getUserMeds", session);
+        
+        userMeds = (ArrayList<HashMap<String, String>>)session.get("userMeds");
+        for (HashMap<String, String> med : userMeds) {
+            session = new HashMap<>();
+            session.put("id", Integer.valueOf(med.get("medicine_id")));
+            med.put("name", String.valueOf(cliente.sentMessage("/getMedicineName", session).get("name")));
+            pnlMedArray.add(new PanelMedicines(med.get("name"), med.get("dose"), Integer.parseInt(med.get("id")), Integer.parseInt(med.get("frecuency")), Integer.parseInt(med.get("remaining_amount"))));
+        }
+        System.out.println(userMeds);
+        
+        // Coordenadas posicion panel
+        int x = 30;
+        int y = 30;
+        // Distancia entre paneles (Pto. Origen B - Pto. Origen A)
+        int dx = 360;
+        int dy = 170;
+        
+        for (int i = 0; i < pnlMedArray.size()/2; i++){
+            // Añadirlos en bucle anidado doble CAMBIAR DE ITERAR OBJETOS A ITERAR NUMEROS HAS SIZE()/2 Y DESPUES ANIDAR OTRO "n" DE DOS ITERACIONES (2 COLUMNAS)
+            for (int n = 0; n <= 1; n++){
+                pnlMedicines.add(pnlMedArray.get(2 * i + n), new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, pnlMedArray.get(2 * i + n).getWidth(), pnlMedArray.get(2 * i + n).getHeight()));
+                x += dx;
+            }
+            x = 30;
+            y += dy;
+        }
+        
+        /*String userId = userData.get("id");
         ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
-        String[] columnNames = {"Medicine", "Amount"};
-        Object[][] data = new Object[meds.size()][2];
+        String[] columnNames = {"Medicine", "Amount", "Dose", "Frequency"};
+        Object[][] data = new Object[meds.size()][4];
 
         for (int i = 0; i < meds.size(); i++) {
             String medicineId = meds.get(i).get("medicine_id");
@@ -369,31 +733,105 @@ public class mainWindow extends javax.swing.JFrame {
             if (!medDetails.isEmpty()) {
                 data[i][0] = medDetails.get(0).get("name");
                 data[i][1] = meds.get(i).get("remaining_amount");
+                data[i][2] = meds.get(i).get("dose");
+                data[i][3]=meds.get(i).get("frequency");
             }
             else{
                 data[0][0] = "No medicine";
                 data[0][1] = "NULL";
+                data[0][2] = "NULL";
+                data[0][3] = "NULL";
             }
-        }
-        medTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+        }*/
     }
+    private void setImageLabel(JLabel labelN, String root){
+        ImageIcon imagen = new ImageIcon(getClass().getResource(root));
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));
+        labelN.setIcon(icon);
+        labelN.repaint();
+    }
+    
+    //public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        /*try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new mainWindow().setVisible(true);
+            }
+        });
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CodigoEmail;
+    private javax.swing.JLabel CodigoNombreUsuario;
     private javax.swing.JPanel EastPan;
-    private javax.swing.JLabel MyPills;
+    private javax.swing.JLabel Email;
+    private javax.swing.JPanel JPanelFondo;
     private javax.swing.JPanel NorthPan;
-    private javax.swing.JLabel QuitLabel;
     private javax.swing.JPanel QuitPanel;
     private javax.swing.JPanel addPanel;
-    private javax.swing.JLabel addlabel;
+    private javax.swing.JPanel btnMAXIMIZAR;
+    private javax.swing.JPanel btnMINIMIZAR;
+    private javax.swing.JPanel btnX;
     private javax.swing.JLabel date;
     private javax.swing.JLabel datename;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel logo;
-    private javax.swing.JScrollPane mainPanel;
-    private javax.swing.JTable medTable;
-    private javax.swing.JLabel quit;
-    private javax.swing.JLabel user;
-    private javax.swing.JLabel username;
+    private javax.swing.JLabel lblAdd;
+    private javax.swing.JLabel lblAjustes;
+    private javax.swing.JLabel lblDose;
+    private javax.swing.JLabel lblDose2;
+    private javax.swing.JLabel lblDoseMedicines;
+    private javax.swing.JLabel lblDoseMedicines2;
+    private javax.swing.JLabel lblFoto;
+    private javax.swing.JLabel lblFrequency;
+    private javax.swing.JLabel lblFrequency2;
+    private javax.swing.JLabel lblFrequencyMedicine;
+    private javax.swing.JLabel lblFrequencyMedicine2;
+    private javax.swing.JLabel lblMaximize;
+    private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblMyPills;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblName2;
+    private javax.swing.JLabel lblNameMedicine;
+    private javax.swing.JLabel lblNameMedicine2;
+    private javax.swing.JLabel lblRemainig;
+    private javax.swing.JLabel lblRemainig2;
+    private javax.swing.JLabel lblRemainingMedicine;
+    private javax.swing.JLabel lblRemainingMedicine2;
+    private javax.swing.JLabel lblRemove;
+    private javax.swing.JLabel lblX;
+    private javax.swing.JPanel pnlAjustes;
+    private javax.swing.JPanel pnlDate;
+    private javax.swing.JPanel pnlEmail;
+    private javax.swing.JPanel pnlFoto;
+    private javax.swing.JPanel pnlInfoMedicine;
+    private javax.swing.JPanel pnlInfoMedicine1;
+    private javax.swing.JPanel pnlInfoMedicine2;
+    private javax.swing.JPanel pnlMedicines;
+    private javax.swing.JScrollPane pnlScrollMedicines;
+    private javax.swing.JPanel pnlUsername;
+    private javax.swing.JPanel titleBar;
+    private javax.swing.JLabel windowIcon;
     // End of variables declaration//GEN-END:variables
 }
