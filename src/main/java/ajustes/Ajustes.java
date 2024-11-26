@@ -4,9 +4,17 @@
  */
 package ajustes;
 
+import Database.DatabaseFunctions;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 
 
@@ -73,6 +81,7 @@ public class Ajustes extends javax.swing.JFrame {
         jComboBoxIdiomas = new javax.swing.JComboBox<>();
         jNumContacto = new javax.swing.JToggleButton();
         jManualUso = new javax.swing.JButton();
+        jDeleteCuenta = new javax.swing.JToggleButton();
         jButtonSoporte = new javax.swing.JButton();
         jButtonNotificacion = new javax.swing.JButton();
         jButtonIdioma = new javax.swing.JButton();
@@ -138,6 +147,7 @@ public class Ajustes extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jNotificacionONOFF.setText("Notifications OFF");
+        jNotificacionONOFF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jNotificacionONOFF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jNotificacionONOFFMouseClicked(evt);
@@ -150,6 +160,7 @@ public class Ajustes extends javax.swing.JFrame {
         });
 
         jComboBoxIdiomas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Spanish", "English", "French" }));
+        jComboBoxIdiomas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBoxIdiomas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxIdiomasActionPerformed(evt);
@@ -157,6 +168,7 @@ public class Ajustes extends javax.swing.JFrame {
         });
 
         jNumContacto.setText("Contact number");
+        jNumContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jNumContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNumContactoActionPerformed(evt);
@@ -164,6 +176,7 @@ public class Ajustes extends javax.swing.JFrame {
         });
 
         jManualUso.setText("App Manual");
+        jManualUso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jManualUso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jManualUsoMouseClicked(evt);
@@ -172,6 +185,14 @@ public class Ajustes extends javax.swing.JFrame {
         jManualUso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jManualUsoActionPerformed(evt);
+            }
+        });
+
+        jDeleteCuenta.setText("Delete your account");
+        jDeleteCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jDeleteCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDeleteCuentaActionPerformed(evt);
             }
         });
 
@@ -185,7 +206,8 @@ public class Ajustes extends javax.swing.JFrame {
                     .addComponent(jNotificacionONOFF, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                     .addComponent(jComboBoxIdiomas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jManualUso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jNumContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jNumContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDeleteCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,9 +217,11 @@ public class Ajustes extends javax.swing.JFrame {
                 .addComponent(jNotificacionONOFF, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
                 .addComponent(jComboBoxIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jDeleteCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jNumContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jManualUso, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -356,9 +380,46 @@ public class Ajustes extends javax.swing.JFrame {
             jManualUso.setVisible(false);
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(false);
-            //panelManualUso.setVisible(true);
-        }
+
+            try {
+                InputStream pdfStream = getClass().getResourceAsStream("/resources/UserManual.pdf");
+                if (pdfStream == null) {
+                    throw new FileNotFoundException("No se pudo encontrar UserManual.pdf en el classpath.");
+                }
+
+                File tempFile = File.createTempFile("UserManual", ".pdf");
+                tempFile.deleteOnExit();
+
+                try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = pdfStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                }
+
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(tempFile);
+                } else {
+                    JOptionPane.showMessageDialog(this, 
+                        "La funcionalidad para abrir archivos no está soportada en este sistema.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, 
+                    "Ocurrió un error al intentar abrir el manual de usuario.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        
+}
+
     }//GEN-LAST:event_jManualUsoMouseClicked
+
+    private void jDeleteCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteCuentaActionPerformed
+        // TODO add your handling code here:
+        DatabaseFunctions.DELETE(users);
+    }//GEN-LAST:event_jDeleteCuentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -366,6 +427,7 @@ public class Ajustes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNotificacion;
     private javax.swing.JButton jButtonSoporte;
     private javax.swing.JComboBox<String> jComboBoxIdiomas;
+    private javax.swing.JToggleButton jDeleteCuenta;
     private javax.swing.JButton jManualUso;
     private javax.swing.JToggleButton jNotificacionONOFF;
     private javax.swing.JToggleButton jNumContacto;
