@@ -14,6 +14,7 @@ import javax.swing.*;
 import quitar.quitar;
 import ajustes.Ajustes;
 import java.awt.event.MouseEvent;
+import login.LogIn;
 
 /**
  *
@@ -553,12 +554,20 @@ public class mainWindow extends javax.swing.JFrame {
         if (ajustesWindow == null || !ajustesWindow.isShowing()) {
             ajustesWindow = new Ajustes(userData, cliente);
             ajustesWindow.setVisible(true);
-            boolean deletion = ajustesWindow.checkDeletion();
             ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(true);
-                    mainWindow.this.showMeds();
+                    boolean deletion = ajustesWindow.checkDeletion();
+                    if (deletion){
+                        mainWindow.this.dispose();
+                        java.awt.EventQueue.invokeLater(() -> {
+                            new LogIn().setVisible(true);
+                        });
+                    }
+                    else{
+                        mainWindow.this.setVisible(true);
+                        mainWindow.this.showMeds();
+                    }
                 }
                 @Override
                 public void windowOpened(java.awt.event.WindowEvent e) {
