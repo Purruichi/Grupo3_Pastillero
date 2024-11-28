@@ -11,7 +11,7 @@ import java.util.HashMap;public class CustomerControler {
     }
 
     public static Customer getCustomer(int id) {
-        // HACER SELECT DEL CLIENTE SEGÚN EL ID
+        
         return new Customer();
     }
 
@@ -32,6 +32,15 @@ import java.util.HashMap;public class CustomerControler {
     public static boolean signUpUser(String[] values) {
         try {
             DatabaseFunctions.INSERT("users", values);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
+    public static boolean deleteUser(String id){
+        try{
+            DatabaseFunctions.DELETE("users", new String[] {"id"}, new String[] {id});
             return true;
         } catch (Exception e){
             return false;

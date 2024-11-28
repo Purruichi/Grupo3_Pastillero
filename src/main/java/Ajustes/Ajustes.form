@@ -148,6 +148,7 @@
                           <Component id="jComboBoxIdiomas" alignment="0" max="32767" attributes="0"/>
                           <Component id="jManualUso" alignment="0" max="32767" attributes="0"/>
                           <Component id="jNumContacto" max="32767" attributes="0"/>
+                          <Component id="jDeleteCuenta" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
@@ -160,9 +161,11 @@
                       <Component id="jNotificacionONOFF" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       <Component id="jComboBoxIdiomas" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace pref="90" max="32767" attributes="0"/>
+                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <Component id="jDeleteCuenta" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jNumContacto" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jManualUso" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
@@ -173,6 +176,9 @@
             <Component class="javax.swing.JToggleButton" name="jNotificacionONOFF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Notifications OFF"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jNotificacionONOFFMouseClicked"/>
@@ -188,6 +194,9 @@
                     <StringItem index="2" value="French"/>
                   </StringArray>
                 </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxIdiomasActionPerformed"/>
@@ -199,6 +208,9 @@
             <Component class="javax.swing.JToggleButton" name="jNumContacto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Contact number"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNumContactoActionPerformed"/>
@@ -207,10 +219,24 @@
             <Component class="javax.swing.JButton" name="jManualUso">
               <Properties>
                 <Property name="text" type="java.lang.String" value="App Manual"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jManualUsoMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jManualUsoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="jDeleteCuenta">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Delete your account"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDeleteCuentaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

@@ -13,6 +13,8 @@ import java.util.*;
 import javax.swing.*;
 import quitar.quitar;
 import ajustes.Ajustes;
+import java.awt.event.MouseEvent;
+import login.LogIn;
 
 /**
  *
@@ -402,17 +404,6 @@ public class mainWindow extends javax.swing.JFrame {
         lblRemove.setForeground(new java.awt.Color(255, 255, 255));
         lblRemove.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRemove.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRemoveMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblRemoveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblRemoveMouseExited(evt);
-            }
-        });
         QuitPanel.add(lblRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
         NorthPan.add(QuitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 40, 40));
@@ -558,43 +549,32 @@ public class mainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addPanelMouseClicked
 
-    private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
-        // Verificar si la ventana ya está abierta
-        if (quitarWindow == null || !quitarWindow.isShowing()) {
-            // Crear una nueva instancia de la ventana "quitar" si no está abierta
-            quitarWindow = new quitar(userData, cliente);
-            quitarWindow.setVisible(true);
-            // Añadir un listener para detectar cuando se cierra la ventana "quitar"
-            quitarWindow.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(true);
-                    mainWindow.this.showMeds();
-                }
-                @Override
-                public void windowOpened(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(false);
-                }
-            });
-        }
-    }//GEN-LAST:event_lblRemoveMouseClicked
-
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
         System.out.println("Ajustes");
         if (ajustesWindow == null || !ajustesWindow.isShowing()) {
-            ajustesWindow = new Ajustes(userData);
+            ajustesWindow = new Ajustes(userData, cliente);
             ajustesWindow.setVisible(true);
             ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
-                    mainWindow.this.setVisible(true);
-                    mainWindow.this.showMeds();
+                    boolean deletion = ajustesWindow.checkDeletion();
+                    if (deletion){
+                        mainWindow.this.dispose();
+                        java.awt.EventQueue.invokeLater(() -> {
+                            new LogIn().setVisible(true);
+                        });
+                    }
+                    else{
+                        mainWindow.this.setVisible(true);
+                        mainWindow.this.showMeds();
+                    }
                 }
                 @Override
                 public void windowOpened(java.awt.event.WindowEvent e) {
                     mainWindow.this.setVisible(false);
                 }
             });
+            
         }        
     }//GEN-LAST:event_lblAjustesMouseClicked
 
@@ -641,14 +621,6 @@ public class mainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_lblAddMouseExited
 
-    private void lblRemoveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseEntered
-        
-    }//GEN-LAST:event_lblRemoveMouseEntered
-
-    private void lblRemoveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseExited
-        
-    }//GEN-LAST:event_lblRemoveMouseExited
-
     private void addPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPanelMouseEntered
         setImageLabel(lblAdd, "/agregarVerde.png");
     }//GEN-LAST:event_addPanelMouseEntered
@@ -666,7 +638,7 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_QuitPanelMouseExited
 
     private void QuitPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseClicked
-        // Verificar si la ventana ya está abierta
+        /*// Verificar si la ventana ya está abierta
         if (quitarWindow == null || !quitarWindow.isShowing()) {
             // Crear una nueva instancia de la ventana "quitar" si no está abierta
             quitarWindow = new quitar(userData, cliente);
@@ -683,12 +655,96 @@ public class mainWindow extends javax.swing.JFrame {
                     mainWindow.this.setVisible(false);
                 }
             });
-        }
+        }*/
+        
+        ArrayList<PanelMedicines> toRemove = new ArrayList<>();
+       
+            for (PanelMedicines panel : pnlMedArray) {
+                if (panel.isSelected()) {
+                    toRemove.add(panel);
+                    HashMap<String, Object> session = new HashMap<>();
+                    session.put("med_name",panel.getMedicine().getName() );
+                    session.put("medicine_id", panel.getMedicine().getId());
+                    session.put("user_id",userData.get("id"));
+                    cliente.sentMessage("/deleteUserMed", session); // Elimina de la base de datos
+                }
+            }
+            
+            pnlMedArray.removeAll(toRemove); // Elimina los paneles de la lista
+            updateMedsDisplay(); // Actualiza la visualización
+
     }//GEN-LAST:event_QuitPanelMouseClicked
     
     private void showMeds() {
         
         pnlMedArray.clear();
+        pnlMedicines.removeAll();
+        pnlMedicines.revalidate();
+
+        HashMap<String, Object> session = new HashMap<>();
+        session.put("user_id", userData.get("id"));
+        session = cliente.sentMessage("/getUserMeds", session);
+
+        userMeds = (ArrayList<HashMap<String, String>>) session.get("userMeds");
+        for (HashMap<String, String> med : userMeds) {
+            session = new HashMap<>();
+            session.put("id", Integer.valueOf(med.get("medicine_id")));
+            med.put("name", String.valueOf(cliente.sentMessage("/getMedicineName", session).get("name")));
+            pnlMedArray.add(new PanelMedicines(med.get("name"), med.get("dose"), 
+                Integer.parseInt(med.get("medicine_id")), 
+                Integer.parseInt(med.get("frecuency")), 
+                Integer.parseInt(med.get("remaining_amount"))));
+        }
+        updateMedsDisplay();
+    }
+    
+    private void updateMedsDisplay() {
+        pnlMedicines.removeAll();
+        pnlMedicines.revalidate();
+        pnlMedicines.repaint();
+
+        int x = 30;
+        int y = 30;
+        int dx = 360;
+        int dy = 170;
+
+        /*for (int i = 0; i < pnlMedArray.size() / 2; i++) {
+            for (int n = 0; n <= 1; n++) {
+                pnlMedicines.add(pnlMedArray.get(2 * i + n), 
+                    new org.netbeans.lib.awtextra.AbsoluteConstraints(
+                        x, y, 
+                        pnlMedArray.get(2 * i + n).getWidth(), 
+                        pnlMedArray.get(2 * i + n).getHeight()));
+                x += dx;
+            }
+            if ((i + 1) % 2 == 0) {
+                x = 30;
+                y += dy;
+            }
+        }*/
+        if (pnlMedArray.size() == 1) {
+        pnlMedicines.add(pnlMedArray.get(0), 
+            new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, 
+            pnlMedArray.get(0).getWidth(), pnlMedArray.get(0).getHeight()));
+        } else {
+            // Si hay más de un medicamento
+            for (int i = 0; i < pnlMedArray.size(); i++) {
+                pnlMedicines.add(pnlMedArray.get(i), 
+                    new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, 
+                    pnlMedArray.get(i).getWidth(), pnlMedArray.get(i).getHeight()));
+
+                x += dx;
+                // Cuando alcanzamos la segunda columna, reiniciamos x y movemos la fila hacia abajo
+                if ((i + 1) % 2 == 0) {
+                    x = 30;
+                    y += dy;
+                }
+            }
+        }
+        
+    }
+        
+        /*pnlMedArray.clear();
         pnlMedicines.removeAll();
         pnlMedicines.revalidate();
         
@@ -720,7 +776,7 @@ public class mainWindow extends javax.swing.JFrame {
             }
             x = 30;
             y += dy;
-        }
+        }*/
         
         /*String userId = userData.get("id");
         ArrayList<HashMap<String, String>> meds = DatabaseFunctions.SELECT("user_meds", new String[]{}, "user_id", userId);
@@ -743,7 +799,7 @@ public class mainWindow extends javax.swing.JFrame {
                 data[0][3] = "NULL";
             }
         }*/
-    }
+    
     private void setImageLabel(JLabel labelN, String root){
         ImageIcon imagen = new ImageIcon(getClass().getResource(root));
         Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(labelN.getWidth(), labelN.getHeight(), Image.SCALE_SMOOTH));

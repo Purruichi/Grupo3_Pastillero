@@ -51,6 +51,8 @@ public class Client {
                     case "/addUserMedResponse" -> session = mensajeVuelta.getSession();
                     
                     case "/deleteUserMedResponse" -> session = mensajeVuelta.getSession();
+                    
+                    case "/deleteUserResponse" -> session = mensajeVuelta.getSession();
                         
                     default -> System.out.println("\nError a la vuelta");
 		
