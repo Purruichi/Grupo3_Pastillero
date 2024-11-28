@@ -102,6 +102,14 @@ public class SocketServer extends Thread {
                         mensajeOut.setContext("/deleteUserMedResponse");
                         objectOutputStream.writeObject(mensajeOut);
                     }
+                    
+                    case "/deleteUser" -> {
+                        boolean check = CustomerControler.deleteUser((String)session.get("id"));
+                        session = new HashMap<>();
+                        session.put("check", check);
+                        mensajeOut.setContext("/deleteUserResponse");
+                        objectOutputStream.writeObject(mensajeOut);
+                    }
 
                     default -> System.out.println("\nParámetro no encontrado");
                 }

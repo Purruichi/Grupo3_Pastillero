@@ -551,8 +551,9 @@ public class mainWindow extends javax.swing.JFrame {
     private void lblAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAjustesMouseClicked
         System.out.println("Ajustes");
         if (ajustesWindow == null || !ajustesWindow.isShowing()) {
-            ajustesWindow = new Ajustes(userData);
+            ajustesWindow = new Ajustes(userData, cliente);
             ajustesWindow.setVisible(true);
+            boolean deletion = ajustesWindow.checkDeletion();
             ajustesWindow.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
@@ -564,6 +565,7 @@ public class mainWindow extends javax.swing.JFrame {
                     mainWindow.this.setVisible(false);
                 }
             });
+            
         }        
     }//GEN-LAST:event_lblAjustesMouseClicked
 
