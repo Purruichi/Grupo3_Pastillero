@@ -4,6 +4,7 @@
  */
 package ajustes;
 
+import Client.Client;
 import Database.DatabaseFunctions;
 import java.awt.Desktop;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+import login.LogIn;
 
 
 
@@ -29,11 +31,13 @@ public class Ajustes extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
     boolean notificacion;
+    Client cliente;
+    boolean deleteCheck=false;
     
     /**
      * Creates new form Ajustes
      */
-    public Ajustes(HashMap<String, String> userData) {
+    public Ajustes(HashMap<String, String> userData, Client cliente) {
         initComponents();
         jComboBoxIdiomas.addActionListener(evt -> cambiarIdioma());
         jNotificacionONOFF.setVisible(false);
@@ -41,6 +45,10 @@ public class Ajustes extends javax.swing.JFrame {
         jManualUso.setVisible(false);
         jComboBoxIdiomas.setVisible(false);
         //panelManualUso.setVisible(false);
+        jDeleteCuenta.setVisible(false);
+        this.userData= userData;
+        this.cliente=cliente;
+        
     
     }
     public boolean getNotificacion(){
@@ -342,6 +350,7 @@ public class Ajustes extends javax.swing.JFrame {
             jNumContacto.setVisible(false);
             jManualUso.setVisible(false);
             //panelManualUso.setVisible(false);
+            jDeleteCuenta.setVisible(false);
         }   
     }//GEN-LAST:event_jButtonNotificacionMouseClicked
 
@@ -353,6 +362,7 @@ public class Ajustes extends javax.swing.JFrame {
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(false);
             //panelManualUso.setVisible(false);
+            jDeleteCuenta.setVisible(true);
         }
     }//GEN-LAST:event_jButtonSoporteMouseClicked
 
@@ -363,6 +373,7 @@ public class Ajustes extends javax.swing.JFrame {
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(true);
             //panelManualUso.setVisible(false);
+            jDeleteCuenta.setVisible(false);
         }
     }//GEN-LAST:event_jButtonIdiomaMouseClicked
 
@@ -380,6 +391,7 @@ public class Ajustes extends javax.swing.JFrame {
             jManualUso.setVisible(false);
             jNotificacionONOFF.setVisible(false);
             jComboBoxIdiomas.setVisible(false);
+            jDeleteCuenta.setVisible(false);
 
             try {
                 InputStream pdfStream = getClass().getResourceAsStream("/resources/UserManual.pdf");
@@ -418,7 +430,18 @@ public class Ajustes extends javax.swing.JFrame {
 
     private void jDeleteCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteCuentaActionPerformed
         // TODO add your handling code here:
-        DatabaseFunctions.DELETE(users);
+        jNumContacto.setVisible(false);
+        jManualUso.setVisible(false);
+        jNotificacionONOFF.setVisible(false);
+        jComboBoxIdiomas.setVisible(false);
+        jDeleteCuenta.setVisible(true);
+        HashMap <String, Object> session = new HashMap<>();
+        session.put("id", userData.get("id"));
+        cliente.sentMessage("/deleteUser", session);
+        deleteCheck=true;
+        this.dispose();
+        
+        
     }//GEN-LAST:event_jDeleteCuentaActionPerformed
 
 
@@ -438,4 +461,8 @@ public class Ajustes extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAjustes;
     private javax.swing.JPanel titleBar;
     // End of variables declaration//GEN-END:variables
+
+    public boolean checkDeletion() {
+        return deleteCheck;
+    }
 }

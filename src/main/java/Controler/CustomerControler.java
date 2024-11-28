@@ -38,4 +38,13 @@ import java.util.HashMap;public class CustomerControler {
         }
     }
     
+    public static boolean deleteUser(String id){
+        try{
+            DatabaseFunctions.DELETE("users", new String[] {"id"}, new String[] {id});
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
 }
