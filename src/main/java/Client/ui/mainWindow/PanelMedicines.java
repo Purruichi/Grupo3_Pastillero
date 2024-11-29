@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package mainWindow;
-import Domain.Medicine;
+package Client.ui.mainWindow;
+import Common.Domain.Medicine;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;

@@ -1,9 +1,9 @@
-package Database;
+package Server.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import properties.properties;
+import Common.Properties.properties;
 
 public class DatabaseConnection {
     private static final String URL = properties.getInstance().getProperty("ddbb.connection");

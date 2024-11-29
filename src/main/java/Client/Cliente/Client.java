@@ -1,4 +1,4 @@
-package Client;
+package Client.Cliente;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +11,12 @@ import java.util.*;
 
 
 
-import properties.properties;
-import Domain.*;
-import Message.Message;
+import Common.Properties.properties;
+import Common.Domain.Message;
 
 public class Client {
-	private String host;
-	private int port;
+	private final String host;
+	private final int port;
 
 	public Client(String host, int port) {
 		this.host=host;

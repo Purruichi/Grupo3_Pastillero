@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package anadir;
+package Client.ui.anadir;
 
-import Client.Client;
-import Database.DatabaseFunctions;
+import Client.Cliente.Client;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -16,10 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import login.LogIn;
-import mainWindow.mainWindow;
 
 /**
  *

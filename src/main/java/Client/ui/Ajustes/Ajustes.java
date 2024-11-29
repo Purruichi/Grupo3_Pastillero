@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ajustes;
+package Client.ui.Ajustes;
 
-import Client.Client;
-import Database.DatabaseFunctions;
+import Client.Cliente.Client;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,12 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
-import login.LogIn;
-
-
 
 
 /**
@@ -36,6 +30,8 @@ public class Ajustes extends javax.swing.JFrame {
     
     /**
      * Creates new form Ajustes
+     * @param userData
+     * @param cliente
      */
     public Ajustes(HashMap<String, String> userData, Client cliente) {
         initComponents();

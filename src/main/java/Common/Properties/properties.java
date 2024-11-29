@@ -1,6 +1,5 @@
-package properties;
+package Common.Properties;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
@@ -32,8 +31,8 @@ public class properties extends Properties{
 	}
 	
 	public static properties getInstance() {
-		if (prop==null) {
-			prop=new properties();
+		if (prop == null) {
+			prop = new properties();
 		}
 		return prop;
 		
