@@ -1,4 +1,4 @@
-package Common.Properties;
+package Properties;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

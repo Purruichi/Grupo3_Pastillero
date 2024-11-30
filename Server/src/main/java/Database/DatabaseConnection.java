@@ -3,7 +3,7 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import Common.Properties.properties;
+import Properties.properties;
 
 public class DatabaseConnection {
     private static final String URL = properties.getInstance().getProperty("ddbb.connection");

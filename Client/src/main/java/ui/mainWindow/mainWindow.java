@@ -182,7 +182,7 @@ public class mainWindow extends javax.swing.JFrame {
         lblFrequencyMedicine = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocationByPlatform(true);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
         setUndecorated(true);
         setResizable(false);
 

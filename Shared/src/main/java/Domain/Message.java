@@ -1,4 +1,4 @@
-package Common.Domain;
+package Domain;
 
 import java.io.Serializable;
 import java.util.HashMap;

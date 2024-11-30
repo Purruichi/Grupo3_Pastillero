@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui.mainWindow;
-import Common.Domain.Medicine;
+import Domain.Medicine;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;

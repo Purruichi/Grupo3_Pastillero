@@ -9,8 +9,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.*;
 
-import Common.Properties.properties;
-import Common.Domain.Message;
+import Properties.properties;
+import Domain.Message;
 
 public class Client {
 	private final String host;
@@ -50,7 +50,11 @@ public class Client {
                     case "/deleteUserMedResponse" -> session = mensajeVuelta.getSession();
                     
                     case "/deleteUserResponse" -> session = mensajeVuelta.getSession();
-                        
+                    
+                    case "/sendVerificationCodeResponse" -> session = mensajeVuelta.getSession();
+                    
+                    case "/changeUserPasswordResponse" -> session = mensajeVuelta.getSession();
+                    
                     default -> System.out.println("\nError a la vuelta");
 		
 		}

@@ -6,6 +6,7 @@ package ui.Ajustes;
 
 import Cliente.Client;
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -42,8 +43,9 @@ public class Ajustes extends javax.swing.JFrame {
         jComboBoxIdiomas.setVisible(false);
         //panelManualUso.setVisible(false);
         jDeleteCuenta.setVisible(false);
-        this.userData= userData;
-        this.cliente=cliente;
+        setLocationRelativeTo(null);
+        this.userData = userData;
+        this.cliente = cliente;
         
     
     }
@@ -91,7 +93,7 @@ public class Ajustes extends javax.swing.JFrame {
         jButtonIdioma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocationByPlatform(true);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
         setUndecorated(true);
 
         pnlAjustes.setBackground(new java.awt.Color(255, 255, 255));

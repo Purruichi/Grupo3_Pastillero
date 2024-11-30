@@ -54,7 +54,7 @@ public class DatabaseFunctions {
         }
     }
     
-    public static ArrayList<HashMap<String, String>> SELECT (String table, String[] columns, String column, String columnValue){
+    public static ArrayList<HashMap<String, String>> SELECT (String table, String[] columns, String column, String columnValue) {
         // Obtener datos
         String selectSQL = "SELECT ";
         
@@ -71,7 +71,7 @@ public class DatabaseFunctions {
             for(int i = 1; i < columns.length; i++){
                 selectSQL += columns[i - 1] + ", ";
             }
-            selectSQL += columns[columns.length - 1] + " FROM " + table + " WHERE " + column + " = '" + columnValue + "';";
+            selectSQL += columns[columns.length - 1] + " FROM " + table + " WHERE " + column + " ILIKE '" + columnValue + "';";
         }
         
         System.out.println(selectSQL);
@@ -110,7 +110,6 @@ public class DatabaseFunctions {
         System.out.println(Arrays.toString(condColumns));
         System.out.println(Arrays.toString(condValues));
         
-        String condsStr = "";
         for (int i = 1; i < condColumns.length; i++){
             deleteSQL += "(" + condColumns[i - 1] + " = '" + condValues[i - 1] + "') AND ";
         }
@@ -125,6 +124,33 @@ public class DatabaseFunctions {
             
             int filasAfectadas = pstmt.executeUpdate();
             System.out.println("Filas eliminadas: " + filasAfectadas);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void UPDATE (String table, String[] columns, String[] values, String condColumn, String condValue) {
+        // Obtener datos
+        String updateSQL = "UPDATE ";
+        
+        if(columns.length != 0 && columns.length == values.length){
+            if (columns[0] != null && values[0] != null) updateSQL += table + " SET " + columns[0] + " = '" + values[0] + "'";
+            for (int i = 1; i < columns.length; i++) {
+                if (columns[i] != null && values[i] != null) updateSQL += ", " + columns[i] + " = '" + values[i] + "'";
+            }
+        }
+        
+        updateSQL += " WHERE " + condColumn + " = '" + condValue + "';";
+        
+        System.out.println(updateSQL);
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            
+            int filasAfectadas = pstmt.executeUpdate();
+            
+            System.out.println("Filas actualizadas: " + filasAfectadas);
             
         } catch (SQLException e) {
             e.printStackTrace();
