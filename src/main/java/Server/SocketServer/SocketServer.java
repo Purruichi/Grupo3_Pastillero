@@ -1,4 +1,4 @@
-package SocketServer;
+package Server.SocketServer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,11 +10,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import properties.properties;
-import Domain.Customer;
-import Controler.CustomerControler;
-import Controler.MedicineControler;
-import Message.Message;
+import Common.Properties.properties;
+import Common.Domain.Customer;
+import Server.Controler.CustomerControler;
+import Server.Controler.MedicineControler;
+import Common.Domain.Message;
 
 public class SocketServer extends Thread {
 	public static int port = Integer.parseInt(properties.getInstance().getProperty("port"));

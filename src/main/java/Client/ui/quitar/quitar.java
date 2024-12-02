@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package quitar;
-import Client.Client;
+package Client.ui.quitar;
+import Client.Cliente.Client;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-import Database.DatabaseFunctions;
-import mainWindow.mainWindow;
+import Server.Database.DatabaseFunctions;
+import Client.ui.mainWindow.mainWindow;
 
 /**
  *

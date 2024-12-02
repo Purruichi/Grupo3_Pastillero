@@ -1,4 +1,4 @@
-package Message;
+package Common.Domain;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,9 +1,9 @@
-package Controler;
+package Server.Controler;
 
 import java.util.ArrayList;
 
-import Domain.Customer;
-import Database.DatabaseFunctions;
+import Common.Domain.Customer;
+import Server.Database.DatabaseFunctions;
 import java.util.HashMap;public class CustomerControler {
 	
     public static void getCustomers(ArrayList<Customer> lista) {

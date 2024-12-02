@@ -2,18 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package login;
+package Client.ui.login;
 
-import Client.Client;
-import Database.DatabaseFunctions;
+import Client.Cliente.Client;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
-import mainWindow.mainWindow;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import Client.ui.mainWindow.mainWindow;
 
 /**
  *
@@ -24,7 +19,6 @@ public class LogIn extends javax.swing.JFrame{
     Client cliente;
     
     int xMouse, yMouse;
-    private boolean isMouseInside = false;
     
     /**
      * Creates new form LogIn
@@ -45,63 +39,6 @@ public class LogIn extends javax.swing.JFrame{
         setLocationRelativeTo(null);
         cliente = new Client();
     }
-    
-    /*private void configurarListeners() {
-        // MouseListener compartido
-        MouseAdapter mouseAdapter = new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!isMouseInside) {
-                    isMouseInside = true;
-                    System.out.println("Ratón ha entrado en el área combinada");
-                    btnMINIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
-                Component source = e.getComponent();
-                if (source.equals(btnMINIMIZAR) && !lblMinimize.getBounds().contains(e.getPoint()) ||
-                    source.equals(lblMinimize) && !btnMINIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMinimize, e.getPoint(), btnMINIMIZAR))) {
-                    isMouseInside = false;
-                    System.out.println("Ratón ha salido del área combinada");
-                    btnMINIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
-                }
-            }
-        };
-        
-        MouseAdapter mouseAdapter2 = new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!isMouseInside) {
-                    isMouseInside = true;
-                    //System.out.println("Ratón ha entrado en el área combinada");
-                    btnMAXIMIZAR.setBackground(Color.WHITE); // Cambia el color del JPanel
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Verifica si el ratón ha salido de ambas áreas (btnMINIMIZAR y lblMinimize)
-                Component source = e.getComponent();
-                if (source.equals(btnMAXIMIZAR) && !lblMaximize.getBounds().contains(e.getPoint()) ||
-                    source.equals(lblMaximize) && !btnMAXIMIZAR.getBounds().contains(SwingUtilities.convertPoint(lblMaximize, e.getPoint(), btnMAXIMIZAR))) {
-                    isMouseInside = false;
-                    //System.out.println("Ratón ha salido del área combinada");
-                    btnMAXIMIZAR.setBackground(new Color(204,204,204)); // Restaura el color del JPanel
-                }
-            }
-        };
-        
-        
-
-        // Agrega el MouseListener al JPanel y al JLabel
-        btnMINIMIZAR.addMouseListener(mouseAdapter);
-        lblMinimize.addMouseListener(mouseAdapter);
-        btnMAXIMIZAR.addMouseListener(mouseAdapter2);
-        lblMaximize.addMouseListener(mouseAdapter2);
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -667,6 +604,7 @@ public class LogIn extends javax.swing.JFrame{
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new LogIn().setVisible(true);
             }

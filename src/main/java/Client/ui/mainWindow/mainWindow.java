@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package mainWindow;
+package Client.ui.mainWindow;
 
-import Client.Client;
-import Database.DatabaseFunctions;
-import anadir.anadir;
+import Client.Cliente.Client;
+import Server.Database.DatabaseFunctions;
+import Client.ui.anadir.anadir;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
-import quitar.quitar;
-import ajustes.Ajustes;
+import Client.ui.quitar.quitar;
+import Client.ui.Ajustes.Ajustes;
 import java.awt.event.MouseEvent;
-import login.LogIn;
+import Client.ui.login.LogIn;
 
 /**
  *
