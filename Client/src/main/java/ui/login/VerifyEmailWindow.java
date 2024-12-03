@@ -285,10 +285,14 @@ public class VerifyEmailWindow extends javax.swing.JFrame {
         HashMap<String, Object> session = new HashMap<>();
         session.put("Email", txtFieldEmail.getText());
         session = cliente.sentMessage("/sendVerificationCode", session);
-        code = (String)session.get("code");
-        user = (Customer)session.get("user");
-        //Pop-Up enviado correctamente
-        pnlCode.setVisible(true);
+        if (!(boolean)session.get("check")) {
+            //Pop-Up No hay usuario registrado con ese email
+        } else {
+            code = (String)session.get("code");
+            user = (Customer)session.get("user");
+            //Pop-Up enviado correctamente
+            pnlCode.setVisible(true);
+        }
     }//GEN-LAST:event_btnSendMouseClicked
 
     private void txtFieldEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldEmailFocusGained

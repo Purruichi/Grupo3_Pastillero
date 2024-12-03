@@ -117,9 +117,10 @@ public class SocketServer extends Thread {
                 
                 case "/sendVerificationCode" -> {
                     Customer user = CustomerControler.getCustomer("email", (String)session.get("Email"));
-                    if (user == null) break;
+                    boolean check = user != null;
                     String code = EmailSender.sendEmail((String)session.get("Email"));
                     session = new HashMap<>();
+                    session.put("check", check);
                     session.put("code", code);
                     session.put("user", user);
                     mensajeOut.setContext("/sendVerificationCodeResponse");
